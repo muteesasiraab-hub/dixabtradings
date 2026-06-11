@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-flashdisk.jpg";
+import dicksonAsset from "@/assets/dickson.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -197,6 +198,30 @@ function Index() {
             </Card>
           ))}
         </div>
+      </section>
+
+      {/* DIRECTORS */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-bold tracking-tight">Our directors</h2>
+        <p className="text-sm text-muted-foreground">Meet the leadership behind ABBDIC investments.</p>
+        <Card className="overflow-hidden">
+          <div className="grid gap-0 sm:grid-cols-[200px_1fr]">
+            <div className="bg-muted">
+              <img src={dicksonAsset.url} alt="Dickson Niwagaba, Director" className="h-full w-full object-cover aspect-square sm:aspect-auto" />
+            </div>
+            <div className="p-5 sm:p-6">
+              <h3 className="text-lg font-bold">Dickson Niwagaba</h3>
+              <p className="text-sm text-primary font-medium">Director</p>
+              <div className="mt-3 space-y-2 text-sm text-foreground/85 leading-relaxed">
+                <p>President of VX Uganda, a sports association recognised by the National Council of Sports in Uganda.</p>
+                <p>Former Hospital Administrator at Old Kampala Hospital, a non-profit under the Uganda Muslim Supreme Council, supervised by the Government of Uganda through the Ministry of Health.</p>
+                <p>Served the Government of Uganda as Head Internal Auditor and District Internal Auditor in Oyam District Local Government.</p>
+                <p>Businessman and consultant in management, policy, structure, and internal control systems in the hospitality industry.</p>
+                <p>Graduate of Bachelor of Business Administration (Accounting option), Makerere University.</p>
+              </div>
+            </div>
+          </div>
+        </Card>
       </section>
 
       {/* CTA */}

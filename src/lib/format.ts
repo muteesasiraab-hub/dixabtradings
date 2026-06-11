@@ -1,5 +1,5 @@
 export const UGX = (n: number) =>
-  new Intl.NumberFormat("en-UG", { style: "currency", currency: "UGX", maximumFractionDigits: 0 }).format(n);
+  `UGX ${Math.round(n).toLocaleString("en-US")}`;
 
 export const ENTRY_FEE = 60000;
 export const EARNING_PER_REFERRAL = 5000;
