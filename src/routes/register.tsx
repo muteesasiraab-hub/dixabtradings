@@ -74,7 +74,7 @@ function RegisterPage() {
       toast.success(
         res.isFirstUser
           ? "Welcome — you are the founding admin!"
-          : "Registered! Pay UGX 50,000 to activate.",
+          : "Registered! Pay UGX 60,000 to activate.",
       );
       navigate({ to: "/dashboard" });
     } catch (err) {
