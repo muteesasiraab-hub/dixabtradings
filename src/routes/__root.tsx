@@ -54,10 +54,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Dickson×Abbey Netflow — Premium Flash Disks & Referral Network" },
-      { name: "description", content: "Buy premium flash disks and earn UGX 5,000 per referral across 5 network levels. Join Dickson×Abbey Netflow today." },
-      { name: "theme-color", content: "#3a2dc7" },
-      { property: "og:title", content: "Dickson×Abbey Netflow" },
+      { title: "ABBDIC investments — Premium Flash Disks & Referral Network" },
+      { name: "description", content: "Buy premium flash disks and earn UGX 5,000 per referral across 5 network levels. Join ABBDIC investments today." },
+      { name: "theme-color", content: "#0f1b3d" },
+      { property: "og:title", content: "ABBDIC investments" },
       { property: "og:description", content: "Premium flash disks. Earn UGX 5,000 per referral across 5 levels." },
       { property: "og:type", content: "website" },
     ],
@@ -89,8 +89,8 @@ function Header() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur no-print">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-primary text-primary-foreground text-xs">D×A</span>
-          <span>Netflow</span>
+          <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-primary text-primary-foreground text-[10px] font-bold">AI</span>
+          <span>ABBDIC</span>
         </Link>
         <nav className="flex items-center gap-1 text-sm">
           {authed ? (

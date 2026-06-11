@@ -23,8 +23,8 @@ export function ReferralCard({
       <div className="print-area p-6">
         <div className="rounded-2xl bg-gradient-hero p-6 text-primary-foreground shadow-elegant">
           <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/80">
-            <span className="grid h-6 w-6 place-items-center rounded bg-white/15 text-[10px] font-bold">D×A</span>
-            Dickson×Abbey Netflow
+            <span className="grid h-6 w-6 place-items-center rounded bg-white/15 text-[10px] font-bold">AI</span>
+            ABBDIC investments
           </div>
           <p className="mt-6 text-xs uppercase text-white/70">Referral code</p>
           <p className="font-mono text-4xl font-bold tracking-widest">{code}</p>
@@ -35,7 +35,7 @@ export function ReferralCard({
           </div>
           <p className="mt-6 break-all text-xs text-white/80">{url}</p>
           <p className="mt-4 text-[11px] text-white/60">
-            Entry fee UGX 50,000 · Earn UGX 5,000 per referral · 5-level network · Max 3 direct referrals
+            Entry fee UGX 60,000 · Earn UGX 5,000 per referral · 5-level network · Max 3 direct referrals
           </p>
         </div>
       </div>
