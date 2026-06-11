@@ -89,8 +89,8 @@ function Header() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur no-print">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-primary text-primary-foreground text-xs">D×A</span>
-          <span>Netflow</span>
+          <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-primary text-primary-foreground text-[10px] font-bold">AI</span>
+          <span>ABBDIC</span>
         </Link>
         <nav className="flex items-center gap-1 text-sm">
           {authed ? (
