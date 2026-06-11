@@ -60,7 +60,7 @@ export const createProfile = createServerFn({ method: "POST" })
     let newCode = "";
     for (let i = 0; i < 10; i++) {
       const candidate =
-        "DA" + Math.random().toString(36).slice(2, 8).toUpperCase();
+        "AI" + Math.random().toString(36).slice(2, 8).toUpperCase();
       const { data: clash } = await supabaseAdmin
         .from("profiles")
         .select("id")
@@ -93,7 +93,7 @@ export const createProfile = createServerFn({ method: "POST" })
       // create a pending payment record
       await supabaseAdmin
         .from("payments")
-        .insert({ user_id: userId, amount: 50000, status: "pending" });
+        .insert({ user_id: userId, amount: 60000, status: "pending" });
     }
 
     return { referralCode: newCode, isFirstUser };
