@@ -20,7 +20,7 @@ function Index() {
               <Zap className="h-3.5 w-3.5" /> Sales & Referral Network
             </span>
             <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
-              ABBDIC<br />investments
+              Abbdix<br />investments
             </h1>
             <p className="text-base/relaxed text-white/85 sm:text-lg">
               Premium flash disks plus a 5-level referral network. Join with {UGX(ENTRY_FEE)} and earn {UGX(EARNING_PER_REFERRAL)} for every member in your downline.
@@ -107,9 +107,9 @@ function Index() {
         <p className="mt-4 text-xs text-muted-foreground">* Figures are illustrative. Actual earnings depend on active network growth and member activations.</p>
       </section>
 
-      {/* WHY ABBDIC */}
+      {/* WHY Abbdix */}
       <section className="space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight">Why ABBDIC investments</h2>
+        <h2 className="text-2xl font-bold tracking-tight">Why Abbdix investments</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { icon: Package, title: "Premium product", desc: "Every member receives a high-quality branded flash disk with guaranteed storage capacity." },
@@ -139,7 +139,7 @@ function Index() {
           {[
             { name: "James O.", role: "Kampala", text: "I joined with UGX 60,000 and in two months my network grew to 47 members. The dashboard makes it easy to track everything." },
             { name: "Sarah N.", role: "Jinja", text: "The flash disk I received was genuine and high quality. Earning while sharing a real product feels great." },
-            { name: "Peter K.", role: "Mbarara", text: "ABBDIC made it simple to build a side income. Admin approval is quick and the system is transparent." },
+            { name: "Peter K.", role: "Mbarara", text: "Abbdix made it simple to build a side income. Admin approval is quick and the system is transparent." },
           ].map((t, i) => (
             <Card key={i} className="p-5">
               <div className="flex items-center gap-1 text-amber-500">
@@ -203,7 +203,7 @@ function Index() {
       {/* DIRECTORS */}
       <section className="space-y-4">
         <h2 className="text-2xl font-bold tracking-tight">Our directors</h2>
-        <p className="text-sm text-muted-foreground">Meet the leadership behind ABBDIC investments.</p>
+        <p className="text-sm text-muted-foreground">Meet the leadership behind Abbdix investments.</p>
         <Card className="overflow-hidden">
           <div className="grid gap-0 sm:grid-cols-[200px_1fr]">
             <div className="bg-muted">
@@ -247,7 +247,7 @@ function Index() {
           <div>
             <div className="flex items-center gap-2 font-bold tracking-tight">
               <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-primary text-primary-foreground text-[10px]">AI</span>
-              <span>ABBDIC investments</span>
+              <span>Abbdix investments</span>
             </div>
             <p className="mt-2 text-xs text-muted-foreground">Premium flash disks and a trusted 5-level referral network based in Uganda.</p>
           </div>
@@ -265,7 +265,7 @@ function Index() {
             <p className="text-xs text-muted-foreground">Kampala, Uganda</p>
           </div>
         </div>
-        <p className="mt-8 text-center text-[11px] text-muted-foreground">© {new Date().getFullYear()} ABBDIC investments. All rights reserved.</p>
+        <p className="mt-8 text-center text-[11px] text-muted-foreground">© {new Date().getFullYear()} Abbdix investments. All rights reserved.</p>
       </footer>
     </div>
   );
