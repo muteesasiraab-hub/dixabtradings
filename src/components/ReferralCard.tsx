@@ -24,7 +24,7 @@ export function ReferralCard({
         <div className="rounded-2xl bg-gradient-hero p-6 text-primary-foreground shadow-elegant">
           <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/80">
             <span className="grid h-6 w-6 place-items-center rounded bg-white/15 text-[10px] font-bold">AI</span>
-            ABBDIC investments
+            Abbdix investments
           </div>
           <p className="mt-6 text-xs uppercase text-white/70">Referral code</p>
           <p className="font-mono text-4xl font-bold tracking-widest">{code}</p>
