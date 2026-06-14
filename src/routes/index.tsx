@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-flashdisk.jpg";
 import dicksonAsset from "@/assets/dickson.jpg.asset.json";
+import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -218,6 +219,23 @@ function Index() {
                 <p>Served the Government of Uganda as Head Internal Auditor and District Internal Auditor in Oyam District Local Government.</p>
                 <p>Businessman and consultant in management, policy, structure, and internal control systems in the hospitality industry.</p>
                 <p>Graduate of Bachelor of Business Administration (Accounting option), Makerere University.</p>
+              </div>
+            </div>
+          </div>
+        </Card>
+        <Card className="overflow-hidden">
+          <div className="grid gap-0 sm:grid-cols-[200px_1fr]">
+            <div className="bg-muted">
+              <img src={muteesasiraAsset.url} alt="Muteesasira Abbey, Director" className="h-full w-full object-cover aspect-square sm:aspect-auto" />
+            </div>
+            <div className="p-5 sm:p-6">
+              <h3 className="text-lg font-bold">Muteesasira Abbey</h3>
+              <p className="text-sm text-primary font-medium">Director · Executive Director, Nature Perk (U) Ltd</p>
+              <div className="mt-3 space-y-2 text-sm text-foreground/85 leading-relaxed">
+                <p>Professional Interior Designer, skilled Barista, and Coffee Quality Consultant with a passion for excellence and innovation.</p>
+                <p>Specialises in creating functional and aesthetically appealing interior spaces while promoting high standards in coffee quality and customer experience.</p>
+                <p>Businessman and Executive Director of Nature Perk (U) Ltd, where he provides strategic leadership and drives business growth.</p>
+                <p>His diverse expertise reflects a strong commitment to professionalism, quality, and sustainable development.</p>
               </div>
             </div>
           </div>
