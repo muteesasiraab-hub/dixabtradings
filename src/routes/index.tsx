@@ -18,6 +18,9 @@ function Index() {
       <section className="relative overflow-hidden rounded-3xl bg-gradient-hero p-6 text-primary-foreground shadow-elegant sm:p-10">
         <div className="grid items-center gap-8 sm:grid-cols-2">
           <div className="space-y-5">
+            <div className="inline-block rounded-xl bg-white p-3 shadow-md">
+              <img src={logo} alt="Abbdix investments logo" className="h-16 w-16 object-contain" width={64} height={64} />
+            </div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur">
               <Zap className="h-3.5 w-3.5" /> Sales & Referral Network
             </span>
