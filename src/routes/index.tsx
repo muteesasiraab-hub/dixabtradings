@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-flashdisk.jpg";
+import logo from "@/assets/abbdix-logo.png";
 import dicksonAsset from "@/assets/dickson.jpg.asset.json";
 import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,9 @@ function Index() {
       <section className="relative overflow-hidden rounded-3xl bg-gradient-hero p-6 text-primary-foreground shadow-elegant sm:p-10">
         <div className="grid items-center gap-8 sm:grid-cols-2">
           <div className="space-y-5">
+            <div className="inline-block rounded-xl bg-white p-3 shadow-md">
+              <img src={logo} alt="Abbdix investments logo" className="h-16 w-16 object-contain" width={64} height={64} />
+            </div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur">
               <Zap className="h-3.5 w-3.5" /> Sales & Referral Network
             </span>
@@ -264,7 +268,9 @@ function Index() {
         <div className="grid gap-6 sm:grid-cols-3">
           <div>
             <div className="flex items-center gap-2 font-bold tracking-tight">
-              <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-primary text-primary-foreground text-[10px]">AI</span>
+              <span className="grid h-9 w-9 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
+                <img src={logo} alt="Abbdix investments logo" className="h-full w-full object-contain" width={36} height={36} loading="lazy" />
+              </span>
               <span>Abbdix investments</span>
             </div>
             <p className="mt-2 text-xs text-muted-foreground">Premium flash disks and a trusted 5-level referral network based in Uganda.</p>
