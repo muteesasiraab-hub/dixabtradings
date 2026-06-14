@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-flashdisk.jpg";
+import logo from "@/assets/abbdix-logo.png";
 import dicksonAsset from "@/assets/dickson.jpg.asset.json";
 import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
 import { Button } from "@/components/ui/button";
