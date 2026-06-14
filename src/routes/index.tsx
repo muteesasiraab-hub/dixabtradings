@@ -265,7 +265,9 @@ function Index() {
         <div className="grid gap-6 sm:grid-cols-3">
           <div>
             <div className="flex items-center gap-2 font-bold tracking-tight">
-              <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-primary text-primary-foreground text-[10px]">AI</span>
+              <span className="grid h-9 w-9 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
+                <img src={logo} alt="Abbdix investments logo" className="h-full w-full object-contain" width={36} height={36} loading="lazy" />
+              </span>
               <span>Abbdix investments</span>
             </div>
             <p className="mt-2 text-xs text-muted-foreground">Premium flash disks and a trusted 5-level referral network based in Uganda.</p>
