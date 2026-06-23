@@ -1,294 +1,362 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/hero-flashdisk.jpg";
+import heroImg from "@/assets/hero-showroom.jpg";
 import logo from "@/assets/abbdix-logo.png";
+import productFlash from "@/assets/product-flashdisk.jpg";
+import productEarbuds from "@/assets/product-earbuds.jpg";
+import productBag from "@/assets/product-bag.jpg";
+import productMug from "@/assets/product-mug.jpg";
 import dicksonAsset from "@/assets/dickson.jpg.asset.json";
 import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Check, Users, Coins, Zap, Shield, Award, TrendingUp, Package, Headphones, Globe, Star, ChevronRight, BarChart3, Lock, Clock, HandCoins } from "lucide-react";
+import { Check, Star, ArrowRight, Shield, Lock } from "lucide-react";
 import { UGX, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 
 export const Route = createFileRoute("/")({ component: Index });
 
+const products = [
+  { img: productFlash, name: "Premium Flash Disk", category: "Electronics", price: 60000, tag: "Entry product" },
+  { img: productEarbuds, name: "Wireless Earbuds", category: "Audio", price: 120000, tag: "High demand" },
+  { img: productBag, name: "Leather Travel Bag", category: "Lifestyle", price: 240000, tag: "Premium" },
+  { img: productMug, name: "Signature Coffee Mug", category: "Home", price: 85000, tag: "Bestseller" },
+];
+
 function Index() {
   return (
-    <div className="space-y-12">
+    <div className="space-y-28 pb-12">
       {/* HERO */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-hero p-6 text-primary-foreground shadow-elegant sm:p-10">
-        <div className="grid items-center gap-8 sm:grid-cols-2">
-          <div className="space-y-5">
-            <div className="inline-block rounded-xl bg-white p-3 shadow-md">
-              <img src={logo} alt="Abbdix investments logo" className="h-16 w-16 object-contain" width={64} height={64} />
-            </div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur">
-              <Zap className="h-3.5 w-3.5" /> Sales & Referral Network
+      <section className="grid items-center gap-12 pt-6 lg:grid-cols-2 lg:gap-16">
+        <div className="space-y-8">
+          <div className="inline-flex items-center gap-3">
+            <span className="h-px w-12 bg-gold" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>
+              The Future of African Sales
             </span>
-            <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
-              Abbdix<br />investments
-            </h1>
-            <p className="text-base/relaxed text-white/85 sm:text-lg">
-              Premium flash disks plus a 5-level referral network. Join with {UGX(ENTRY_FEE)} and earn {UGX(EARNING_PER_REFERRAL)} for every member in your downline.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
-                <Link to="/register">Join the network</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/40 bg-transparent text-white hover:bg-white/10">
-                <Link to="/login">Member login</Link>
-              </Button>
+          </div>
+          <div className="inline-block rounded-md bg-white p-3 shadow-md ring-1 ring-border">
+            <img src={logo} alt="Abbdix investments logo" className="h-12 w-12 object-contain" width={48} height={48} />
+          </div>
+          <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-emerald-deep sm:text-6xl lg:text-7xl">
+            Discover the world of <em className="italic font-light text-gold">sales</em> with Abbdix Investments.
+          </h1>
+          <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
+            Where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
+            <span className="font-semibold text-emerald-deep">60,000 UGX</span> and unlock your potential in our recommendation earning model.
+          </p>
+          <div className="flex flex-wrap gap-4 pt-2">
+            <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep">
+              <Link to="/register">
+                <span className="relative z-10">Start Earning</span>
+                <span className="absolute inset-0 translate-y-full bg-gold transition-transform duration-300 group-hover:translate-y-0" />
+                <ArrowRight className="relative z-10 ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-emerald-deep bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-emerald-deep hover:text-cream">
+              <Link to="/login">Member Login</Link>
+            </Button>
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="group relative aspect-[10/12] overflow-hidden shadow-elegant">
+            <img
+              src={heroImg}
+              alt="Premium emerald and gold showroom display"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              width={896}
+              height={1088}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-white/5 p-6 backdrop-blur-md sm:p-8">
+              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-gold">Platform Launch</p>
+              <p className="font-serif text-2xl italic text-white sm:text-3xl">
+                Empowering 10,000+ Entrepreneurs across Uganda
+              </p>
             </div>
           </div>
-          <div className="relative">
-            <img src={heroImg} alt="Premium flash disk" className="mx-auto w-full max-w-sm rounded-2xl object-cover shadow-2xl" />
-          </div>
+          <div className="pointer-events-none absolute -right-4 -top-4 hidden h-40 w-40 border border-gold sm:block" />
         </div>
       </section>
 
-      {/* TRUST BADGES */}
-      <section className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
-        <Badge variant="secondary" className="gap-1 px-3 py-1.5"><Shield className="h-3.5 w-3.5" /> Verified Network</Badge>
-        <Badge variant="secondary" className="gap-1 px-3 py-1.5"><Users className="h-3.5 w-3.5" /> 5-Level Deep</Badge>
-        <Badge variant="secondary" className="gap-1 px-3 py-1.5"><Lock className="h-3.5 w-3.5" /> Secure Portal</Badge>
-        <Badge variant="secondary" className="gap-1 px-3 py-1.5"><Globe className="h-3.5 w-3.5" /> Uganda Based</Badge>
+      {/* TRUST STRIP */}
+      <section className="grid grid-cols-2 gap-y-6 border-y border-border/60 py-8 text-center sm:grid-cols-4">
+        {[
+          { k: "10K+", v: "Entrepreneurs" },
+          { k: "5", v: "Levels deep" },
+          { k: "363", v: "Network per leg" },
+          { k: "100%", v: "Verified payouts" },
+        ].map((s) => (
+          <div key={s.v}>
+            <p className="font-serif text-4xl text-emerald-deep">{s.k}</p>
+            <p className="mt-1 text-[11px] font-semibold uppercase tracking-widest text-foreground/60">{s.v}</p>
+          </div>
+        ))}
       </section>
 
-      {/* PRICING */}
-      <section className="grid gap-4 sm:grid-cols-2">
-        <Card className="p-6">
-          <div className="flex items-center gap-3">
-            <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary/10 text-primary"><Coins className="h-5 w-5" /></div>
-            <h3 className="font-semibold">Entry fee</h3>
+      {/* PRODUCT SHOWCASE */}
+      <section className="space-y-10">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <div className="max-w-xl">
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Active inventory</p>
+            <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">The catalog that pays you back.</h2>
           </div>
-          <p className="mt-4 text-3xl font-bold">{UGX(ENTRY_FEE)}</p>
-          <p className="mt-1 text-sm text-muted-foreground">One-time. Includes your branded flash disk and access to the referral portal.</p>
-        </Card>
-        <Card className="p-6">
-          <div className="flex items-center gap-3">
-            <div className="grid h-10 w-10 place-items-center rounded-lg bg-accent/20 text-accent-foreground"><Users className="h-5 w-5" /></div>
-            <h3 className="font-semibold">Earn per referral</h3>
-          </div>
-          <p className="mt-4 text-3xl font-bold">{UGX(EARNING_PER_REFERRAL)}</p>
-          <p className="mt-1 text-sm text-muted-foreground">For every new member anywhere in your 5-level downline.</p>
-        </Card>
-      </section>
+          <Link to="/register" className="group inline-flex items-center gap-2 border-b-2 border-gold pb-1 text-sm font-semibold text-emerald-deep">
+            Browse all products
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
 
-      {/* HOW IT WORKS */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight">How it works</h2>
-        <div className="grid gap-3 sm:grid-cols-3">
-          {[
-            { n: 1, t: "Join with a referral code", d: "Pay UGX 60,000 to activate your account and receive your flash disk." },
-            { n: 2, t: "Share your code (max 3)", d: "Each member can directly refer up to 3 new people." },
-            { n: 3, t: "Earn 5 levels deep", d: "UGX 5,000 credited for every signup in your 5-level network." },
-          ].map((s) => (
-            <Card key={s.n} className="p-5">
-              <div className="mb-2 grid h-8 w-8 place-items-center rounded-full bg-gradient-primary text-sm font-bold text-primary-foreground">{s.n}</div>
-              <h3 className="font-semibold">{s.t}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{s.d}</p>
-            </Card>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {products.map((p) => (
+            <div key={p.name} className="group cursor-pointer">
+              <div className="relative mb-5 aspect-[4/5] overflow-hidden bg-white shadow-card ring-1 ring-border/60">
+                <img
+                  src={p.img}
+                  alt={p.name}
+                  loading="lazy"
+                  width={640}
+                  height={800}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <span className="absolute left-3 top-3 bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-deep backdrop-blur">
+                  {p.tag}
+                </span>
+              </div>
+              <p className="text-[11px] font-bold uppercase tracking-widest text-gold">{p.category}</p>
+              <h3 className="mt-1 font-serif text-xl text-emerald-deep">{p.name}</h3>
+              <p className="mt-1 text-sm font-semibold text-emerald-deep">{UGX(p.price)}</p>
+            </div>
           ))}
         </div>
       </section>
 
       {/* EARNINGS CALCULATOR */}
-      <section className="rounded-2xl border border-border bg-card p-6 shadow-card">
-        <h2 className="text-xl font-bold">Earnings potential</h2>
-        <p className="mt-1 text-sm text-muted-foreground">Simulate your monthly income based on network growth.</p>
-        <div className="mt-5 grid gap-4 sm:grid-cols-4">
-          {[
-            { label: "3 direct × 5 levels", val: UGX(1215000), note: "Full tree fill" },
-            { label: "2 direct × 5 levels", val: UGX(620000), note: "Moderate growth" },
-            { label: "1 direct × 5 levels", val: UGX(155000), note: "Steady start" },
-            { label: "Direct only", val: UGX(15000), note: "3 referrals" },
-          ].map((item) => (
-            <div key={item.label} className="rounded-xl bg-muted/50 p-4 text-center">
-              <p className="text-2xl font-bold text-primary">{item.val}</p>
-              <p className="mt-1 text-xs font-medium text-muted-foreground">{item.label}</p>
-              <p className="text-[11px] text-muted-foreground/70">{item.note}</p>
+      <section className="relative overflow-hidden bg-emerald-deep p-8 text-cream shadow-elegant sm:p-12 lg:p-16">
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-[var(--color-emerald)] opacity-25 blur-3xl" />
+        <div className="relative z-10 grid gap-12 lg:grid-cols-5 lg:gap-16">
+          <div className="lg:col-span-2">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-gold">Recommendation Model</p>
+            <h2 className="font-serif text-4xl text-cream sm:text-5xl">Project your success.</h2>
+            <p className="mt-6 leading-relaxed text-cream/70 sm:text-lg">
+              Our 5-level referral system is built for scalability. See how much you could earn by sharing products
+              and building your network.
+            </p>
+            <div className="mt-10 h-px w-24 bg-gold" />
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:col-span-3">
+            <div className="space-y-10 border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Monthly volume</label>
+                  <span className="font-bold text-gold">15 units</span>
+                </div>
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-3/4 rounded-full bg-gold transition-all duration-700" />
+                </div>
+              </div>
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Network size</label>
+                  <span className="font-bold text-gold">120 members</span>
+                </div>
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-2/3 rounded-full bg-gold transition-all duration-700" />
+                </div>
+              </div>
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Network depth</label>
+                  <span className="font-bold text-gold">5 levels</span>
+                </div>
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-full rounded-full bg-gold" />
+                </div>
+              </div>
             </div>
-          ))}
+
+            <div className="flex flex-col items-center justify-center bg-gold p-8 text-center text-emerald-deep">
+              <span className="mb-3 text-[10px] font-black uppercase tracking-[0.3em]">Projected payout</span>
+              <span className="font-serif text-5xl leading-none sm:text-6xl">1,250,000</span>
+              <span className="mt-3 text-xs font-bold uppercase tracking-widest">UGX / Monthly</span>
+              <div className="mt-6 h-px w-16 bg-emerald-deep/40" />
+              <p className="mt-4 max-w-[14rem] text-xs leading-relaxed text-emerald-deep/80">
+                {UGX(EARNING_PER_REFERRAL)} per signup × full 5-level downline.
+              </p>
+            </div>
+          </div>
         </div>
-        <p className="mt-4 text-xs text-muted-foreground">* Figures are illustrative. Actual earnings depend on active network growth and member activations.</p>
       </section>
 
-      {/* WHY Abbdix */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight">Why Abbdix investments</h2>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {/* HOW IT WORKS */}
+      <section className="space-y-12">
+        <div className="max-w-2xl">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>How it works</p>
+          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Three steps to consistent income.</h2>
+        </div>
+        <div className="grid gap-px bg-border sm:grid-cols-3">
           {[
-            { icon: Package, title: "Premium product", desc: "Every member receives a high-quality branded flash disk with guaranteed storage capacity." },
-            { icon: BarChart3, title: "Real-time tracking", desc: "Monitor your network, earnings, and referral slots from a clean member portal." },
-            { icon: HandCoins, title: "Fair compensation", desc: "UGX 5,000 per member across 5 levels. No hidden fees, no subscription charges." },
-            { icon: Headphones, title: "Member support", desc: "Our admin team verifies every payment manually to keep the network clean and trusted." },
-            { icon: Lock, title: "Secure accounts", desc: "Email-based authentication with protected profiles and encrypted session handling." },
-            { icon: Clock, title: "Fast activation", desc: "Submit your Mobile Money reference and get approved by admin within hours." },
-            { icon: Award, title: "Printable cards", desc: "Generate a professional referral card you can print and share offline." },
-            { icon: TrendingUp, title: "Scalable income", desc: "Even with only 3 direct referrals, your 5-level tree can reach 363 members." },
-          ].map((f) => (
-            <Card key={f.title} className="p-5">
-              <div className="mb-3 grid h-9 w-9 place-items-center rounded-lg bg-primary/10 text-primary">
-                <f.icon className="h-4 w-4" />
-              </div>
-              <h3 className="font-semibold text-sm">{f.title}</h3>
-              <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
-            </Card>
+            { n: "01", t: "Join with a referral", d: `Activate your account with ${UGX(ENTRY_FEE)} and receive your premium product.` },
+            { n: "02", t: "Share with three", d: "Each member refers up to 3 directly — your network compounds quietly." },
+            { n: "03", t: "Earn five levels deep", d: `${UGX(EARNING_PER_REFERRAL)} credited for every signup anywhere in your 5-level downline.` },
+          ].map((s) => (
+            <div key={s.n} className="group relative bg-card p-8 transition-colors hover:bg-emerald-deep">
+              <span className="font-serif text-5xl text-gold transition-transform group-hover:scale-110">{s.n}</span>
+              <h3 className="mt-6 font-serif text-2xl text-emerald-deep group-hover:text-cream">{s.t}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-foreground/75 group-hover:text-cream/80">{s.d}</p>
+            </div>
           ))}
         </div>
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight">Member stories</h2>
-        <div className="grid gap-3 sm:grid-cols-3">
+      <section className="space-y-12">
+        <div className="text-center">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Member stories</p>
+          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Real entrepreneurs. Real payouts.</h2>
+        </div>
+        <div className="grid gap-8 md:grid-cols-3">
           {[
-            { name: "James O.", role: "Kampala", text: "I joined with UGX 60,000 and in two months my network grew to 47 members. The dashboard makes it easy to track everything." },
-            { name: "Sarah N.", role: "Jinja", text: "The flash disk I received was genuine and high quality. Earning while sharing a real product feels great." },
-            { name: "Peter K.", role: "Mbarara", text: "Abbdix made it simple to build a side income. Admin approval is quick and the system is transparent." },
-          ].map((t, i) => (
-            <Card key={i} className="p-5">
-              <div className="flex items-center gap-1 text-amber-500">
-                {[1,2,3,4,5].map(s => <Star key={s} className="h-3.5 w-3.5 fill-current" />)}
+            { name: "James O.", role: "Kampala", text: "I joined with UGX 60,000 and grew my network to 47 members in two months. The dashboard makes every shilling visible." },
+            { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
+            { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Abbdix turned a side idea into a real income stream." },
+          ].map((t) => (
+            <article key={t.name} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
+              <div className="flex gap-1 text-gold">
+                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3.5 w-3.5 fill-current" />)}
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-foreground/90">"{t.text}"</p>
-              <div className="mt-4 flex items-center gap-2">
-                <div className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-xs font-bold text-primary">{t.name[0]}</div>
+              <p className="mt-5 font-serif text-xl italic leading-snug text-emerald-deep">"{t.text}"</p>
+              <div className="mt-auto flex items-center gap-3 pt-6">
+                <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-deep font-bold text-cream">{t.name[0]}</div>
                 <div>
-                  <p className="text-xs font-semibold">{t.name}</p>
-                  <p className="text-[11px] text-muted-foreground">{t.role}</p>
+                  <p className="text-sm font-semibold text-emerald-deep">{t.name}</p>
+                  <p className="text-[11px] uppercase tracking-widest text-foreground/60">{t.role}</p>
                 </div>
               </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* NETWORK STATS */}
-      <section className="rounded-2xl bg-gradient-hero p-6 text-primary-foreground shadow-elegant sm:p-8">
-        <div className="grid gap-6 sm:grid-cols-3 text-center">
-          <div>
-            <p className="text-3xl font-bold">5</p>
-            <p className="mt-1 text-sm text-white/80">Referral levels deep</p>
-          </div>
-          <div>
-            <p className="text-3xl font-bold">3</p>
-            <p className="mt-1 text-sm text-white/80">Direct referrals per member</p>
-          </div>
-          <div>
-            <p className="text-3xl font-bold">363</p>
-            <p className="mt-1 text-sm text-white/80">Max network size per leg</p>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight">Frequently asked questions</h2>
-        <div className="grid gap-3">
-          {[
-            { q: "How do I pay the UGX 60,000 entry fee?", a: "Send Mobile Money to the admin and submit your transaction reference on your dashboard. Admin will verify and activate your account." },
-            { q: "Can I refer more than 3 people directly?", a: "No. Each member is limited to 3 direct referrals. Additional signups must be placed under your downline members." },
-            { q: "How soon do I start earning?", a: "You earn UGX 5,000 for every new member that joins anywhere in your 5-level downline, starting from your first referral." },
-            { q: "What product do I receive?", a: "Every activated member receives a branded premium flash disk shipped or delivered locally." },
-            { q: "Is there a recurring fee?", a: "No. The UGX 60,000 is a one-time entry fee. There are no monthly or annual charges." },
-          ].map((faq, i) => (
-            <Card key={i} className="p-5">
-              <div className="flex items-start gap-3">
-                <div className="mt-0.5 grid h-6 w-6 place-items-center rounded-full bg-primary/10 text-xs font-bold text-primary shrink-0">{i + 1}</div>
-                <div>
-                  <h3 className="font-semibold text-sm">{faq.q}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{faq.a}</p>
-                </div>
-              </div>
-            </Card>
+            </article>
           ))}
         </div>
       </section>
 
       {/* DIRECTORS */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight">Our directors</h2>
-        <p className="text-sm text-muted-foreground">Meet the leadership behind Abbdix investments.</p>
-        <Card className="overflow-hidden">
-          <div className="grid gap-0 sm:grid-cols-[200px_1fr]">
-            <div className="bg-muted">
-              <img src={dicksonAsset.url} alt="Dickson Niwagaba, Director" className="h-full w-full object-cover aspect-square sm:aspect-auto" />
-            </div>
-            <div className="p-5 sm:p-6">
-              <h3 className="text-lg font-bold">Dickson Niwagaba</h3>
-              <p className="text-sm text-primary font-medium">Director</p>
-              <div className="mt-3 space-y-2 text-sm text-foreground/85 leading-relaxed">
-                <p>President of VX Uganda, a sports association recognised by the National Council of Sports in Uganda.</p>
-                <p>Former Hospital Administrator at Old Kampala Hospital, a non-profit under the Uganda Muslim Supreme Council, supervised by the Government of Uganda through the Ministry of Health.</p>
-                <p>Served the Government of Uganda as Head Internal Auditor and District Internal Auditor in Oyam District Local Government.</p>
-                <p>Businessman and consultant in management, policy, structure, and internal control systems in the hospitality industry.</p>
-                <p>Graduate of Bachelor of Business Administration (Accounting option), Makerere University.</p>
-              </div>
-            </div>
-          </div>
-        </Card>
-        <Card className="overflow-hidden">
-          <div className="grid gap-0 sm:grid-cols-[200px_1fr]">
-            <div className="bg-muted">
-              <img src={muteesasiraAsset.url} alt="Muteesasira Abbey, Director" className="h-full w-full object-cover aspect-square sm:aspect-auto" />
-            </div>
-            <div className="p-5 sm:p-6">
-              <h3 className="text-lg font-bold">Muteesasira Abbey</h3>
-              <p className="text-sm text-primary font-medium">Director · Executive Director, Nature Perk (U) Ltd</p>
-              <div className="mt-3 space-y-2 text-sm text-foreground/85 leading-relaxed">
-                <p>Professional Interior Designer, skilled Barista, and Coffee Quality Consultant with expertise in creating innovative spaces and promoting excellence in the coffee industry.</p>
-                <p>He is a businessman and serves as the Executive Director of Nature Perk (U) Ltd, providing strategic leadership and driving sustainable business growth.</p>
-                <p>His work is guided by professionalism, creativity, and a commitment to quality.</p>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </section>
-
-      {/* CTA */}
-      <section className="rounded-2xl border border-border bg-card p-6 shadow-card">
-        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h3 className="text-lg font-bold">Ready to start earning?</h3>
-            <p className="text-sm text-muted-foreground">Get your unique referral code instantly after registration.</p>
-          </div>
-          <Button asChild size="lg"><Link to="/register">Register now</Link></Button>
+      <section className="space-y-16">
+        <div className="text-center">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Board of Directors</p>
+          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Visionary governance.</h2>
         </div>
-        <ul className="mt-5 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
-          {["Printable referral card", "Real-time earnings tracking", "Network tree across 5 levels", "Secure member portal"].map((f) => (
-            <li key={f} className="flex items-center gap-2"><Check className="h-4 w-4 text-success" /> {f}</li>
+
+        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
+          {[
+            {
+              img: dicksonAsset.url,
+              name: "Dickson Niwagaba",
+              role: "Director",
+              bio: [
+                "President of VX Uganda, a sports association recognised by the National Council of Sports in Uganda.",
+                "Former Hospital Administrator at Old Kampala Hospital, supervised by the Government of Uganda through the Ministry of Health.",
+                "Served as Head Internal Auditor and District Internal Auditor in Oyam District Local Government.",
+                "Graduate of Bachelor of Business Administration (Accounting option), Makerere University.",
+              ],
+            },
+            {
+              img: muteesasiraAsset.url,
+              name: "Muteesasira Abbey",
+              role: "Director · Executive Director, Nature Perk (U) Ltd",
+              bio: [
+                "Professional Interior Designer, skilled Barista, and Coffee Quality Consultant.",
+                "Executive Director of Nature Perk (U) Ltd, providing strategic leadership and driving sustainable business growth.",
+                "Guided by professionalism, creativity, and a commitment to quality.",
+              ],
+            },
+          ].map((d, idx) => (
+            <div key={d.name} className={`group space-y-6 ${idx === 1 ? "md:translate-y-12" : ""}`}>
+              <div className="aspect-[3/4] overflow-hidden bg-muted grayscale transition-all duration-700 group-hover:grayscale-0">
+                <img
+                  src={d.img}
+                  alt={`${d.name}, ${d.role}`}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              <div>
+                <h3 className="font-serif text-3xl text-emerald-deep">{d.name}</h3>
+                <p className="mt-1 text-[11px] font-bold uppercase tracking-widest text-gold">{d.role}</p>
+                <div className="mt-4 space-y-2 text-sm leading-relaxed text-foreground/80">
+                  {d.bio.map((p, i) => <p key={i}>{p}</p>)}
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
-        <p className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"><Shield className="h-3.5 w-3.5" /> Payments confirmed manually by admin after Mobile Money / cash.</p>
+        </div>
       </section>
 
-      {/* FOOTER LINKS */}
-      <footer className="border-t border-border pt-8 pb-4">
-        <div className="grid gap-6 sm:grid-cols-3">
+      {/* FINAL CTA */}
+      <section className="relative overflow-hidden bg-emerald-deep p-10 text-cream shadow-elegant sm:p-16">
+        <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-gold opacity-15 blur-3xl" />
+        <div className="relative z-10 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+          <div>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-gold">Ready when you are</p>
+            <h3 className="font-serif text-4xl leading-tight sm:text-5xl">
+              Your <em className="italic text-gold">first commission</em> is one referral away.
+            </h3>
+            <p className="mt-5 max-w-xl leading-relaxed text-cream/75">
+              Get your unique referral code instantly after registration. Print a card, share online, earn across 5 levels.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
+                <Link to="/register">Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-cream/10 hover:text-cream">
+                <Link to="/login">Member login</Link>
+              </Button>
+            </div>
+          </div>
+          <ul className="space-y-3 border-l border-white/15 pl-8 text-sm text-cream/85">
+            {[
+              "Printable referral card",
+              "Real-time earnings dashboard",
+              "5-level downline tracking",
+              "Verified manual payouts",
+              "Secure member portal",
+            ].map((f) => (
+              <li key={f} className="flex items-center gap-3">
+                <Check className="h-4 w-4 text-gold" /> {f}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="relative z-10 mt-10 flex items-center gap-2 text-xs text-cream/60">
+          <Shield className="h-3.5 w-3.5" /> Payments verified manually by admin after Mobile Money or cash.
+          <Lock className="ml-3 h-3.5 w-3.5" /> Encrypted member sessions.
+        </p>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-border pt-10">
+        <div className="grid gap-8 sm:grid-cols-3">
           <div>
             <div className="flex items-center gap-2 font-bold tracking-tight">
-              <span className="grid h-9 w-9 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
-                <img src={logo} alt="Abbdix investments logo" className="h-full w-full object-contain" width={36} height={36} loading="lazy" />
+              <span className="grid h-10 w-10 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
+                <img src={logo} alt="Abbdix investments logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
               </span>
-              <span>Abbdix investments</span>
+              <span className="font-serif text-2xl text-emerald-deep">Abbdix</span>
             </div>
-            <p className="mt-2 text-xs text-muted-foreground">Premium flash disks and a trusted 5-level referral network based in Uganda.</p>
+            <p className="mt-3 text-xs text-foreground/65">Premium physical products and a trusted 5-level recommendation network based in Uganda.</p>
           </div>
           <div>
-            <h4 className="font-semibold text-sm">Quick links</h4>
-            <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
-              <li><Link to="/register" className="hover:text-foreground">Register</Link></li>
-              <li><Link to="/login" className="hover:text-foreground">Member login</Link></li>
-              <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Quick links</h4>
+            <ul className="mt-3 space-y-1.5 text-xs text-foreground/70">
+              <li><Link to="/register" className="hover:text-emerald-deep">Register</Link></li>
+              <li><Link to="/login" className="hover:text-emerald-deep">Member login</Link></li>
+              <li><Link to="/" className="hover:text-emerald-deep">Home</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-sm">Contact</h4>
-            <p className="mt-2 text-xs text-muted-foreground">support@abbdic.com</p>
-            <p className="text-xs text-muted-foreground">Kampala, Uganda</p>
+            <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Contact</h4>
+            <p className="mt-3 text-xs text-foreground/70">support@abbdic.com</p>
+            <p className="text-xs text-foreground/70">Kampala, Uganda</p>
           </div>
         </div>
-        <p className="mt-8 text-center text-[11px] text-muted-foreground">© {new Date().getFullYear()} Abbdix investments. All rights reserved.</p>
+        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Abbdix Investments. All rights reserved.</p>
       </footer>
     </div>
   );
