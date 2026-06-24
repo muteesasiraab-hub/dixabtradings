@@ -333,7 +333,7 @@ function Index() {
           </div>
           <ul className="space-y-3 border-l border-white/15 pl-8 text-sm text-cream/85">
             {[
-              "Printable referral card",
+              "Printable identifier card",
               "Real-time earnings dashboard",
               "5-level downline tracking",
               "Verified manual payouts",
