@@ -133,7 +133,7 @@ function DashboardPage() {
         <h3 className="font-semibold">Your 5-level network</h3>
         <div className="mt-4 space-y-4">
           {levels.every((l) => l.members.length === 0) && (
-            <p className="text-sm text-muted-foreground">No referrals yet. Share your code to start building your network.</p>
+            <p className="text-sm text-muted-foreground">No members yet. Share your identifier code to start building your network.</p>
           )}
           {levels.map((lvl) =>
             lvl.members.length === 0 ? null : (
