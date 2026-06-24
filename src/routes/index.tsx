@@ -14,11 +14,12 @@ import { UGX, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 export const Route = createFileRoute("/")({ component: Index });
 
 const products = [
-  { img: productFlash, name: "Premium Flash Disk", category: "Electronics", price: 60000, tag: "Entry product" },
-  { img: productEarbuds, name: "Wireless Earbuds", category: "Audio", price: 120000, tag: "High demand" },
-  { img: productBag, name: "Leather Travel Bag", category: "Lifestyle", price: 240000, tag: "Premium" },
-  { img: productMug, name: "Signature Coffee Mug", category: "Home", price: 85000, tag: "Bestseller" },
+  { img: productFlash, name: "Premium Flash Disk", category: "Electronics", price: 60000, tag: "Entry product", featured: true },
+  { img: productEarbuds, name: "Wireless Earbuds", category: "Audio", price: 120000, tag: "Coming soon", featured: false },
+  { img: productBag, name: "Leather Travel Bag", category: "Lifestyle", price: 240000, tag: "Coming soon", featured: false },
+  { img: productMug, name: "Signature Coffee Mug", category: "Home", price: 85000, tag: "Coming soon", featured: false },
 ];
+
 
 function Index() {
   return (
@@ -33,15 +34,16 @@ function Index() {
             </span>
           </div>
           <div className="inline-block rounded-md bg-white p-3 shadow-md ring-1 ring-border">
-            <img src={logo} alt="Abbdix investments logo" className="h-12 w-12 object-contain" width={48} height={48} />
+            <img src={logo} alt="Abbdix General Trading logo" className="h-14 w-14 object-contain" width={56} height={56} />
           </div>
           <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-emerald-deep sm:text-6xl lg:text-7xl">
-            Discover the world of <em className="italic font-light text-gold">sales</em> with Abbdix Investments.
+            Discover the world of <em className="italic font-light text-gold">sales</em> with Abbdix General Trading.
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
-            Where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
+            A platform where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
             <span className="font-semibold text-emerald-deep">60,000 UGX</span> and unlock your potential in our recommendation earning model.
           </p>
+
           <div className="flex flex-wrap gap-4 pt-2">
             <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep">
               <Link to="/register">
@@ -97,17 +99,21 @@ function Index() {
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div className="max-w-xl">
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Active inventory</p>
-            <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">The catalog that pays you back.</h2>
+            <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">The catalog that pays you back by 8.33%.</h2>
+            <p className="mt-3 text-sm text-foreground/70">
+              Buy the Abbdix entry product to join — earn{" "}
+              <span className="font-semibold text-emerald-deep">8.33% per referral</span> across 5 network levels.
+            </p>
           </div>
-          <Link to="/register" className="group inline-flex items-center gap-2 border-b-2 border-gold pb-1 text-sm font-semibold text-emerald-deep">
-            Browse all products
+          <Link to="/products" className="group inline-flex items-center gap-2 border-b-2 border-gold pb-1 text-sm font-semibold text-emerald-deep">
+            Browse profiled products
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {products.map((p) => (
-            <div key={p.name} className="group cursor-pointer">
+            <div key={p.name} className={`group ${p.featured ? "cursor-pointer" : "pointer-events-none"}`}>
               <div className="relative mb-5 aspect-[4/5] overflow-hidden bg-white shadow-card ring-1 ring-border/60">
                 <img
                   src={p.img}
@@ -115,19 +121,31 @@ function Index() {
                   loading="lazy"
                   width={640}
                   height={800}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className={`h-full w-full object-cover transition-transform duration-700 ${p.featured ? "group-hover:scale-110" : "blur-md scale-105 opacity-70"}`}
                 />
                 <span className="absolute left-3 top-3 bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-deep backdrop-blur">
                   {p.tag}
                 </span>
+                {!p.featured && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="bg-emerald-deep/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-cream">Coming soon</span>
+                  </div>
+                )}
               </div>
               <p className="text-[11px] font-bold uppercase tracking-widest text-gold">{p.category}</p>
-              <h3 className="mt-1 font-serif text-xl text-emerald-deep">{p.name}</h3>
-              <p className="mt-1 text-sm font-semibold text-emerald-deep">{UGX(p.price)}</p>
+              <h3 className={`mt-1 font-serif text-xl ${p.featured ? "text-emerald-deep" : "text-emerald-deep/60"}`}>{p.name}</h3>
+              <p className={`mt-1 text-sm font-semibold ${p.featured ? "text-emerald-deep" : "text-emerald-deep/60"}`}>{UGX(p.price)}</p>
             </div>
           ))}
         </div>
+
+        <div className="flex justify-center pt-2">
+          <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
+            <Link to="/products">Browse profiled products <ArrowRight className="ml-2 h-4 w-4" /></Link>
+          </Button>
+        </div>
       </section>
+
 
       {/* EARNINGS CALCULATOR */}
       <section className="relative overflow-hidden bg-emerald-deep p-8 text-cream shadow-elegant sm:p-12 lg:p-16">
@@ -208,35 +226,6 @@ function Index() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="space-y-12">
-        <div className="text-center">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Member stories</p>
-          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Real entrepreneurs. Real payouts.</h2>
-        </div>
-        <div className="grid gap-8 md:grid-cols-3">
-          {[
-            { name: "James O.", role: "Kampala", text: "I joined with UGX 60,000 and grew my network to 47 members in two months. The dashboard makes every shilling visible." },
-            { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
-            { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Abbdix turned a side idea into a real income stream." },
-          ].map((t) => (
-            <article key={t.name} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
-              <div className="flex gap-1 text-gold">
-                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3.5 w-3.5 fill-current" />)}
-              </div>
-              <p className="mt-5 font-serif text-xl italic leading-snug text-emerald-deep">"{t.text}"</p>
-              <div className="mt-auto flex items-center gap-3 pt-6">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-deep font-bold text-cream">{t.name[0]}</div>
-                <div>
-                  <p className="text-sm font-semibold text-emerald-deep">{t.name}</p>
-                  <p className="text-[11px] uppercase tracking-widest text-foreground/60">{t.role}</p>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
       {/* DIRECTORS */}
       <section className="space-y-16">
         <div className="text-center">
@@ -252,8 +241,9 @@ function Index() {
               role: "Director",
               bio: [
                 "President of VX Uganda, a sports association recognised by the National Council of Sports in Uganda.",
-                "Former Hospital Administrator at Old Kampala Hospital, supervised by the Government of Uganda through the Ministry of Health.",
-                "Served as Head Internal Auditor and District Internal Auditor in Oyam District Local Government.",
+                "Former Hospital Administrator at Old Kampala Hospital, a non-profit under the Uganda Muslim Supreme Council, supervised by the Government of Uganda through the Ministry of Health.",
+                "Served the Government of Uganda as Head of Internal Audit Department and District Internal Auditor at Oyam District Local Government.",
+                "Businessman and consultant in Governance and Management, Policy and Human Resource structural formulation, and internal control system design in Business Management.",
                 "Graduate of Bachelor of Business Administration (Accounting option), Makerere University.",
               ],
             },
@@ -289,6 +279,36 @@ function Index() {
         </div>
       </section>
 
+      {/* TESTIMONIALS — member stories (below directors) */}
+      <section className="space-y-12">
+        <div className="text-center">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Member stories</p>
+          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Real entrepreneurs. Real payouts.</h2>
+        </div>
+        <div className="grid gap-8 md:grid-cols-3">
+          {[
+            { name: "James O.", role: "Kampala", text: "I joined with UGX 60,000 and grew my network to 47 members in two months. The dashboard makes every shilling visible." },
+            { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
+            { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Abbdix turned a side idea into a real income stream." },
+          ].map((t) => (
+            <article key={t.name} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
+              <div className="flex gap-1 text-gold">
+                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3.5 w-3.5 fill-current" />)}
+              </div>
+              <p className="mt-5 font-serif text-xl italic leading-snug text-emerald-deep">"{t.text}"</p>
+              <div className="mt-auto flex items-center gap-3 pt-6">
+                <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-deep font-bold text-cream">{t.name[0]}</div>
+                <div>
+                  <p className="text-sm font-semibold text-emerald-deep">{t.name}</p>
+                  <p className="text-[11px] uppercase tracking-widest text-foreground/60">{t.role}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+
       {/* FINAL CTA */}
       <section className="relative overflow-hidden bg-emerald-deep p-10 text-cream shadow-elegant sm:p-16">
         <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-gold opacity-15 blur-3xl" />
@@ -299,8 +319,9 @@ function Index() {
               Your <em className="italic text-gold">first commission</em> is one referral away.
             </h3>
             <p className="mt-5 max-w-xl leading-relaxed text-cream/75">
-              Get your unique referral code instantly after registration. Print a card, share online, earn across 5 levels.
+              Get your unique identifier code instantly after registration. Print a card, share online, earn across 5 levels.
             </p>
+
             <div className="mt-8 flex flex-wrap gap-4">
               <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
                 <Link to="/register">Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
@@ -312,7 +333,7 @@ function Index() {
           </div>
           <ul className="space-y-3 border-l border-white/15 pl-8 text-sm text-cream/85">
             {[
-              "Printable referral card",
+              "Printable identifier card",
               "Real-time earnings dashboard",
               "5-level downline tracking",
               "Verified manual payouts",
@@ -336,15 +357,16 @@ function Index() {
           <div>
             <div className="flex items-center gap-2 font-bold tracking-tight">
               <span className="grid h-10 w-10 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
-                <img src={logo} alt="Abbdix investments logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
+                <img src={logo} alt="Abbdix General Trading logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
               </span>
-              <span className="font-serif text-2xl text-emerald-deep">Abbdix</span>
+              <span className="font-serif text-2xl text-emerald-deep">Abbdix General Trading</span>
             </div>
             <p className="mt-3 text-xs text-foreground/65">Premium physical products and a trusted 5-level recommendation network based in Uganda.</p>
           </div>
           <div>
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Quick links</h4>
             <ul className="mt-3 space-y-1.5 text-xs text-foreground/70">
+              <li><Link to="/products" className="hover:text-emerald-deep">Profiled products</Link></li>
               <li><Link to="/register" className="hover:text-emerald-deep">Register</Link></li>
               <li><Link to="/login" className="hover:text-emerald-deep">Member login</Link></li>
               <li><Link to="/" className="hover:text-emerald-deep">Home</Link></li>
@@ -352,12 +374,13 @@ function Index() {
           </div>
           <div>
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Contact</h4>
-            <p className="mt-3 text-xs text-foreground/70">support@abbdic.com</p>
+            <p className="mt-3 text-xs text-foreground/70"><a href="mailto:support@abbdix.com" className="hover:text-emerald-deep">support@abbdix.com</a></p>
             <p className="text-xs text-foreground/70">Kampala, Uganda</p>
           </div>
         </div>
-        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Abbdix Investments. All rights reserved.</p>
+        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Abbdix General Trading. All rights reserved.</p>
       </footer>
+
     </div>
   );
 }

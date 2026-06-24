@@ -55,11 +55,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Abbdix investments — Premium Flash Disks & Referral Network" },
-      { name: "description", content: "Buy premium flash disks and earn UGX 5,000 per referral across 5 network levels. Join Abbdix investments today." },
-      { name: "theme-color", content: "#0f1b3d" },
-      { property: "og:title", content: "Abbdix investments" },
-      { property: "og:description", content: "Premium flash disks. Earn UGX 5,000 per referral across 5 levels." },
+      { title: "Abbdix General Trading — Premium Products & Recommendation Network" },
+      { name: "description", content: "Abbdix General Trading: a platform where opportunities meet innovation. Physical products from 60,000 UGX and a 5-level recommendation earning model." },
+      { name: "theme-color", content: "#064e3b" },
+      { property: "og:title", content: "Abbdix General Trading" },
+      { property: "og:description", content: "Premium physical products. Earn across 5 recommendation levels." },
+
       { property: "og:type", content: "website" },
     ],
     links: [
@@ -96,10 +97,11 @@ function Header() {
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
           <span className="grid h-9 w-9 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
-            <img src={logo} alt="Abbdix investments logo" className="h-full w-full object-contain" width={36} height={36} />
+            <img src={logo} alt="Abbdix General Trading logo" className="h-full w-full object-contain" width={36} height={36} />
           </span>
-          <span>Abbdix</span>
+          <span className="font-serif text-emerald-deep">Abbdix General Trading</span>
         </Link>
+
         <nav className="flex items-center gap-1 text-sm">
           {authed ? (
             <>

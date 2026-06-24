@@ -102,7 +102,7 @@ function RegisterPage() {
           <div><Label>Email</Label><Input type="email" value={form.email} onChange={update("email")} required /></div>
           <div><Label>Password</Label><Input type="password" value={form.password} onChange={update("password")} required /></div>
           <div>
-            <Label>Referral code</Label>
+            <Label>Identifier code</Label>
             <Input value={form.referralCode} onChange={update("referralCode")} placeholder="DAXXXXXX" className="uppercase" />
             <p className="mt-1 text-xs text-muted-foreground">Required unless you are the very first user.</p>
           </div>

@@ -58,7 +58,7 @@ function DashboardPage() {
   const copyLink = () => {
     const url = `${window.location.origin}/register?ref=${profile.referral_code}`;
     navigator.clipboard.writeText(url);
-    toast.success("Referral link copied");
+    toast.success("Identifier link copied");
   };
 
   return (
@@ -105,7 +105,7 @@ function DashboardPage() {
           <p className="mt-1 text-xs text-muted-foreground">{earnings.length} credits · {UGX(EARNING_PER_REFERRAL)} each</p>
         </Card>
         <Card className="p-5">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground"><Users className="h-4 w-4" /> Direct referrals</div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground"><Users className="h-4 w-4" /> Direct identifiers</div>
           <p className="mt-2 text-2xl font-bold">{directCount} <span className="text-sm font-normal text-muted-foreground">/ 3</span></p>
           <p className="mt-1 text-xs text-muted-foreground">{3 - directCount} slot(s) remaining</p>
         </Card>
@@ -133,7 +133,7 @@ function DashboardPage() {
         <h3 className="font-semibold">Your 5-level network</h3>
         <div className="mt-4 space-y-4">
           {levels.every((l) => l.members.length === 0) && (
-            <p className="text-sm text-muted-foreground">No referrals yet. Share your code to start building your network.</p>
+            <p className="text-sm text-muted-foreground">No members yet. Share your identifier code to start building your network.</p>
           )}
           {levels.map((lvl) =>
             lvl.members.length === 0 ? null : (

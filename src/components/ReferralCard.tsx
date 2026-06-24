@@ -15,7 +15,7 @@ export function ReferralCard({
   return (
     <Card className="overflow-hidden">
       <div className="flex items-center justify-between border-b border-border p-4 no-print">
-        <h3 className="font-semibold">Your referral card</h3>
+        <h3 className="font-semibold">Your identifier card</h3>
         <Button size="sm" variant="outline" onClick={() => window.print()}>
           <Printer className="mr-2 h-4 w-4" /> Print
         </Button>
@@ -23,10 +23,11 @@ export function ReferralCard({
       <div className="print-area p-6">
         <div className="rounded-2xl bg-gradient-hero p-6 text-primary-foreground shadow-elegant">
           <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/80">
-            <span className="grid h-6 w-6 place-items-center rounded bg-white/15 text-[10px] font-bold">AI</span>
-            Abbdix investments
+            <span className="grid h-6 w-6 place-items-center rounded bg-white/15 text-[10px] font-bold">AG</span>
+            Abbdix General Trading
           </div>
-          <p className="mt-6 text-xs uppercase text-white/70">Referral code</p>
+          <p className="mt-6 text-xs uppercase text-white/70">Identifier code</p>
+
           <p className="font-mono text-4xl font-bold tracking-widest">{code}</p>
           <div className="mt-6 space-y-1 text-sm">
             <p className="text-white/70">Member</p>

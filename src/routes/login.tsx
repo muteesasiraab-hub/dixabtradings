@@ -1,26 +1,35 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { resolveEmailByIdentifier } from "@/lib/network.functions";
 
 export const Route = createFileRoute("/login")({ component: LoginPage });
 
 function LoginPage() {
   const navigate = useNavigate();
+  const resolveEmail = useServerFn(resolveEmailByIdentifier);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ identifier: "", password: "" });
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword(form);
-    setLoading(false);
-    if (error) { toast.error(error.message); return; }
-    navigate({ to: "/dashboard" });
+    try {
+      const { email } = await resolveEmail({ data: { identifier: form.identifier } });
+      const { error } = await supabase.auth.signInWithPassword({ email, password: form.password });
+      if (error) throw error;
+      navigate({ to: "/dashboard" });
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Sign in failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -31,8 +40,25 @@ function LoginPage() {
           New here? <Link to="/register" className="text-primary underline">Create an account</Link>
         </p>
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
-          <div><Label>Email</Label><Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required /></div>
-          <div><Label>Password</Label><Input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required /></div>
+          <div>
+            <Label>Identifier code</Label>
+            <Input
+              value={form.identifier}
+              onChange={(e) => setForm({ ...form, identifier: e.target.value.toUpperCase() })}
+              placeholder="AIXXXXXX"
+              className="uppercase font-mono"
+              required
+            />
+          </div>
+          <div>
+            <Label>Password</Label>
+            <Input
+              type="password"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              required
+            />
+          </div>
           <Button type="submit" className="w-full" disabled={loading}>{loading ? "Signing in..." : "Sign in"}</Button>
         </form>
       </Card>
