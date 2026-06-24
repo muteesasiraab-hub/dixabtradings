@@ -357,15 +357,16 @@ function Index() {
           <div>
             <div className="flex items-center gap-2 font-bold tracking-tight">
               <span className="grid h-10 w-10 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
-                <img src={logo} alt="Abbdix investments logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
+                <img src={logo} alt="Abbdix General Trading logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
               </span>
-              <span className="font-serif text-2xl text-emerald-deep">Abbdix</span>
+              <span className="font-serif text-2xl text-emerald-deep">Abbdix General Trading</span>
             </div>
             <p className="mt-3 text-xs text-foreground/65">Premium physical products and a trusted 5-level recommendation network based in Uganda.</p>
           </div>
           <div>
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Quick links</h4>
             <ul className="mt-3 space-y-1.5 text-xs text-foreground/70">
+              <li><Link to="/products" className="hover:text-emerald-deep">Profiled products</Link></li>
               <li><Link to="/register" className="hover:text-emerald-deep">Register</Link></li>
               <li><Link to="/login" className="hover:text-emerald-deep">Member login</Link></li>
               <li><Link to="/" className="hover:text-emerald-deep">Home</Link></li>
@@ -373,12 +374,13 @@ function Index() {
           </div>
           <div>
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Contact</h4>
-            <p className="mt-3 text-xs text-foreground/70">support@abbdic.com</p>
+            <p className="mt-3 text-xs text-foreground/70"><a href="mailto:support@abbdix.com" className="hover:text-emerald-deep">support@abbdix.com</a></p>
             <p className="text-xs text-foreground/70">Kampala, Uganda</p>
           </div>
         </div>
-        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Abbdix Investments. All rights reserved.</p>
+        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Abbdix General Trading. All rights reserved.</p>
       </footer>
+
     </div>
   );
 }
