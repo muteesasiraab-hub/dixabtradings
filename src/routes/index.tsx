@@ -319,8 +319,9 @@ function Index() {
               Your <em className="italic text-gold">first commission</em> is one referral away.
             </h3>
             <p className="mt-5 max-w-xl leading-relaxed text-cream/75">
-              Get your unique referral code instantly after registration. Print a card, share online, earn across 5 levels.
+              Get your unique identifier code instantly after registration. Print a card, share online, earn across 5 levels.
             </p>
+
             <div className="mt-8 flex flex-wrap gap-4">
               <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
                 <Link to="/register">Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
