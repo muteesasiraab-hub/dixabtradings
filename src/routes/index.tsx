@@ -99,17 +99,21 @@ function Index() {
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div className="max-w-xl">
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Active inventory</p>
-            <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">The catalog that pays you back.</h2>
+            <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">The catalog that pays you back by 8.33%.</h2>
+            <p className="mt-3 text-sm text-foreground/70">
+              Buy the Abbdix entry product to join — earn{" "}
+              <span className="font-semibold text-emerald-deep">8.33% per referral</span> across 5 network levels.
+            </p>
           </div>
-          <Link to="/register" className="group inline-flex items-center gap-2 border-b-2 border-gold pb-1 text-sm font-semibold text-emerald-deep">
-            Browse all products
+          <Link to="/products" className="group inline-flex items-center gap-2 border-b-2 border-gold pb-1 text-sm font-semibold text-emerald-deep">
+            Browse profiled products
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {products.map((p) => (
-            <div key={p.name} className="group cursor-pointer">
+            <div key={p.name} className={`group ${p.featured ? "cursor-pointer" : "pointer-events-none"}`}>
               <div className="relative mb-5 aspect-[4/5] overflow-hidden bg-white shadow-card ring-1 ring-border/60">
                 <img
                   src={p.img}
@@ -117,19 +121,31 @@ function Index() {
                   loading="lazy"
                   width={640}
                   height={800}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className={`h-full w-full object-cover transition-transform duration-700 ${p.featured ? "group-hover:scale-110" : "blur-md scale-105 opacity-70"}`}
                 />
                 <span className="absolute left-3 top-3 bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-deep backdrop-blur">
                   {p.tag}
                 </span>
+                {!p.featured && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="bg-emerald-deep/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-cream">Coming soon</span>
+                  </div>
+                )}
               </div>
               <p className="text-[11px] font-bold uppercase tracking-widest text-gold">{p.category}</p>
-              <h3 className="mt-1 font-serif text-xl text-emerald-deep">{p.name}</h3>
-              <p className="mt-1 text-sm font-semibold text-emerald-deep">{UGX(p.price)}</p>
+              <h3 className={`mt-1 font-serif text-xl ${p.featured ? "text-emerald-deep" : "text-emerald-deep/60"}`}>{p.name}</h3>
+              <p className={`mt-1 text-sm font-semibold ${p.featured ? "text-emerald-deep" : "text-emerald-deep/60"}`}>{UGX(p.price)}</p>
             </div>
           ))}
         </div>
+
+        <div className="flex justify-center pt-2">
+          <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
+            <Link to="/products">Browse profiled products <ArrowRight className="ml-2 h-4 w-4" /></Link>
+          </Button>
+        </div>
       </section>
+
 
       {/* EARNINGS CALCULATOR */}
       <section className="relative overflow-hidden bg-emerald-deep p-8 text-cream shadow-elegant sm:p-12 lg:p-16">
