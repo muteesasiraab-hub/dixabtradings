@@ -105,7 +105,7 @@ function DashboardPage() {
           <p className="mt-1 text-xs text-muted-foreground">{earnings.length} credits · {UGX(EARNING_PER_REFERRAL)} each</p>
         </Card>
         <Card className="p-5">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground"><Users className="h-4 w-4" /> Direct referrals</div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground"><Users className="h-4 w-4" /> Direct identifiers</div>
           <p className="mt-2 text-2xl font-bold">{directCount} <span className="text-sm font-normal text-muted-foreground">/ 3</span></p>
           <p className="mt-1 text-xs text-muted-foreground">{3 - directCount} slot(s) remaining</p>
         </Card>
