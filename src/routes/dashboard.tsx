@@ -58,7 +58,7 @@ function DashboardPage() {
   const copyLink = () => {
     const url = `${window.location.origin}/register?ref=${profile.referral_code}`;
     navigator.clipboard.writeText(url);
-    toast.success("Referral link copied");
+    toast.success("Identifier link copied");
   };
 
   return (
