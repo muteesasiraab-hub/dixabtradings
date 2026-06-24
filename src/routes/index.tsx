@@ -34,15 +34,16 @@ function Index() {
             </span>
           </div>
           <div className="inline-block rounded-md bg-white p-3 shadow-md ring-1 ring-border">
-            <img src={logo} alt="Abbdix investments logo" className="h-12 w-12 object-contain" width={48} height={48} />
+            <img src={logo} alt="Abbdix General Trading logo" className="h-14 w-14 object-contain" width={56} height={56} />
           </div>
           <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-emerald-deep sm:text-6xl lg:text-7xl">
-            Discover the world of <em className="italic font-light text-gold">sales</em> with Abbdix Investments.
+            Discover the world of <em className="italic font-light text-gold">sales</em> with Abbdix General Trading.
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
-            Where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
+            A platform where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
             <span className="font-semibold text-emerald-deep">60,000 UGX</span> and unlock your potential in our recommendation earning model.
           </p>
+
           <div className="flex flex-wrap gap-4 pt-2">
             <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep">
               <Link to="/register">
