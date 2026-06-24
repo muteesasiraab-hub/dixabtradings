@@ -14,11 +14,12 @@ import { UGX, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 export const Route = createFileRoute("/")({ component: Index });
 
 const products = [
-  { img: productFlash, name: "Premium Flash Disk", category: "Electronics", price: 60000, tag: "Entry product" },
-  { img: productEarbuds, name: "Wireless Earbuds", category: "Audio", price: 120000, tag: "High demand" },
-  { img: productBag, name: "Leather Travel Bag", category: "Lifestyle", price: 240000, tag: "Premium" },
-  { img: productMug, name: "Signature Coffee Mug", category: "Home", price: 85000, tag: "Bestseller" },
+  { img: productFlash, name: "Premium Flash Disk", category: "Electronics", price: 60000, tag: "Entry product", featured: true },
+  { img: productEarbuds, name: "Wireless Earbuds", category: "Audio", price: 120000, tag: "Coming soon", featured: false },
+  { img: productBag, name: "Leather Travel Bag", category: "Lifestyle", price: 240000, tag: "Coming soon", featured: false },
+  { img: productMug, name: "Signature Coffee Mug", category: "Home", price: 85000, tag: "Coming soon", featured: false },
 ];
+
 
 function Index() {
   return (
