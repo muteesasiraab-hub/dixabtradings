@@ -3,6 +3,23 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
+// Look up a member's email by their Identifier (referral) code — used for login form
+export const resolveEmailByIdentifier = createServerFn({ method: "POST" })
+  .inputValidator((input) =>
+    z.object({ identifier: z.string().trim().min(2).max(20) }).parse(input),
+  )
+  .handler(async ({ data }) => {
+    const code = data.identifier.toUpperCase();
+    const { data: row } = await supabaseAdmin
+      .from("profiles")
+      .select("email")
+      .eq("referral_code", code)
+      .maybeSingle();
+    if (!row?.email) throw new Error("Invalid identifier code");
+    return { email: row.email };
+  });
+
+
 // Register / create profile after auth signup
 export const createProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
