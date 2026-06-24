@@ -226,35 +226,6 @@ function Index() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="space-y-12">
-        <div className="text-center">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Member stories</p>
-          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Real entrepreneurs. Real payouts.</h2>
-        </div>
-        <div className="grid gap-8 md:grid-cols-3">
-          {[
-            { name: "James O.", role: "Kampala", text: "I joined with UGX 60,000 and grew my network to 47 members in two months. The dashboard makes every shilling visible." },
-            { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
-            { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Abbdix turned a side idea into a real income stream." },
-          ].map((t) => (
-            <article key={t.name} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
-              <div className="flex gap-1 text-gold">
-                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3.5 w-3.5 fill-current" />)}
-              </div>
-              <p className="mt-5 font-serif text-xl italic leading-snug text-emerald-deep">"{t.text}"</p>
-              <div className="mt-auto flex items-center gap-3 pt-6">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-deep font-bold text-cream">{t.name[0]}</div>
-                <div>
-                  <p className="text-sm font-semibold text-emerald-deep">{t.name}</p>
-                  <p className="text-[11px] uppercase tracking-widest text-foreground/60">{t.role}</p>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
       {/* DIRECTORS */}
       <section className="space-y-16">
         <div className="text-center">
@@ -270,8 +241,9 @@ function Index() {
               role: "Director",
               bio: [
                 "President of VX Uganda, a sports association recognised by the National Council of Sports in Uganda.",
-                "Former Hospital Administrator at Old Kampala Hospital, supervised by the Government of Uganda through the Ministry of Health.",
-                "Served as Head Internal Auditor and District Internal Auditor in Oyam District Local Government.",
+                "Former Hospital Administrator at Old Kampala Hospital, a non-profit under the Uganda Muslim Supreme Council, supervised by the Government of Uganda through the Ministry of Health.",
+                "Served the Government of Uganda as Head of Internal Audit Department and District Internal Auditor at Oyam District Local Government.",
+                "Businessman and consultant in Governance and Management, Policy and Human Resource structural formulation, and internal control system design in Business Management.",
                 "Graduate of Bachelor of Business Administration (Accounting option), Makerere University.",
               ],
             },
@@ -306,6 +278,36 @@ function Index() {
           ))}
         </div>
       </section>
+
+      {/* TESTIMONIALS — member stories (below directors) */}
+      <section className="space-y-12">
+        <div className="text-center">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Member stories</p>
+          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Real entrepreneurs. Real payouts.</h2>
+        </div>
+        <div className="grid gap-8 md:grid-cols-3">
+          {[
+            { name: "James O.", role: "Kampala", text: "I joined with UGX 60,000 and grew my network to 47 members in two months. The dashboard makes every shilling visible." },
+            { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
+            { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Abbdix turned a side idea into a real income stream." },
+          ].map((t) => (
+            <article key={t.name} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
+              <div className="flex gap-1 text-gold">
+                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3.5 w-3.5 fill-current" />)}
+              </div>
+              <p className="mt-5 font-serif text-xl italic leading-snug text-emerald-deep">"{t.text}"</p>
+              <div className="mt-auto flex items-center gap-3 pt-6">
+                <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-deep font-bold text-cream">{t.name[0]}</div>
+                <div>
+                  <p className="text-sm font-semibold text-emerald-deep">{t.name}</p>
+                  <p className="text-[11px] uppercase tracking-widest text-foreground/60">{t.role}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
 
       {/* FINAL CTA */}
       <section className="relative overflow-hidden bg-emerald-deep p-10 text-cream shadow-elegant sm:p-16">
