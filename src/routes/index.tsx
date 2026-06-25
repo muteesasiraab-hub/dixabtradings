@@ -9,15 +9,15 @@ import dicksonAsset from "@/assets/dickson.jpg.asset.json";
 import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { Check, Star, ArrowRight, Shield, Lock } from "lucide-react";
-import { UGX, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
+import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 
 export const Route = createFileRoute("/")({ component: Index });
 
 const products = [
-  { img: productFlash, name: "Premium Flash Disk", category: "Electronics", price: 60000, tag: "Entry product", featured: true },
-  { img: productEarbuds, name: "Wireless Earbuds", category: "Audio", price: 120000, tag: "Coming soon", featured: false },
-  { img: productBag, name: "Leather Travel Bag", category: "Lifestyle", price: 240000, tag: "Coming soon", featured: false },
-  { img: productMug, name: "Signature Coffee Mug", category: "Home", price: 85000, tag: "Coming soon", featured: false },
+  { img: productFlash, name: "Premium Flash Disk", category: "Electronics", price: 100000, tag: "Entry product", featured: true },
+  { img: productEarbuds, featured: false },
+  { img: productBag, featured: false },
+  { img: productMug, featured: false },
 ];
 
 
@@ -33,15 +33,15 @@ function Index() {
               The Future of African Sales
             </span>
           </div>
-          <div className="inline-block rounded-md bg-white p-3 shadow-md ring-1 ring-border">
-            <img src={logo} alt="Abbdix General Trading logo" className="h-14 w-14 object-contain" width={56} height={56} />
+          <div className="inline-block rounded-md bg-white p-4 shadow-elegant ring-1 ring-gold/40">
+            <img src={logo} alt="Abbdix General Trading logo" className="h-24 w-24 object-contain" width={96} height={96} />
           </div>
           <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-emerald-deep sm:text-6xl lg:text-7xl">
             Discover the world of <em className="italic font-light text-gold">sales</em> with Abbdix General Trading.
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
             A platform where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
-            <span className="font-semibold text-emerald-deep">60,000 UGX</span> and unlock your potential in our recommendation earning model.
+            <span className="font-semibold text-emerald-deep">100,000 UGX</span> and unlock your potential in our recommendation earning model.
           </p>
 
           <div className="flex flex-wrap gap-4 pt-2">
@@ -84,7 +84,7 @@ function Index() {
         {[
           { k: "10K+", v: "Entrepreneurs" },
           { k: "5", v: "Levels deep" },
-          { k: "363", v: "Network per leg" },
+          { k: "363", v: "Community per leg" },
           { k: "100%", v: "Verified payouts" },
         ].map((s) => (
           <div key={s.v}>
@@ -94,15 +94,39 @@ function Index() {
         ))}
       </section>
 
+      {/* VISION & MISSION */}
+      <section className="grid gap-8 lg:grid-cols-2">
+        <article className="relative overflow-hidden border border-border bg-white p-8 shadow-card sm:p-10">
+          <span className="absolute right-6 top-6 text-[10px] font-black uppercase tracking-[0.3em] text-gold">01 · Vision</span>
+          <h3 className="font-serif text-3xl text-emerald-deep sm:text-4xl">Our Vision</h3>
+          <div className="mt-4 h-px w-16 bg-gold" />
+          <p className="mt-6 leading-relaxed text-foreground/80">
+            To become Africa's most trusted platform for premium physical products and shared prosperity — empowering
+            everyday people to build sustainable income through community, innovation and integrity.
+          </p>
+        </article>
+        <article className="relative overflow-hidden border border-emerald-deep bg-emerald-deep p-8 text-cream shadow-elegant sm:p-10">
+          <span className="absolute right-6 top-6 text-[10px] font-black uppercase tracking-[0.3em] text-gold">02 · Mission</span>
+          <h3 className="font-serif text-3xl text-cream sm:text-4xl">Our Mission</h3>
+          <div className="mt-4 h-px w-16 bg-gold" />
+          <p className="mt-6 leading-relaxed text-cream/80">
+            To deliver exceptional, quality-assured products at fair prices while operating a transparent 5-level
+            recommendation model that rewards every member fairly, grows local entrepreneurship and uplifts communities
+            across Uganda and beyond.
+          </p>
+        </article>
+      </section>
+
+
       {/* PRODUCT SHOWCASE */}
       <section className="space-y-10">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div className="max-w-xl">
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Active inventory</p>
-            <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">The catalog that pays you back by 8.33%.</h2>
+            <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">The catalog that pays you back by 10%.</h2>
             <p className="mt-3 text-sm text-foreground/70">
               Buy the Abbdix entry product to join — earn{" "}
-              <span className="font-semibold text-emerald-deep">8.33% per referral</span> across 5 network levels.
+              <span className="font-semibold text-emerald-deep">10% per recommendation</span> across 5 community levels.
             </p>
           </div>
           <Link to="/products" className="group inline-flex items-center gap-2 border-b-2 border-gold pb-1 text-sm font-semibold text-emerald-deep">
@@ -112,29 +136,36 @@ function Index() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p) => (
-            <div key={p.name} className={`group ${p.featured ? "cursor-pointer" : "pointer-events-none"}`}>
+          {products.map((p, i) => (
+            <div key={i} className={`group ${p.featured ? "cursor-pointer" : "pointer-events-none"}`}>
               <div className="relative mb-5 aspect-[4/5] overflow-hidden bg-white shadow-card ring-1 ring-border/60">
                 <img
                   src={p.img}
-                  alt={p.name}
+                  alt={p.featured ? p.name : "Upcoming product"}
                   loading="lazy"
                   width={640}
                   height={800}
-                  className={`h-full w-full object-cover transition-transform duration-700 ${p.featured ? "group-hover:scale-110" : "blur-md scale-105 opacity-70"}`}
+                  className={`h-full w-full object-cover transition-transform duration-700 ${p.featured ? "group-hover:scale-110" : "blur-2xl scale-110 opacity-40"}`}
                 />
-                <span className="absolute left-3 top-3 bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-deep backdrop-blur">
-                  {p.tag}
-                </span>
-                {!p.featured && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="bg-emerald-deep/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-cream">Coming soon</span>
+                {p.featured ? (
+                  <span className="absolute left-3 top-3 bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-deep backdrop-blur">
+                    {p.tag}
+                  </span>
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-emerald-deep/40">
+                    <span className="bg-emerald-deep px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-cream">Coming soon</span>
                   </div>
                 )}
               </div>
-              <p className="text-[11px] font-bold uppercase tracking-widest text-gold">{p.category}</p>
-              <h3 className={`mt-1 font-serif text-xl ${p.featured ? "text-emerald-deep" : "text-emerald-deep/60"}`}>{p.name}</h3>
-              <p className={`mt-1 text-sm font-semibold ${p.featured ? "text-emerald-deep" : "text-emerald-deep/60"}`}>{UGX(p.price)}</p>
+              {p.featured && (
+                <>
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-gold">{p.category}</p>
+                  <h3 className="mt-1 font-serif text-xl text-emerald-deep">{p.name}</h3>
+                  <p className="mt-1 text-sm font-semibold text-emerald-deep">
+                    {UGX(p.price!)} <span className="ml-1 text-foreground/55">≈ {USD(p.price!)}</span>
+                  </p>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -155,8 +186,8 @@ function Index() {
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-gold">Recommendation Model</p>
             <h2 className="font-serif text-4xl text-cream sm:text-5xl">Project your success.</h2>
             <p className="mt-6 leading-relaxed text-cream/70 sm:text-lg">
-              Our 5-level referral system is built for scalability. See how much you could earn by sharing products
-              and building your network.
+              Our 5-level recommendation system is built for scalability. See how much you could earn by sharing products
+              and growing your community.
             </p>
             <div className="mt-10 h-px w-24 bg-gold" />
           </div>
@@ -166,7 +197,7 @@ function Index() {
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Monthly volume</label>
-                  <span className="font-bold text-gold">15 units</span>
+                  <span className="font-bold text-gold">121 units</span>
                 </div>
                 <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
                   <div className="h-full w-3/4 rounded-full bg-gold transition-all duration-700" />
@@ -174,16 +205,16 @@ function Index() {
               </div>
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Network size</label>
-                  <span className="font-bold text-gold">120 members</span>
+                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Community size</label>
+                  <span className="font-bold text-gold">363 members</span>
                 </div>
                 <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-2/3 rounded-full bg-gold transition-all duration-700" />
+                  <div className="h-full w-5/6 rounded-full bg-gold transition-all duration-700" />
                 </div>
               </div>
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Network depth</label>
+                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Community depth</label>
                   <span className="font-bold text-gold">5 levels</span>
                 </div>
                 <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
@@ -194,11 +225,11 @@ function Index() {
 
             <div className="flex flex-col items-center justify-center bg-gold p-8 text-center text-emerald-deep">
               <span className="mb-3 text-[10px] font-black uppercase tracking-[0.3em]">Projected payout</span>
-              <span className="font-serif text-5xl leading-none sm:text-6xl">1,250,000</span>
+              <span className="font-serif text-5xl leading-none sm:text-6xl">3,630,000</span>
               <span className="mt-3 text-xs font-bold uppercase tracking-widest">UGX / Monthly</span>
               <div className="mt-6 h-px w-16 bg-emerald-deep/40" />
               <p className="mt-4 max-w-[14rem] text-xs leading-relaxed text-emerald-deep/80">
-                {UGX(EARNING_PER_REFERRAL)} per signup × full 5-level downline.
+                363 × {UGX(EARNING_PER_REFERRAL)} per recommendation across a full 5-level community.
               </p>
             </div>
           </div>
@@ -213,9 +244,9 @@ function Index() {
         </div>
         <div className="grid gap-px bg-border sm:grid-cols-3">
           {[
-            { n: "01", t: "Join with a referral", d: `Activate your account with ${UGX(ENTRY_FEE)} and receive your premium product.` },
-            { n: "02", t: "Share with three", d: "Each member refers up to 3 directly — your network compounds quietly." },
-            { n: "03", t: "Earn five levels deep", d: `${UGX(EARNING_PER_REFERRAL)} credited for every signup anywhere in your 5-level downline.` },
+            { n: "01", t: "Buy and Recommend Abbdix product", d: `Activate your account with ${UGX(ENTRY_FEE)} and receive your premium Abbdix product.` },
+            { n: "02", t: "Share with three", d: "Each member recommends up to 3 directly — your community compounds quietly." },
+            { n: "03", t: "Earn five levels deep", d: `${UGX(EARNING_PER_REFERRAL)} credited for every signup anywhere in your 5-level community.` },
           ].map((s) => (
             <div key={s.n} className="group relative bg-card p-8 transition-colors hover:bg-emerald-deep">
               <span className="font-serif text-5xl text-gold transition-transform group-hover:scale-110">{s.n}</span>
@@ -287,7 +318,7 @@ function Index() {
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           {[
-            { name: "James O.", role: "Kampala", text: "I joined with UGX 60,000 and grew my network to 47 members in two months. The dashboard makes every shilling visible." },
+            { name: "James O.", role: "Kampala", text: "I bought an Abbdix Flash at UGX 100,000 and grew my community to 98 members in 10 months. The dashboard makes every shilling visible." },
             { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
             { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Abbdix turned a side idea into a real income stream." },
           ].map((t) => (
@@ -361,7 +392,7 @@ function Index() {
               </span>
               <span className="font-serif text-2xl text-emerald-deep">Abbdix General Trading</span>
             </div>
-            <p className="mt-3 text-xs text-foreground/65">Premium physical products and a trusted 5-level recommendation network based in Uganda.</p>
+            <p className="mt-3 text-xs text-foreground/65">Premium physical products and a trusted 5-level recommendation community based in Uganda.</p>
           </div>
           <div>
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Quick links</h4>

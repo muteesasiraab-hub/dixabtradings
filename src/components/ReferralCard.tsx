@@ -36,7 +36,7 @@ export function ReferralCard({
           </div>
           <p className="mt-6 break-all text-xs text-white/80">{url}</p>
           <p className="mt-4 text-[11px] text-white/60">
-            Entry fee UGX 60,000 · Earn UGX 5,000 per referral · 5-level network · Max 3 direct referrals
+            Entry fee UGX 100,000 · Earn UGX 10,000 per recommendation · 5-level community · Max 3 direct referrals
           </p>
         </div>
       </div>
