@@ -94,6 +94,30 @@ function Index() {
         ))}
       </section>
 
+      {/* VISION & MISSION */}
+      <section className="grid gap-8 lg:grid-cols-2">
+        <article className="relative overflow-hidden border border-border bg-white p-8 shadow-card sm:p-10">
+          <span className="absolute right-6 top-6 text-[10px] font-black uppercase tracking-[0.3em] text-gold">01 · Vision</span>
+          <h3 className="font-serif text-3xl text-emerald-deep sm:text-4xl">Our Vision</h3>
+          <div className="mt-4 h-px w-16 bg-gold" />
+          <p className="mt-6 leading-relaxed text-foreground/80">
+            To become Africa's most trusted platform for premium physical products and shared prosperity — empowering
+            everyday people to build sustainable income through community, innovation and integrity.
+          </p>
+        </article>
+        <article className="relative overflow-hidden border border-emerald-deep bg-emerald-deep p-8 text-cream shadow-elegant sm:p-10">
+          <span className="absolute right-6 top-6 text-[10px] font-black uppercase tracking-[0.3em] text-gold">02 · Mission</span>
+          <h3 className="font-serif text-3xl text-cream sm:text-4xl">Our Mission</h3>
+          <div className="mt-4 h-px w-16 bg-gold" />
+          <p className="mt-6 leading-relaxed text-cream/80">
+            To deliver exceptional, quality-assured products at fair prices while operating a transparent 5-level
+            recommendation model that rewards every member fairly, grows local entrepreneurship and uplifts communities
+            across Uganda and beyond.
+          </p>
+        </article>
+      </section>
+
+
       {/* PRODUCT SHOWCASE */}
       <section className="space-y-10">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
