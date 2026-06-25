@@ -96,8 +96,8 @@ function Header() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur no-print">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
-          <span className="grid h-9 w-9 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
-            <img src={logo} alt="Abbdix General Trading logo" className="h-full w-full object-contain" width={36} height={36} />
+          <span className="grid h-11 w-11 place-items-center rounded-md bg-white p-1 shadow-sm ring-1 ring-gold/40">
+            <img src={logo} alt="Abbdix General Trading logo" className="h-full w-full object-contain" width={44} height={44} />
           </span>
           <span className="font-serif text-emerald-deep">Abbdix General Trading</span>
         </Link>
