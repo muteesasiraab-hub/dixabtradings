@@ -110,7 +110,7 @@ function DashboardPage() {
           <p className="mt-1 text-xs text-muted-foreground">{3 - directCount} slot(s) remaining</p>
         </Card>
         <Card className="p-5">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground"><Network className="h-4 w-4" /> Network size</div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground"><Network className="h-4 w-4" /> Community size</div>
           <p className="mt-2 text-2xl font-bold">{levels.reduce((s, l) => s + l.members.length, 0)}</p>
           <p className="mt-1 text-xs text-muted-foreground">across 5 levels</p>
         </Card>
@@ -130,10 +130,10 @@ function DashboardPage() {
       </div>
 
       <Card className="p-5 no-print">
-        <h3 className="font-semibold">Your 5-level network</h3>
+        <h3 className="font-semibold">Your 5-level community</h3>
         <div className="mt-4 space-y-4">
           {levels.every((l) => l.members.length === 0) && (
-            <p className="text-sm text-muted-foreground">No members yet. Share your identifier code to start building your network.</p>
+            <p className="text-sm text-muted-foreground">No members yet. Share your identifier code to start building your community.</p>
           )}
           {levels.map((lvl) =>
             lvl.members.length === 0 ? null : (
