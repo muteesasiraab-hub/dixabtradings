@@ -101,8 +101,8 @@ function Index() {
           <h3 className="font-serif text-3xl text-emerald-deep sm:text-4xl">Our Vision</h3>
           <div className="mt-4 h-px w-16 bg-gold" />
           <p className="mt-6 leading-relaxed text-foreground/80">
-            To become Africa's most trusted platform for premium physical products and shared prosperity — empowering
-            everyday people to build sustainable income through community, innovation and integrity.
+            To transform every African into an empowered entrepreneur by building a decentralized, trust-based sales
+            ecosystem that rewards genuine connections.
           </p>
         </article>
         <article className="relative overflow-hidden border border-emerald-deep bg-emerald-deep p-8 text-cream shadow-elegant sm:p-10">
@@ -110,9 +110,8 @@ function Index() {
           <h3 className="font-serif text-3xl text-cream sm:text-4xl">Our Mission</h3>
           <div className="mt-4 h-px w-16 bg-gold" />
           <p className="mt-6 leading-relaxed text-cream/80">
-            To deliver exceptional, quality-assured products at fair prices while operating a transparent 5-level
-            recommendation model that rewards every member fairly, grows local entrepreneurship and uplifts communities
-            across Uganda and beyond.
+            To unlock economic opportunity across Africa by empowering every individual to become a trusted brand
+            ambassador, turning word-of-mouth into rewarding, sustainable income.
           </p>
         </article>
       </section>
@@ -318,7 +317,7 @@ function Index() {
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           {[
-            { name: "James O.", role: "Kampala", text: "I bought an Abbdix Flash at UGX 100,000 and grew my community to 98 members in 10 months. The dashboard makes every shilling visible." },
+            { name: "James O.", role: "Kampala", text: "I bought an Abbdix Flash at UGX 100,000 and grew my community to 98 members in 10 days. The dashboard makes every shilling visible." },
             { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
             { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Abbdix turned a side idea into a real income stream." },
           ].map((t) => (
