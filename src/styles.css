@@ -43,6 +43,7 @@
 }
 
 :root {
+  color-scheme: light only;
   --radius: 0.25rem;
   /* Emerald Prestige palette: #064e3b emerald, #0d7a5f green, #c9a84c gold, #f5f0e0 cream */
   --background: oklch(0.95 0.03 90);          /* cream #f5f0e0 */
