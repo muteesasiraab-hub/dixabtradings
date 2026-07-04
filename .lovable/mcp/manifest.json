@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "abbdix-general-trading-mcp",
+      "version": "0.1.0",
+      "title": "Abbdix General Trading"
+    },
+    "tools": [
+      {
+        "name": "get_platform_info",
+        "title": "Get platform info",
+        "description": "Return an overview of Abbdix General Trading: mission, vision, entry fee, and how the 5-level recommendation model works.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_products",
+        "title": "List products",
+        "description": "List the products currently profiled on the Abbdix General Trading platform, including UGX and USD price equivalents.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "Filter by product status. Defaults to all.",
+              "type": "string",
+              "enum": [
+                "available",
+                "coming_soon",
+                "all"
+              ]
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
