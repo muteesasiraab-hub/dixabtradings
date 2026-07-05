@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -28,6 +29,11 @@ const RegisterRoute = RegisterRouteImport.update({
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
+  '/portal': typeof PortalRoute
   '/products': typeof ProductsRoute
   '/register': typeof RegisterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
+  '/portal': typeof PortalRoute
   '/products': typeof ProductsRoute
   '/register': typeof RegisterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
+  '/portal': typeof PortalRoute
   '/products': typeof ProductsRoute
   '/register': typeof RegisterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/mcp'
+    | '/portal'
     | '/products'
     | '/register'
     | '/.mcp/list-tools'
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/mcp'
+    | '/portal'
     | '/products'
     | '/register'
     | '/.mcp/list-tools'
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/mcp'
+    | '/portal'
     | '/products'
     | '/register'
     | '/.mcp/list-tools'
@@ -156,6 +168,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   McpRoute: typeof McpRoute
+  PortalRoute: typeof PortalRoute
   ProductsRoute: typeof ProductsRoute
   RegisterRoute: typeof RegisterRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
@@ -177,6 +190,13 @@ declare module '@tanstack/react-router' {
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -244,6 +264,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   McpRoute: McpRoute,
+  PortalRoute: PortalRoute,
   ProductsRoute: ProductsRoute,
   RegisterRoute: RegisterRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
