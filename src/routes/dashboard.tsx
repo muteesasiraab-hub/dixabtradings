@@ -69,6 +69,9 @@ function DashboardPage() {
           <p className="text-sm text-muted-foreground">{profile.email} · {profile.phone}</p>
         </div>
         <div className="flex items-center gap-2">
+          <Button asChild variant="outline" size="sm">
+            <Link to="/portal"><Network className="mr-1 h-4 w-4" /> Client Portal</Link>
+          </Button>
           {isAdmin && (
             <Button asChild variant="outline" size="sm">
               <Link to="/admin"><ShieldCheck className="mr-1 h-4 w-4" /> Admin</Link>
