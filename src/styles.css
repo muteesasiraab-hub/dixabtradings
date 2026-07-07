@@ -114,12 +114,12 @@
 @theme inline {
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
-  --color-emerald-deep: #064e3b;
-  --color-emerald: #0d7a5f;
-  --color-gold: #c9a84c;
-  --color-cream: #f5f0e0;
+  --color-emerald-deep: #059669;
+  --color-emerald: #10b981;
+  --color-gold: #34d399;
+  --color-cream: #ecfdf5;
   --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-glow));
-  --gradient-hero: linear-gradient(140deg, #064e3b 0%, #0d7a5f 70%, #1a8f6f 130%);
+  --gradient-hero: linear-gradient(140deg, #059669 0%, #10b981 70%, #34d399 130%);
   --shadow-elegant: 0 20px 50px -15px color-mix(in oklab, var(--color-primary) 45%, transparent);
   --shadow-card: 0 4px 20px -8px color-mix(in oklab, var(--color-primary) 22%, transparent);
 }
