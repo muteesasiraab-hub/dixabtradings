@@ -471,7 +471,16 @@ function Index() {
               <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-cream/10 hover:text-cream">
                 <Link to="/login">Member login</Link>
               </Button>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-auto items-center gap-2 rounded-none border-2 border-[#25D366] px-8 py-5 text-sm font-semibold uppercase tracking-widest text-[#25D366] transition-colors hover:bg-[#25D366] hover:text-white"
+              >
+                <WhatsAppIcon className="h-4 w-4" /> WhatsApp us
+              </a>
             </div>
+
           </div>
           <ul className="space-y-3 border-l border-white/15 pl-8 text-sm text-cream/85">
             {[
