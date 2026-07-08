@@ -140,6 +140,16 @@ function Index() {
             To transform every African into an empowered entrepreneur by building a decentralized, trust-based sales
             ecosystem that rewards genuine connections.
           </p>
+          <div className="mt-8 overflow-hidden border border-border/60">
+            <img
+              src={communityImg}
+              alt="African entrepreneurs collaborating together"
+              loading="lazy"
+              width={640}
+              height={480}
+              className="h-56 w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
         </article>
         <article className="relative overflow-hidden border border-emerald-deep bg-emerald-deep p-8 text-cream shadow-elegant sm:p-10">
           <span className="absolute right-6 top-6 text-[10px] font-black uppercase tracking-[0.3em] text-gold">02 · Mission</span>
@@ -149,8 +159,57 @@ function Index() {
             To unlock economic opportunity across Africa by empowering every individual to become a trusted brand
             ambassador, turning word-of-mouth into rewarding, sustainable income.
           </p>
+          <div className="mt-8 overflow-hidden border border-white/20">
+            <img
+              src={dashboardImg}
+              alt="Member viewing their Abbdix earnings dashboard"
+              loading="lazy"
+              width={640}
+              height={480}
+              className="h-56 w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
         </article>
       </section>
+
+      {/* PRODUCT GALLERY */}
+      <section className="relative overflow-hidden">
+        <div className="mb-8 flex items-end justify-between gap-4">
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>The collection</p>
+            <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Premium products, premium value.</h2>
+          </div>
+          <WhatsAppButton size="sm" className="hidden sm:flex" />
+        </div>
+        <div className="group relative aspect-[21/9] overflow-hidden shadow-elegant">
+          <img
+            src={productCollectionImg}
+            alt="Abbdix premium product collection including flash disk, earbuds, tote bag and mug"
+            loading="lazy"
+            width={1344}
+            height={576}
+            className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-deep/70 via-emerald-deep/20 to-transparent" />
+          <div className="absolute inset-y-0 left-0 flex max-w-md flex-col justify-center p-8 text-cream sm:p-12">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold">Ready to start?</p>
+            <h3 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">Chat with us on WhatsApp</h3>
+            <p className="mt-4 text-sm text-cream/85">
+              Tap the button to join Abbdix or ask questions directly. Our team is ready to guide you.
+            </p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-105"
+            >
+              <WhatsAppIcon className="h-5 w-5" />
+              Message 0704 616 064
+            </a>
+          </div>
+        </div>
+      </section>
+
 
 
       {/* PRODUCT SHOWCASE */}
