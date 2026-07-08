@@ -115,19 +115,30 @@ function Header() {
           <span className="font-serif text-emerald-deep">Abbdix General Trading</span>
         </Link>
 
-        <nav className="flex items-center gap-1 text-sm">
-          {authed ? (
-            <>
-              <Link to="/dashboard" className="rounded-md px-3 py-1.5 hover:bg-muted">Dashboard</Link>
-              <Button size="sm" variant="ghost" onClick={async () => { await supabase.auth.signOut(); window.location.href = "/"; }}>Sign out</Button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="rounded-md px-3 py-1.5 hover:bg-muted">Login</Link>
-              <Link to="/register" className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground hover:opacity-90">Join</Link>
-            </>
-          )}
-        </nav>
+          <nav className="flex items-center gap-1 text-sm">
+            {authed ? (
+              <>
+                <Link to="/dashboard" className="rounded-md px-3 py-1.5 hover:bg-muted">Dashboard</Link>
+                <Button size="sm" variant="ghost" onClick={async () => { await supabase.auth.signOut(); window.location.href = "/"; }}>Sign out</Button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="rounded-md px-3 py-1.5 hover:bg-muted">Login</Link>
+                <Link to="/register" className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground hover:opacity-90">Join</Link>
+              </>
+            )}
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[#25D366] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#128C7E]"
+              aria-label="Chat with us on WhatsApp"
+            >
+              <WhatsAppIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">WhatsApp</span>
+            </a>
+          </nav>
+
       </div>
     </header>
   );
