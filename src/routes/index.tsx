@@ -326,6 +326,23 @@ function Index() {
                 363 × {UGX(EARNING_PER_REFERRAL)} per recommendation across a full 5-level community.
               </p>
             </div>
+
+            <div className="relative overflow-hidden">
+              <img
+                src={earningsImg}
+                alt="Mobile payment received on Abbdix platform"
+                loading="lazy"
+                width={640}
+                height={640}
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/70 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-6 text-cream">
+                <p className="text-xs font-bold uppercase tracking-widest text-gold">Verified payouts</p>
+                <p className="mt-1 font-serif text-xl">Manual Mobile Money confirmation</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
