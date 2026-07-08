@@ -527,11 +527,26 @@ function Index() {
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Contact</h4>
             <p className="mt-3 text-xs text-foreground/70"><a href="mailto:support@abbdix.com" className="hover:text-emerald-deep">support@abbdix.com</a></p>
             <p className="text-xs text-foreground/70">Kampala, Uganda</p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[#25D366] hover:text-[#128C7E]"
+            >
+              <WhatsAppIcon className="h-4 w-4" /> WhatsApp: 0704 616 064
+            </a>
           </div>
         </div>
         <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Abbdix General Trading. All rights reserved.</p>
       </footer>
 
+      {/* FLOATING WHATSAPP */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2 sm:bottom-8 sm:right-8">
+        <span className="rounded-full bg-emerald-deep px-3 py-1 text-[10px] font-semibold text-cream shadow-lg">Chat with us</span>
+        <WhatsAppButton size="lg" />
+      </div>
+
     </div>
   );
 }
+
