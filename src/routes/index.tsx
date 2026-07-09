@@ -47,7 +47,14 @@ function WhatsAppButton({ size = "md", className = "" }: { size?: "sm" | "md" | 
 }
 
 
-export const Route = createFileRoute("/")({ component: Index });
+export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [
+      { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" },
+    ],
+  }),
+  component: Index,
+});
 
 const products = [
   { img: productFlash, name: "Premium Flash Disk", category: "Electronics", price: 100000, tag: "Entry product", featured: true },
