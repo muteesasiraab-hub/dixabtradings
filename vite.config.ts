@@ -15,6 +15,26 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
-    plugins: [mcpPlugin(), imagetools()],
+    plugins: [
+      mcpPlugin(),
+      imagetools({
+        defaultDirectives: (url) => {
+          const params = new URLSearchParams({ quality: "80" });
+          const p = url.pathname;
+          if (p.includes("abbdix-logo.png")) params.set("w", "200");
+          else if (p.includes("hero-showroom.jpg")) params.set("w", "800");
+          else if (p.includes("product-collection.jpg")) params.set("w", "1200");
+          else if (p.includes("community-entrepreneurs.jpg")) params.set("w", "800");
+          else if (p.includes("member-dashboard.jpg")) params.set("w", "800");
+          else if (p.includes("earnings-mobile.jpg")) params.set("w", "800");
+          else if (p.includes("product-flashdisk.jpg")) params.set("w", "600");
+          else if (p.includes("product-earbuds.jpg")) params.set("w", "400");
+          else if (p.includes("product-bag.jpg")) params.set("w", "400");
+          else if (p.includes("product-mug.jpg")) params.set("w", "400");
+          else params.set("w", "800");
+          return params;
+        },
+      }),
+    ],
   },
 });
