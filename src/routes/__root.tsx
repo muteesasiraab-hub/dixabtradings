@@ -130,7 +130,8 @@ function Header() {
               target="_blank"
               rel="noopener noreferrer"
               className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[#25D366] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#128C7E]"
-              aria-label="Chat with us on WhatsApp"
+              aria-label="Add me as a contact on WhatsApp"
+              title="Add me as a contact on WhatsApp"
             >
               <WhatsAppIcon className="h-4 w-4" />
               <span className="hidden sm:inline">WhatsApp</span>
