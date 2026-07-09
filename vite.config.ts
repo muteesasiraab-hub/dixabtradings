@@ -15,6 +15,6 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
-    plugins: [mcpPlugin()],
+    plugins: [mcpPlugin(), imagetools()],
   },
 });
