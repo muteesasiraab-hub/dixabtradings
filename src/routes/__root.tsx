@@ -14,9 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
 
-const WHATSAPP_NUMBER = "256704616064";
-const WHATSAPP_MESSAGE = "Hello Abbdix, I would like to join the community and learn more.";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const WHATSAPP_URL = "https://wa.me/qr/LWTTUNELU7QVL1";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
