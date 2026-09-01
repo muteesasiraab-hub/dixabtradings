@@ -66,11 +66,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Dixab General Trading — Premium Products & Recommendation Community" },
+      { title: "Dixab General Trading — Word of Mouth Rewarded" },
       { name: "description", content: "Dixab General Trading: a platform where opportunities meet innovation. Physical products from 100,000 UGX and a 5-level recommendation earning model." },
       { name: "theme-color", content: "#059669" },
       { property: "og:title", content: "Dixab General Trading" },
-      { property: "og:description", content: "Premium physical products. Earn across 5 recommendation levels." },
+      { property: "og:description", content: "Word of mouth rewarded — premium physical products and 5 levels of recommendation earnings." },
 
       { property: "og:type", content: "website" },
     ],
