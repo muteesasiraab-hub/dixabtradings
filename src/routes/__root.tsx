@@ -122,7 +122,7 @@ function Header() {
             ) : (
               <>
                 <Link to="/login" className="rounded-md px-3 py-1.5 hover:bg-muted">Login</Link>
-                <Link to="/register" search={{}} className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground hover:opacity-90">Join</Link>
+                <Link to="/register" search={{ ref: "" }} className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground hover:opacity-90">Join</Link>
               </>
             )}
             <a
