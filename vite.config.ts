@@ -21,7 +21,7 @@ export default defineConfig({
         defaultDirectives: (url) => {
           const params = new URLSearchParams({ quality: "80" });
           const p = url.pathname;
-          if (p.includes("abbdix-logo.png")) params.set("w", "200");
+          if (p.includes("dixab-logo.png")) params.set("w", "200");
           else if (p.includes("hero-showroom.jpg")) params.set("w", "800");
           else if (p.includes("product-collection.jpg")) params.set("w", "1200");
           else if (p.includes("community-entrepreneurs.jpg")) params.set("w", "800");
