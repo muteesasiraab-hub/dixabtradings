@@ -7,15 +7,15 @@
   },
   "mcp": {
     "server": {
-      "name": "abbdix-general-trading-mcp",
+      "name": "dixab-general-trading-mcp",
       "version": "0.1.0",
-      "title": "Abbdix General Trading"
+      "title": "Dixab General Trading"
     },
     "tools": [
       {
         "name": "get_platform_info",
         "title": "Get platform info",
-        "description": "Return an overview of Abbdix General Trading: mission, vision, entry fee, and how the 5-level recommendation model works.",
+        "description": "Return an overview of Dixab General Trading: mission, vision, entry fee, and how the 5-level recommendation model works.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -31,7 +31,7 @@
       {
         "name": "list_products",
         "title": "List products",
-        "description": "List the products currently profiled on the Abbdix General Trading platform, including UGX and USD price equivalents.",
+        "description": "List the products currently profiled on the Dixab General Trading platform, including UGX and USD price equivalents.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,

@@ -23,8 +23,8 @@ export function ReferralCard({
       <div className="print-area p-6">
         <div className="rounded-2xl bg-gradient-hero p-6 text-primary-foreground shadow-elegant">
           <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/80">
-            <span className="grid h-6 w-6 place-items-center rounded bg-white/15 text-[10px] font-bold">AG</span>
-            Abbdix General Trading
+            <span className="grid h-6 w-6 place-items-center rounded bg-white/15 text-[10px] font-bold">DX</span>
+            Dixab General Trading
           </div>
           <p className="mt-6 text-xs uppercase text-white/70">Identifier code</p>
 

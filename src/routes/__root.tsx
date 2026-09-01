@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import appCss from "../styles.css?url";
-import logo from "@/assets/abbdix-logo.png?format=webp";
+import logo from "@/assets/dixab-logo.png?format=webp";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
@@ -66,10 +66,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Abbdix General Trading — Premium Products & Recommendation Community" },
-      { name: "description", content: "Abbdix General Trading: a platform where opportunities meet innovation. Physical products from 100,000 UGX and a 5-level recommendation earning model." },
+      { title: "Dixab General Trading — Premium Products & Recommendation Community" },
+      { name: "description", content: "Dixab General Trading: a platform where opportunities meet innovation. Physical products from 100,000 UGX and a 5-level recommendation earning model." },
       { name: "theme-color", content: "#059669" },
-      { property: "og:title", content: "Abbdix General Trading" },
+      { property: "og:title", content: "Dixab General Trading" },
       { property: "og:description", content: "Premium physical products. Earn across 5 recommendation levels." },
 
       { property: "og:type", content: "website" },
@@ -108,9 +108,9 @@ function Header() {
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
           <span className="grid h-11 w-11 place-items-center rounded-md bg-white p-1 shadow-sm ring-1 ring-gold/40">
-            <img src={logo} alt="Abbdix General Trading logo" className="h-full w-full object-contain" width={44} height={44} />
+            <img src={logo} alt="Dixab General Trading logo" className="h-full w-full object-contain" width={44} height={44} />
           </span>
-          <span className="font-serif text-emerald-deep">Abbdix General Trading</span>
+          <span className="font-serif text-emerald-deep">Dixab General Trading</span>
         </Link>
 
           <nav className="flex items-center gap-1 text-sm">
