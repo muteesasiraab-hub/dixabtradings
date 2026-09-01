@@ -89,7 +89,7 @@ function Index() {
 
           <div className="flex flex-wrap gap-4 pt-2">
             <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep">
-              <Link to="/register">
+              <Link to="/register" search={{}}>
                 <span className="relative z-10">Start Earning</span>
                 <span className="absolute inset-0 translate-y-full bg-gold transition-transform duration-300 group-hover:translate-y-0" />
                 <ArrowRight className="relative z-10 ml-2 h-4 w-4" />
@@ -473,7 +473,7 @@ function Index() {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
-                <Link to="/register">Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                <Link to="/register" search={{}}>Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-cream/10 hover:text-cream">
                 <Link to="/login">Member login</Link>
@@ -525,7 +525,7 @@ function Index() {
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Quick links</h4>
             <ul className="mt-3 space-y-1.5 text-xs text-foreground/70">
               <li><Link to="/products" className="hover:text-emerald-deep">Profiled products</Link></li>
-              <li><Link to="/register" className="hover:text-emerald-deep">Register</Link></li>
+              <li><Link to="/register" search={{}} className="hover:text-emerald-deep">Register</Link></li>
               <li><Link to="/login" className="hover:text-emerald-deep">Member login</Link></li>
               <li><Link to="/" className="hover:text-emerald-deep">Home</Link></li>
             </ul>
