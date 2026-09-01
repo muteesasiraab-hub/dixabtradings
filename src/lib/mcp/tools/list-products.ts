@@ -6,7 +6,7 @@ const USD_RATE = 3800;
 const PRODUCTS = [
   {
     sku: "flash-disk",
-    name: "Abbdix Flash Disk",
+    name: "Dixab Flash Disk",
     status: "available",
     priceUGX: 100000,
     description:
@@ -17,21 +17,21 @@ const PRODUCTS = [
     name: "Wireless Earbuds",
     status: "coming_soon",
     priceUGX: null,
-    description: "Upcoming product in the Abbdix catalog.",
+    description: "Upcoming product in the Dixab catalog.",
   },
   {
     sku: "bag",
     name: "Branded Bag",
     status: "coming_soon",
     priceUGX: null,
-    description: "Upcoming product in the Abbdix catalog.",
+    description: "Upcoming product in the Dixab catalog.",
   },
   {
     sku: "mug",
     name: "Branded Mug",
     status: "coming_soon",
     priceUGX: null,
-    description: "Upcoming product in the Abbdix catalog.",
+    description: "Upcoming product in the Dixab catalog.",
   },
 ];
 
@@ -39,7 +39,7 @@ export default defineTool({
   name: "list_products",
   title: "List products",
   description:
-    "List the products currently profiled on the Abbdix General Trading platform, including UGX and USD price equivalents.",
+    "List the products currently profiled on the Dixab General Trading platform, including UGX and USD price equivalents.",
   inputSchema: {
     status: z
       .enum(["available", "coming_soon", "all"])

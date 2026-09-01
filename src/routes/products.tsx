@@ -6,7 +6,7 @@ export const Route = createFileRoute("/products")({
   component: ProductsPage,
   head: () => ({
     meta: [
-      { title: "Browse Catalogue — Abbdix General Trading" },
+      { title: "Browse Catalogue — Dixab General Trading" },
       { name: "description", content: "Our profiled products catalogue is under development. New direct-sale products will be introduced here soon." },
     ],
   }),
@@ -23,7 +23,7 @@ function ProductsPage() {
         <h1 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Under development</h1>
         <p className="text-foreground/70">
           This catalogue is being curated. We will soon introduce new physical products available for{" "}
-          <strong className="text-emerald-deep">direct sale</strong> through Abbdix General Trading. Please check back shortly.
+          <strong className="text-emerald-deep">direct sale</strong> through Dixab General Trading. Please check back shortly.
         </p>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-foreground/60">

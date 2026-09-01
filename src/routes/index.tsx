@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-showroom.jpg?format=webp";
-import logo from "@/assets/abbdix-logo.png?format=webp";
+import logo from "@/assets/dixab-logo.png?format=webp";
 import productFlash from "@/assets/product-flashdisk.jpg?format=webp";
 import productEarbuds from "@/assets/product-earbuds.jpg?format=webp";
 import productBag from "@/assets/product-bag.jpg?format=webp";
@@ -16,7 +16,7 @@ import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-rea
 import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 
 const WHATSAPP_NUMBER = "256704616064";
-const WHATSAPP_MESSAGE = "Hello Abbdix, I would like to join the community and learn more.";
+const WHATSAPP_MESSAGE = "Hello Dixab, I would like to join the community and learn more.";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -73,14 +73,14 @@ function Index() {
           <div className="inline-flex items-center gap-3">
             <span className="h-px w-12 bg-gold" />
             <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>
-              The Future of African Sales
+              Word of mouth rewarded
             </span>
           </div>
           <div className="inline-block rounded-md bg-white p-4 shadow-elegant ring-1 ring-gold/40">
-            <img src={logo} alt="Abbdix General Trading logo" className="h-24 w-24 object-contain" width={96} height={96} />
+            <img src={logo} alt="Dixab General Trading logo" className="h-24 w-24 object-contain" width={96} height={96} />
           </div>
           <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-emerald-deep sm:text-6xl lg:text-7xl">
-            Discover the world of <em className="italic font-light text-gold">sales</em> with Abbdix General Trading.
+            Discover the world of <em className="italic font-light text-gold">sales</em> with Dixab General Trading.
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
             A platform where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
@@ -89,7 +89,7 @@ function Index() {
 
           <div className="flex flex-wrap gap-4 pt-2">
             <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep">
-              <Link to="/register">
+              <Link to="/register" search={{ ref: "" }}>
                 <span className="relative z-10">Start Earning</span>
                 <span className="absolute inset-0 translate-y-full bg-gold transition-transform duration-300 group-hover:translate-y-0" />
                 <ArrowRight className="relative z-10 ml-2 h-4 w-4" />
@@ -169,7 +169,7 @@ function Index() {
           <div className="mt-8 overflow-hidden border border-white/20">
             <img
               src={dashboardImg}
-              alt="Member viewing their Abbdix earnings dashboard"
+              alt="Member viewing their Dixab earnings dashboard"
               loading="lazy"
               width={640}
               height={480}
@@ -191,7 +191,7 @@ function Index() {
         <div className="group relative aspect-[21/9] overflow-hidden shadow-elegant">
           <img
             src={productCollectionImg}
-            alt="Abbdix premium product collection including flash disk, earbuds, tote bag and mug"
+            alt="Dixab premium product collection including flash disk, earbuds, tote bag and mug"
             loading="lazy"
             width={1344}
             height={576}
@@ -202,7 +202,7 @@ function Index() {
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold">Ready to start?</p>
             <h3 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">Chat with us on WhatsApp</h3>
             <p className="mt-4 text-sm text-cream/85">
-              Tap the button to join Abbdix or ask questions directly. Our team is ready to guide you.
+              Tap the button to join Dixab or ask questions directly. Our team is ready to guide you.
             </p>
             <a
               href={WHATSAPP_URL}
@@ -226,7 +226,7 @@ function Index() {
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Active inventory</p>
             <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">The catalog that pays you back by 10%.</h2>
             <p className="mt-3 text-sm text-foreground/70">
-              Buy the Abbdix entry product to join — earn{" "}
+              Buy the Dixab entry product to join — earn{" "}
               <span className="font-semibold text-emerald-deep">10% per recommendation</span> across 5 community levels.
             </p>
           </div>
@@ -337,7 +337,7 @@ function Index() {
             <div className="relative overflow-hidden">
               <img
                 src={earningsImg}
-                alt="Mobile payment received on Abbdix platform"
+                alt="Mobile payment received on Dixab platform"
                 loading="lazy"
                 width={640}
                 height={640}
@@ -362,7 +362,7 @@ function Index() {
         </div>
         <div className="grid gap-px bg-border sm:grid-cols-3">
           {[
-            { n: "01", t: "Buy and Recommend Abbdix product", d: `Activate your account with ${UGX(ENTRY_FEE)} and receive your premium Abbdix product.` },
+            { n: "01", t: "Buy and Recommend Dixab product", d: `Activate your account with ${UGX(ENTRY_FEE)} and receive your premium Dixab product.` },
             { n: "02", t: "Share with three", d: "Each member recommends up to 3 directly — your community compounds quietly." },
             { n: "03", t: "Earn five levels deep", d: `${UGX(EARNING_PER_REFERRAL)} credited for every signup anywhere in your 5-level community.` },
           ].map((s) => (
@@ -436,9 +436,9 @@ function Index() {
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           {[
-            { name: "James O.", role: "Kampala", text: "I bought an Abbdix Flash at UGX 100,000 and grew my community to 98 members in 10 days. The dashboard makes every shilling visible." },
+            { name: "James O.", role: "Kampala", text: "I bought an Dixab Flash at UGX 100,000 and grew my community to 98 members in 10 days. The dashboard makes every shilling visible." },
             { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
-            { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Abbdix turned a side idea into a real income stream." },
+            { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Dixab turned a side idea into a real income stream." },
           ].map((t) => (
             <article key={t.name} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
               <div className="flex gap-1 text-gold">
@@ -473,7 +473,7 @@ function Index() {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
-                <Link to="/register">Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                <Link to="/register" search={{ ref: "" }}>Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-cream/10 hover:text-cream">
                 <Link to="/login">Member login</Link>
@@ -515,9 +515,9 @@ function Index() {
           <div>
             <div className="flex items-center gap-2 font-bold tracking-tight">
               <span className="grid h-10 w-10 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
-                <img src={logo} alt="Abbdix General Trading logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
+                <img src={logo} alt="Dixab General Trading logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
               </span>
-              <span className="font-serif text-2xl text-emerald-deep">Abbdix General Trading</span>
+              <span className="font-serif text-2xl text-emerald-deep">Dixab General Trading</span>
             </div>
             <p className="mt-3 text-xs text-foreground/65">Premium physical products and a trusted 5-level recommendation community based in Uganda.</p>
           </div>
@@ -525,14 +525,14 @@ function Index() {
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Quick links</h4>
             <ul className="mt-3 space-y-1.5 text-xs text-foreground/70">
               <li><Link to="/products" className="hover:text-emerald-deep">Profiled products</Link></li>
-              <li><Link to="/register" className="hover:text-emerald-deep">Register</Link></li>
+              <li><Link to="/register" search={{ ref: "" }} className="hover:text-emerald-deep">Register</Link></li>
               <li><Link to="/login" className="hover:text-emerald-deep">Member login</Link></li>
               <li><Link to="/" className="hover:text-emerald-deep">Home</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Contact</h4>
-            <p className="mt-3 text-xs text-foreground/70"><a href="mailto:support@abbdix.com" className="hover:text-emerald-deep">support@abbdix.com</a></p>
+            <p className="mt-3 text-xs text-foreground/70"><a href="mailto:support@dixab.com" className="hover:text-emerald-deep">support@dixab.com</a></p>
             <p className="text-xs text-foreground/70">Kampala, Uganda</p>
             <a
               href={WHATSAPP_URL}
@@ -544,7 +544,7 @@ function Index() {
             </a>
           </div>
         </div>
-        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Abbdix General Trading. All rights reserved.</p>
+        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Dixab General Trading. All rights reserved.</p>
       </footer>
 
       {/* FLOATING WHATSAPP */}

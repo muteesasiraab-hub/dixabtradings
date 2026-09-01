@@ -14,7 +14,7 @@ export const Route = createFileRoute("/portal")({
   component: PortalPage,
   head: () => ({
     meta: [
-      { title: "Client Portal · Abbdix" },
+      { title: "Client Portal · Dixab" },
       { name: "description", content: "Track your 5-level referral network and earnings breakdown." },
     ],
   }),
