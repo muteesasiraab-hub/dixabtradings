@@ -533,7 +533,7 @@ function Index() {
           <div>
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Contact</h4>
             <p className="mt-3 text-xs text-foreground/70"><a href="mailto:support@dixab.com" className="hover:text-emerald-deep">support@dixab.com</a></p>
-            <p className="text-xs text-foreground/70">Kampala, Uganda</p>
+            <p className="text-xs text-foreground/70">Hotel Equatorial Basement, Kampala, Uganda</p>
             <a
               href={WHATSAPP_URL}
               target="_blank"
