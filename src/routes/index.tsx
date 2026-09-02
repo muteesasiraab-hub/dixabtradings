@@ -11,6 +11,7 @@ import dashboardImg from "@/assets/member-dashboard.jpg?format=webp";
 import productCollectionImg from "@/assets/product-collection.jpg?format=webp";
 import dicksonAsset from "@/assets/dickson.jpg.asset.json";
 import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
+import promoVideo from "@/assets/dixab-promo.mp4.asset.json";
 import { Button } from "@/components/ui/button";
 import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
 import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
