@@ -11,7 +11,7 @@ import dashboardImg from "@/assets/member-dashboard.jpg?format=webp";
 import productCollectionImg from "@/assets/product-collection.jpg?format=webp";
 import dicksonAsset from "@/assets/dickson.jpg.asset.json";
 import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
-import promoVideo from "@/assets/dixab-promo.mp4.asset.json";
+
 import { Button } from "@/components/ui/button";
 import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
 import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
@@ -122,29 +122,6 @@ function Index() {
           <div className="pointer-events-none absolute -right-4 -top-4 hidden h-40 w-40 border border-gold sm:block" />
         </div>
       </section>
-
-      {/* PROMO VIDEO */}
-      <section className="py-4">
-        <div className="overflow-hidden rounded-lg border border-border/60 bg-emerald-deep/5">
-          <video
-            src={promoVideo.url}
-            controls
-            playsInline
-            muted
-            loop
-            autoPlay
-            preload="metadata"
-            className="h-auto w-full"
-          />
-          <div className="px-4 py-3 text-center">
-            <p className="font-serif text-xl text-emerald-deep">Word of mouth rewarded</p>
-            <p className="mt-1 text-[11px] font-semibold uppercase tracking-widest text-foreground/60">
-              Hotel Equatorial Basement, Kampala — Coming soon
-            </p>
-          </div>
-        </div>
-      </section>
-
 
       {/* TRUST STRIP */}
       <section className="grid grid-cols-2 gap-y-6 border-y border-border/60 py-8 text-center sm:grid-cols-4">
