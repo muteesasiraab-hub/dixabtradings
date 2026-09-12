@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { queryOptions, useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
-import { getMyDashboard, submitPaymentReference } from "@/lib/network.functions";
+import { createProfile, getMyDashboard, submitPaymentReference } from "@/lib/network.functions";
+import { ensureProfileFromSignup } from "@/lib/registration";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,15 +20,23 @@ function DashboardPage() {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const getDash = useServerFn(getMyDashboard);
+  const createProfileFn = useServerFn(createProfile);
   const submitRef = useServerFn(submitPaymentReference);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
+    supabase.auth.getSession().then(async ({ data }) => {
       if (!data.session) navigate({ to: "/login" });
-      else setReady(true);
+      else {
+        try {
+          await ensureProfileFromSignup(data.session.user, createProfileFn);
+          setReady(true);
+        } catch (error) {
+          toast.error(error instanceof Error ? error.message : "Registration could not be completed");
+        }
+      }
     });
-  }, [navigate]);
+  }, [navigate, createProfileFn]);
 
   const dashQuery = useQuery(
     queryOptions({

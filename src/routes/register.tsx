@@ -48,20 +48,25 @@ function RegisterPage() {
     }
     setLoading(true);
     try {
-      const { error: signErr } = await supabase.auth.signUp({
+      const { data: signUpData, error: signErr } = await supabase.auth.signUp({
         email: form.email,
         password: form.password,
-        options: { emailRedirectTo: `${window.location.origin}/dashboard` },
+        options: {
+          emailRedirectTo: `${window.location.origin}/dashboard`,
+          data: {
+            dixab_registration: {
+              fullName: form.fullName,
+              phone: form.phone,
+              referralCode: form.referralCode || "",
+            },
+          },
+        },
       });
       if (signErr) throw signErr;
-      // Ensure session
-      const { data: sess } = await supabase.auth.getSession();
-      if (!sess.session) {
-        const { error: signInErr } = await supabase.auth.signInWithPassword({
-          email: form.email,
-          password: form.password,
-        });
-        if (signInErr) throw signInErr;
+      if (!signUpData.session) {
+        toast.success("Check your email to confirm your account, then sign in.");
+        navigate({ to: "/login" });
+        return;
       }
       const res = await createProfileFn({
         data: {

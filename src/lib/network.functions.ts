@@ -34,7 +34,10 @@ export const createProfile = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { userId } = context;
+    const { userId, claims } = context;
+    if (data.email.toLowerCase() !== claims.email?.toLowerCase()) {
+      throw new Error("Profile email must match the signed-in account");
+    }
 
     // Already has profile?
     const { data: existing } = await supabaseAdmin
@@ -45,12 +48,29 @@ export const createProfile = createServerFn({ method: "POST" })
     if (existing) throw new Error("Profile already exists");
 
     // Count total profiles to know if this is the first (bootstrap admin)
-    const { count } = await supabaseAdmin
+    const { count, error: countError } = await supabaseAdmin
       .from("profiles")
       .select("*", { count: "exact", head: true });
+    if (countError || count === null) {
+      throw new Error("Could not check registration state");
+    }
 
     let sponsorId: string | null = null;
-    const isFirstUser = (count ?? 0) === 0;
+    const bootstrapEmail = process.env.DIXAB_BOOTSTRAP_ADMIN_EMAIL?.trim().toLowerCase();
+    const isFirstUser =
+      count === 0 &&
+      !!bootstrapEmail &&
+      claims.email?.toLowerCase() === bootstrapEmail;
+
+    if (count === 0 && !isFirstUser) {
+      throw new Error("Registration is not open until the founding account is configured");
+    }
+    if (isFirstUser) {
+      const { data: founder, error: founderError } = await supabaseAdmin.auth.admin.getUserById(userId);
+      if (founderError || !founder.user?.email_confirmed_at) {
+        throw new Error("Confirm the founding account email before registration");
+      }
+    }
 
     if (!isFirstUser) {
       const code = (data.referralCode ?? "").trim().toUpperCase();

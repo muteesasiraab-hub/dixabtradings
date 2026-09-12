@@ -7,13 +7,15 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { resolveEmailByIdentifier } from "@/lib/network.functions";
+import { createProfile, resolveEmailByIdentifier } from "@/lib/network.functions";
+import { ensureProfileFromSignup } from "@/lib/registration";
 
 export const Route = createFileRoute("/login")({ component: LoginPage });
 
 function LoginPage() {
   const navigate = useNavigate();
   const resolveEmail = useServerFn(resolveEmailByIdentifier);
+  const createProfileFn = useServerFn(createProfile);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ identifier: "", password: "" });
 
@@ -21,9 +23,12 @@ function LoginPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const { email } = await resolveEmail({ data: { identifier: form.identifier } });
-      const { error } = await supabase.auth.signInWithPassword({ email, password: form.password });
+      const email = form.identifier.includes("@")
+        ? form.identifier.trim().toLowerCase()
+        : (await resolveEmail({ data: { identifier: form.identifier } })).email;
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password: form.password });
       if (error) throw error;
+      if (data.user) await ensureProfileFromSignup(data.user, createProfileFn);
       navigate({ to: "/dashboard" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Sign in failed");
@@ -41,12 +46,11 @@ function LoginPage() {
         </p>
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
-            <Label>Identifier code</Label>
+            <Label>Identifier code or email</Label>
             <Input
               value={form.identifier}
-              onChange={(e) => setForm({ ...form, identifier: e.target.value.toUpperCase() })}
-              placeholder="AIXXXXXX"
-              className="uppercase font-mono"
+              onChange={(e) => setForm({ ...form, identifier: e.target.value })}
+              placeholder="AIXXXXXX or you@example.com"
               required
             />
           </div>

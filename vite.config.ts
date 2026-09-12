@@ -16,7 +16,10 @@ export default defineConfig({
   },
   vite: {
     plugins: [
-      mcpPlugin(),
+      // The MCP plugin compares Vite's slash-normalized root with native Windows
+      // paths and throws during config resolution. Its routes are committed, so
+      // skip regeneration on Windows; Linux/Cloudflare builds still run it.
+      ...(process.platform === "win32" ? [] : [mcpPlugin()]),
       imagetools({
         defaultDirectives: (url) => {
           const params = new URLSearchParams({ quality: "80" });
