@@ -1,12 +1,18 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
   "name": "dixabtradings",
-  "pages_build_output_dir": "../../.output/public",
   "compatibility_date": "2026-09-12",
   "compatibility_flags": ["nodejs_compat"],
+  "main": "../../.output/server/index.mjs",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "../../.output/public"
+  },
+  "routes": [{ "pattern": "dixabtradings.com", "custom_domain": true }],
   "vars": {
     "SUPABASE_PROJECT_ID": "nikcyaskiywylvoglxbf",
     "SUPABASE_URL": "https://nikcyaskiywylvoglxbf.supabase.co",
     "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_FtyqO3D0fza-Sx4SWlaBlQ_V3oFd0K_"
-  }
+  },
+  "observability": { "enabled": true }
 }

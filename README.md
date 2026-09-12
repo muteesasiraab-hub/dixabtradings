@@ -48,8 +48,8 @@ npm run dev
 The browser build uses the `VITE_SUPABASE_*` values in the tracked `.env` file.
 Those values identify Supabase project `nikcyaskiywylvoglxbf` and contain only
 its public `sb_publishable_` key. The server reads the same URL and publishable
-key from Cloudflare runtime variables in `wrangler.jsonc` (Workers) or
-`cloudflare/pages/wrangler.jsonc` (Pages). Never put a Supabase secret or legacy
+key from Cloudflare runtime variables in `cloudflare/workers/wrangler.jsonc`
+(Workers) or the root `wrangler.jsonc` (Pages). Never put a Supabase secret or legacy
 service-role key in `.env`, a `VITE_*` variable, or either Wrangler config.
 
 Member login, registration completion, dashboards, and payment functions also
@@ -72,20 +72,26 @@ The app supports either Cloudflare hosting product:
 
 | Target | Build and deploy | Local preview |
 | --- | --- | --- |
-| Workers (recommended) | `npm run deploy:worker` | `npm run build` then `npm run preview` |
+| Workers | `npm run deploy:worker` | `npm run build:worker` then `npm run preview` |
 | Pages with Functions advanced mode | `npm run deploy:pages` | `npm run build:pages` then `npm run preview:pages` |
 
 `npm run build:pages` bundles the TanStack/Nitro server into
 `.output/public/_worker.js`; uploading only the static files without this build
 would break server functions. Create a Pages project named `dixabtradings` before
-using `deploy:pages`. For Pages Git deployments, use build command
-`npm run build:pages`, output directory `.output/public`, compatibility date
-`2026-09-12`, and the `nodejs_compat` flag. Add the three public `SUPABASE_*`
-runtime variables from `cloudflare/pages/wrangler.jsonc` and the encrypted
-`SUPABASE_SECRET_KEY` in Pages settings. The Pages CLI script stages its config
-outside the Worker build directory so Wrangler selects the Pages config.
+using `deploy:pages`. The root `wrangler.jsonc` is a Pages config so Git builds
+pick it up before and after building. Cloudflare Pages injects `CF_PAGES=1`,
+so even an existing `npm run build` setting now selects the Pages build. Set the
+output directory to `.output/public` in the Pages dashboard (the root config
+also declares this path). The root config sets compatibility date `2026-09-12`,
+`nodejs_compat`, and the three public `SUPABASE_*` runtime variables. Add the
+encrypted `SUPABASE_SECRET_KEY` in Pages settings. The Pages CLI script stages
+the same config outside the Worker build directory. The Pages build ignores
+Lovable sandbox preset variables, uses the Pages config for browser Supabase
+values even if old `VITE_*` dashboard variables remain, and does not emit a
+Worker deploy redirect.
 
-Workers uses the custom domain `dixabtradings.com` from `wrangler.jsonc`.
+Workers uses the custom domain `dixabtradings.com` from
+`cloudflare/workers/wrangler.jsonc`.
 Cloudflare must manage that domain in the deploying account. If using Pages,
 attach `dixabtradings.com` to the Pages project instead; a domain can point to
 only one deployment target at a time. In Supabase Auth URL Configuration, set

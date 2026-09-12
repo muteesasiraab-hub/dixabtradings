@@ -20,7 +20,7 @@ if (!existsSync(workerFile)) {
 // cannot be mistaken for Pages configuration.
 const tempRoot = resolve(tmpdir());
 const stageDir = await mkdtemp(join(tempRoot, "dixab-pages-"));
-const config = JSON.parse(await readFile(resolve("cloudflare/pages/wrangler.jsonc"), "utf8"));
+const config = JSON.parse(await readFile(resolve("wrangler.jsonc"), "utf8"));
 config.pages_build_output_dir = outputDir;
 delete config.$schema;
 await writeFile(join(stageDir, "wrangler.jsonc"), JSON.stringify(config, null, 2));

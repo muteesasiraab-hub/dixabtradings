@@ -8,9 +8,13 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
 import { imagetools } from "vite-imagetools";
 
-// Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-// @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
+// Point TanStack Start's Nitro server build at our SSR error wrapper.
 export default defineConfig({
+  // Pages Git builds must not emit Nitro's Worker deploy redirect. Cloudflare
+  // otherwise follows it and rejects Worker-only `main` and `routes` fields.
+  ...(process.env.DIXAB_PAGES_BUILD === "1"
+    ? { nitro: { preset: "cloudflare-module", cloudflare: { deployConfig: false } } }
+    : {}),
   tanstackStart: {
     server: { entry: "server" },
   },
