@@ -9,8 +9,8 @@ import communityImg from "@/assets/community-entrepreneurs.jpg?format=webp";
 import earningsImg from "@/assets/earnings-mobile.jpg?format=webp";
 import dashboardImg from "@/assets/member-dashboard.jpg?format=webp";
 import productCollectionImg from "@/assets/product-collection.jpg?format=webp";
-import dicksonAsset from "@/assets/dickson.jpg.asset.json";
-import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
+import dicksonImg from "@/assets/dickson.jpg?format=webp";
+import muteesasiraImg from "@/assets/muteesasira.jpg?format=webp";
 
 import { Button } from "@/components/ui/button";
 import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
@@ -19,13 +19,11 @@ import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 const WHATSAPP_NUMBER = "256704616064";
 const WHATSAPP_MESSAGE = "Hello Dixab, I would like to join the community and learn more.";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
-const dicksonImg = dicksonAsset.url;
-const muteesasiraImg = muteesasiraAsset.url;
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-1.96-.173-.198-.09-.303.13-.508.226-.227.999-.988 1.129-1.187.13-.199.065-.383-.033-.536-.099-.152-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378c-.355.228-.69.495-.984.779L8.1 3.91a9.873 9.873 0 0110.759 3.513l.009-.009c.76.823 1.388 1.772 1.854 2.811.52 1.156.926 2.365 1.201 3.584 1.109-.898 1.829-2.213 1.829-3.707C24 5.928 19.496 1.117 13.925 1.117c-.468 0-.929.034-1.385.102zm3.02 10.191h-.016a9.87 9.87 0 01-5.031-1.378l-.355.228.69.495.984.779L15.9 20.09a9.873 9.873 0 01-10.759-3.513l-.009.009c-.76-.823-1.388-1.772-1.854-2.811-.52-1.156-.926-2.365-1.201-3.584-1.109.898-1.829 2.213-1.829 3.707 0 5.272 4.504 10.083 10.075 10.083c.468 0 .929-.034 1.385-.102z" />
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-1.859-.173-.098-.298-.07-.404.128-.106.198-.405.683-.497.82-.09.135-.183.15-.38.05-.197-.1-.833-.308-1.585-.978-.587-.523-.98-1.17-1.095-1.368-.115-.198-.012-.304.086-.403.088-.088.197-.23.296-.345.099-.113.132-.198.198-.33.066-.132.033-.248-.016-.347s-.65-1.563-.89-2.139c-.23-.576-.461-.499-.65-.51-.168-.008-.36-.01-.552-.01-.192 0-.505.072-.77.359-.266.287-1.014.99-1.014 2.413s1.007 2.798 1.147 2.992c.14.194 1.98 3.029 4.8 4.245 1.686.74 2.96.83 4.02.696 1.299-.155 2.002-1.288 2.29-1.287.288 0 1.272.83 1.45 1.56.178.73.043 1.436-.183 1.793z"/>
     </svg>
   );
 }
@@ -478,7 +476,7 @@ function Index() {
               <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
                 <Link to="/register" search={{ ref: "" }}>Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-white/5">
+              <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-white/10">
                 <Link to="/login">Member login</Link>
               </Button>
               <a
