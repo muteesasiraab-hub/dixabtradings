@@ -9,11 +9,8 @@ import communityImg from "@/assets/community-entrepreneurs.jpg?format=webp";
 import earningsImg from "@/assets/earnings-mobile.jpg?format=webp";
 import dashboardImg from "@/assets/member-dashboard.jpg?format=webp";
 import productCollectionImg from "@/assets/product-collection.jpg?format=webp";
-import dicksonAsset from "@/assets/dickson.jpg.asset.json";
-import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
-
-const dicksonImg = dicksonAsset.url;
-const muteesasiraImg = muteesasiraAsset.url;
+import dicksonImg from "@/assets/dickson.jpg?format=webp";
+import muteesasiraImg from "@/assets/muteesasira.jpg?format=webp";
 
 import { Button } from "@/components/ui/button";
 import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
@@ -26,7 +23,7 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-1.959-.173-.198-.092-.304.13-.403.12-.057.282-.146.423-.232.141-.086.188-.145.282-.241.094-.096.047-.178-.023-.254-.07-.077-.628-.513-1.265-1.66-.34-.376-.676-.41-.97-.419-.298-.009-.64-.012-.983-.012-.342 0-.9.102-1.372.661-.472.559-.798 1.299-.926 2.058-.128.759.079 1.54.547 2.189.468.648 1.119 1.077 1.734 1.422.615.345 1.228.428 1.843.393.614-.035 1.228-.24 1.842-.613l.368-.21.368-.21c.245-.14.49-.28.735-.42.245-.14.49-.28.735-.42l.36-.206c.244-.14.488-.28.732-.42l.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206.36-.206" />
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-1.96-.173-.198-.09-.303.13-.508.226-.227.999-.988 1.129-1.187.13-.199.065-.383-.033-.536-.099-.152-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378c-.355.228-.69.495-.984.779L8.1 3.91a9.873 9.873 0 0110.759 3.513l.009-.009c.76.823 1.388 1.772 1.854 2.811.52 1.156.926 2.365 1.201 3.584 1.109-.898 1.829-2.213 1.829-3.707C24 5.928 19.496 1.117 13.925 1.117c-.468 0-.929.034-1.385.102zm3.02 10.191h-.016a9.87 9.87 0 01-5.031-1.378l-.355.228.69.495.984.779L15.9 20.09a9.873 9.873 0 01-10.759-3.513l-.009.009c-.76-.823-1.388-1.772-1.854-2.811-.52-1.156-.926-2.365-1.201-3.584-1.109.898-1.829 2.213-1.829 3.707 0 5.272 4.504 10.083 10.075 10.083c.468 0 .929-.034 1.385-.102z" />
     </svg>
   );
 }
@@ -99,7 +96,7 @@ function Index() {
                 <ArrowRight className="relative z-10 ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-emerald-deep bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-emerald-deep hover:text-cream">
+            <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-emerald-deep bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-emerald-deep/5">
               <Link to="/login">Member Login</Link>
             </Button>
           </div>
@@ -479,14 +476,14 @@ function Index() {
               <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
                 <Link to="/register" search={{ ref: "" }}>Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-cream/10">
+              <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-white/5">
                 <Link to="/login">Member login</Link>
               </Button>
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-auto items-center gap-2 rounded-none border-2 border-[#25D366] px-8 py-5 text-sm font-semibold uppercase tracking-widest text-[#25D366] transition-colors hover:bg-[#25D366]/10"
+                className="inline-flex h-auto items-center gap-2 rounded-none border-2 border-[#25D366] px-8 py-5 text-sm font-semibold uppercase tracking-widest text-[#25D366] transition-colors hover:bg-[#25D366] hover:text-white"
               >
                 <WhatsAppIcon className="h-4 w-4" /> WhatsApp us
               </a>
