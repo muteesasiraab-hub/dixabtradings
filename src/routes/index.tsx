@@ -9,8 +9,8 @@ import communityImg from "@/assets/community-entrepreneurs.jpg?format=webp";
 import earningsImg from "@/assets/earnings-mobile.jpg?format=webp";
 import dashboardImg from "@/assets/member-dashboard.jpg?format=webp";
 import productCollectionImg from "@/assets/product-collection.jpg?format=webp";
-import dicksonImg from "@/assets/dickson.jpg";
-import muteesasiraImg from "@/assets/muteesasira.jpg";
+import dicksonAsset from "@/assets/dickson.jpg.asset.json";
+import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
 
 import { Button } from "@/components/ui/button";
 import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
@@ -19,6 +19,8 @@ import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 const WHATSAPP_NUMBER = "256704616064";
 const WHATSAPP_MESSAGE = "Hello Dixab, I would like to join the community and learn more.";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const dicksonImg = dicksonAsset.url;
+const muteesasiraImg = muteesasiraAsset.url;
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
