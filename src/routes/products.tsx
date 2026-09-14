@@ -124,16 +124,16 @@ function ProductsPage() {
           <div>
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-gold">Get started today</p>
             <h3 className="font-serif text-4xl leading-tight sm:text-5xl">
-              Choose your product and <em className="italic text-gold">start earning</em>
+              Join Dixab and <em className="italic text-gold">start earning</em>
             </h3>
             <p className="mt-5 leading-relaxed text-cream/75">
-              Select any product above to register. Your unique referral code will be generated instantly. Share it and earn 10% for every person who joins using your code.
+              Register now to secure your place in the community. Your unique referral code will be generated instantly so you can begin earning 10% for every person who joins using your code.
             </p>
           </div>
           
           <div className="flex flex-wrap gap-4 justify-center">
             <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
-              <Link to="/register" search={{ ref: "" }}>Browse & Register <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link to="/register" search={{ ref: "" }}>Register Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-cream/10">
               <Link to="/login">Already a member?</Link>
