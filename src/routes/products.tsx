@@ -30,15 +30,15 @@ function ProductsPage() {
         <div className="mb-6 inline-flex items-center gap-3">
           <span className="h-px w-12 bg-gold" />
           <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>
-            Active Inventory
+            Coming Soon
           </span>
           <span className="h-px w-12 bg-gold" />
         </div>
         <h1 className="font-serif text-5xl text-emerald-deep sm:text-6xl mb-4">
-          Our Profiled Products
+          Profiled Products
         </h1>
         <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-          Curated premium products available for direct sale. Buy any product to join the Dixab community and start earning 10% per recommendation across 5 levels.
+          Our direct-sale product catalogue is being prepared. Once live, every product you buy will unlock your Dixab community membership and 10% recommendation earnings across 5 levels.
         </p>
       </section>
 
