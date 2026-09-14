@@ -9,8 +9,11 @@ import communityImg from "@/assets/community-entrepreneurs.jpg?format=webp";
 import earningsImg from "@/assets/earnings-mobile.jpg?format=webp";
 import dashboardImg from "@/assets/member-dashboard.jpg?format=webp";
 import productCollectionImg from "@/assets/product-collection.jpg?format=webp";
-import dicksonImg from "@/assets/dickson.jpg?format=webp";
-import muteesasiraImg from "@/assets/muteesasira.jpg?format=webp";
+import dicksonAsset from "@/assets/dickson.jpg.asset.json";
+import muteesasiraAsset from "@/assets/muteesasira.jpg.asset.json";
+
+const dicksonImg = dicksonAsset.url;
+const muteesasiraImg = muteesasiraAsset.url;
 
 import { Button } from "@/components/ui/button";
 import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
