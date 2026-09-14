@@ -1,10 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Store, Star } from "lucide-react";
-import productFlash from "@/assets/product-flashdisk.jpg?format=webp";
-import productEarbuds from "@/assets/product-earbuds.jpg?format=webp";
-import productBag from "@/assets/product-bag.jpg?format=webp";
-import productMug from "@/assets/product-mug.jpg?format=webp";
+import { ArrowRight, Store } from "lucide-react";
 import { UGX, USD } from "@/lib/format";
 
 export const Route = createFileRoute("/products")({
@@ -17,40 +13,14 @@ export const Route = createFileRoute("/products")({
   }),
 });
 
-const products = [
-  { 
-    img: productFlash, 
-    name: "Premium Flash Disk", 
-    category: "Electronics", 
-    price: 100000, 
-    description: "High-capacity storage device for professionals",
-    featured: true 
-  },
-  { 
-    img: productEarbuds, 
-    name: "Wireless Earbuds", 
-    category: "Audio", 
-    price: 150000,
-    description: "Crystal clear sound with noise cancellation",
-    featured: true 
-  },
-  { 
-    img: productBag, 
-    name: "Premium Tote Bag", 
-    category: "Accessories", 
-    price: 80000,
-    description: "Durable and stylish carry solution",
-    featured: true 
-  },
-  { 
-    img: productMug, 
-    name: "Branded Coffee Mug", 
-    category: "Lifestyle", 
-    price: 45000,
-    description: "Perfect for daily use or gifting",
-    featured: true 
-  },
-];
+const products: Array<{
+  img: string;
+  name: string;
+  category: string;
+  price: number;
+  description: string;
+  featured: boolean;
+}> = [];
 
 function ProductsPage() {
   return (
