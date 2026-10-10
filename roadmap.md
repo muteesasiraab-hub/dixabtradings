@@ -5,3 +5,4 @@
 - [x] Explain external hosting and Lovable Cloud disconnection limitations
 - [ ] Provide source and database setup export for self-managed migration
 - [ ] Export live data through Cloud → Advanced settings → Export data (requires user action)
+- [ ] Confirm GitHub code sync is live (needs repo URL from user to verify)
