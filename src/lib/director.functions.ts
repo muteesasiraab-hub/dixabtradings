@@ -67,10 +67,10 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
   }
   if (!director) return { authed: false as const };
 
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   let loaded;
   try {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  loaded = await Promise.all([{ data: profiles }, { data: payments }, { data: earnings }] = await Promise.all([
+  loaded = await Promise.all([
     supabaseAdmin.from("profiles").select("id, full_name, phone, email, referral_code, status, sponsor_id, created_at").order("created_at", { ascending: false }),
     supabaseAdmin.from("payments").select("user_id, amount, status"),
     supabaseAdmin.from("earnings").select("user_id, amount"),
