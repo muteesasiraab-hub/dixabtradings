@@ -92,6 +92,7 @@ function Overview({ data }: { data: OverviewData }) {
         <div>
           <h1 className="text-2xl font-bold">Directors' Overview</h1>
           <p className="text-sm capitalize text-muted-foreground">Signed in as {data.director}</p>
+          {"error" in data && data.error ? <p className="text-sm text-destructive">{data.error}</p> : null}
         </div>
         <Button variant="outline" onClick={async () => { await logout(); await router.invalidate(); }}>Sign out</Button>
       </div>

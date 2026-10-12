@@ -56,16 +56,30 @@ export const directorLogout = createServerFn({ method: "POST" }).handler(async (
 });
 
 export const getDirectorOverview = createServerFn({ method: "GET" }).handler(async () => {
-  const session = await useSession<DirSession>(sessionConfig());
-  const director = session.data.director;
+  if (!process.env["DIRECTOR_SESSION_SECRET"]) return { authed: false as const };
+  let director: string | undefined;
+  try {
+    const session = await useSession<DirSession>(sessionConfig());
+    director = session.data.director;
+  } catch (e) {
+    console.error("director session", e);
+    return { authed: false as const };
+  }
   if (!director) return { authed: false as const };
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const [{ data: profiles }, { data: payments }, { data: earnings }] = await Promise.all([
+  let loaded;
+  try {
+  loaded = await Promise.all([
     supabaseAdmin.from("profiles").select("id, full_name, phone, email, referral_code, status, sponsor_id, created_at").order("created_at", { ascending: false }),
     supabaseAdmin.from("payments").select("user_id, amount, status"),
     supabaseAdmin.from("earnings").select("user_id, amount"),
   ]);
+  } catch (e) {
+    console.error("director overview", e);
+    return { authed: true as const, director, error: "Members list is unavailable right now.", stats: { total: 0, active: 0, pending: 0, revenue: 0, paidOut: 0 }, members: [] as { id: string; full_name: string; phone: string | null; email: string | null; referral_code: string; status: string; sponsor_id: string | null; created_at: string; sponsor_name: string; earnings: number; directs: number }[] };
+  }
+  const [{ data: profiles }, { data: payments }, { data: earnings }] = loaded;
 
   const nameById = new Map((profiles ?? []).map((p) => [p.id, p.full_name]));
   const earnBy = new Map<string, number>();
