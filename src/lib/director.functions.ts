@@ -56,8 +56,15 @@ export const directorLogout = createServerFn({ method: "POST" }).handler(async (
 });
 
 export const getDirectorOverview = createServerFn({ method: "GET" }).handler(async () => {
-  const session = await useSession<DirSession>(sessionConfig());
-  const director = session.data.director;
+  if (!process.env["DIRECTOR_SESSION_SECRET"]) return { authed: false as const };
+  let director: string | undefined;
+  try {
+    const session = await useSession<DirSession>(sessionConfig());
+    director = session.data.director;
+  } catch (e) {
+    console.error("director session", e);
+    return { authed: false as const };
+  }
   if (!director) return { authed: false as const };
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
