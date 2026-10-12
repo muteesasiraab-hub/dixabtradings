@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
 import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 
-const WHATSAPP_NUMBER = "256704616064";
+const WHATSAPP_NUMBER = "256731981504";
 const WHATSAPP_MESSAGE = "Hello Dixab, I would like to join the community and learn more.";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
@@ -78,10 +78,10 @@ function Index() {
             </span>
           </div>
           <div className="inline-block rounded-md bg-white p-4 shadow-elegant ring-1 ring-gold/40">
-            <img src={logo} alt="Dixab General Trading logo" className="h-24 w-24 object-contain" width={96} height={96} />
+            <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-24 w-24 object-contain" width={96} height={96} />
           </div>
           <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-emerald-deep sm:text-6xl lg:text-7xl">
-            Discover the world of <em className="italic font-light text-gold">sales</em> with Dixab General Trading.
+            Discover the world of <em className="italic font-light text-gold">sales</em> with Dixab General Tradings Co. Ltd.
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
             A platform where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
@@ -212,7 +212,7 @@ function Index() {
               className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-105"
             >
               <WhatsAppIcon className="h-5 w-5" />
-              Message 0704 616 064
+              Message 0731 981 504
             </a>
           </div>
         </div>
@@ -400,10 +400,10 @@ function Index() {
             {
               img: muteesasiraImg,
               name: "Muteesasira Abbey",
-              role: "Director · Executive Director, Nature Perk (U) Ltd",
+              role: "Director · Executive Director, Bamuteesasiraa General Trading Co. Ltd",
               bio: [
                 "Professional Interior Designer, skilled Barista, and Coffee Quality Consultant.",
-                "Executive Director of Nature Perk (U) Ltd, providing strategic leadership and driving sustainable business growth.",
+                "Executive Director of Bamuteesasiraa General Trading Co. Ltd, providing strategic leadership and driving sustainable business growth.",
                 "Guided by professionalism, creativity, and a commitment to quality.",
               ],
             },
@@ -516,9 +516,9 @@ function Index() {
           <div>
             <div className="flex items-center gap-2 font-bold tracking-tight">
               <span className="grid h-10 w-10 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
-                <img src={logo} alt="Dixab General Trading logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
+                <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
               </span>
-              <span className="font-serif text-2xl text-emerald-deep">Dixab General Trading</span>
+              <span className="font-serif text-2xl text-emerald-deep">Dixab General Tradings Co. Ltd</span>
             </div>
             <p className="mt-3 text-xs text-foreground/65">Premium physical products and a trusted 5-level recommendation community based in Uganda.</p>
           </div>
@@ -535,17 +535,18 @@ function Index() {
             <h4 className="text-[11px] font-bold uppercase tracking-widest text-gold">Contact</h4>
             <p className="mt-3 text-xs text-foreground/70"><a href="mailto:support@dixab.com" className="hover:text-emerald-deep">support@dixab.com</a></p>
             <p className="text-xs text-foreground/70">Hotel Equatorial Basement, Kampala, Uganda</p>
+            <p className="mt-2 text-xs"><a href="/directors" className="text-foreground/70 underline hover:text-emerald-deep">Directors' portal</a></p>
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[#25D366] hover:text-[#128C7E]"
             >
-              <WhatsAppIcon className="h-4 w-4" /> WhatsApp: 0704 616 064
+              <WhatsAppIcon className="h-4 w-4" /> WhatsApp: 0731 981 504
             </a>
           </div>
         </div>
-        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Dixab General Trading. All rights reserved.</p>
+        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Dixab General Tradings Co. Ltd. All rights reserved.</p>
       </footer>
 
       {/* FLOATING WHATSAPP */}

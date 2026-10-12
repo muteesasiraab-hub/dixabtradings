@@ -39,7 +39,7 @@ export default defineTool({
   name: "list_products",
   title: "List products",
   description:
-    "List the products currently profiled on the Dixab General Trading platform, including UGX and USD price equivalents.",
+    "List the products currently profiled on the Dixab General Tradings Co. Ltd platform, including UGX and USD price equivalents.",
   inputSchema: {
     status: z
       .enum(["available", "coming_soon", "all"])

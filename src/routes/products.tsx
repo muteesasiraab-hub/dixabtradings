@@ -7,7 +7,7 @@ export const Route = createFileRoute("/products")({
   component: ProductsPage,
   head: () => ({
     meta: [
-      { title: "Browse Catalogue — Dixab General Trading" },
+      { title: "Browse Catalogue — Dixab General Tradings Co. Ltd" },
       { name: "description", content: "Explore our premium product catalogue with direct-sale offerings and earn through recommendations." },
     ],
   }),
