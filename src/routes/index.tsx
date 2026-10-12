@@ -78,10 +78,10 @@ function Index() {
             </span>
           </div>
           <div className="inline-block rounded-md bg-white p-4 shadow-elegant ring-1 ring-gold/40">
-            <img src={logo} alt="Dixab General Trading logo" className="h-24 w-24 object-contain" width={96} height={96} />
+            <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-24 w-24 object-contain" width={96} height={96} />
           </div>
           <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-emerald-deep sm:text-6xl lg:text-7xl">
-            Discover the world of <em className="italic font-light text-gold">sales</em> with Dixab General Trading.
+            Discover the world of <em className="italic font-light text-gold">sales</em> with Dixab General Tradings Co. Ltd.
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
             A platform where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
@@ -400,10 +400,10 @@ function Index() {
             {
               img: muteesasiraImg,
               name: "Muteesasira Abbey",
-              role: "Director · Executive Director, Nature Perk (U) Ltd",
+              role: "Director · Executive Director, Bamuteesasiraa General Trading Co. Ltd",
               bio: [
                 "Professional Interior Designer, skilled Barista, and Coffee Quality Consultant.",
-                "Executive Director of Nature Perk (U) Ltd, providing strategic leadership and driving sustainable business growth.",
+                "Executive Director of Bamuteesasiraa General Trading Co. Ltd, providing strategic leadership and driving sustainable business growth.",
                 "Guided by professionalism, creativity, and a commitment to quality.",
               ],
             },
@@ -516,9 +516,9 @@ function Index() {
           <div>
             <div className="flex items-center gap-2 font-bold tracking-tight">
               <span className="grid h-10 w-10 place-items-center rounded-md bg-white p-1 ring-1 ring-border">
-                <img src={logo} alt="Dixab General Trading logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
+                <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-full w-full object-contain" width={40} height={40} loading="lazy" />
               </span>
-              <span className="font-serif text-2xl text-emerald-deep">Dixab General Trading</span>
+              <span className="font-serif text-2xl text-emerald-deep">Dixab General Tradings Co. Ltd</span>
             </div>
             <p className="mt-3 text-xs text-foreground/65">Premium physical products and a trusted 5-level recommendation community based in Uganda.</p>
           </div>
@@ -545,7 +545,7 @@ function Index() {
             </a>
           </div>
         </div>
-        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Dixab General Trading. All rights reserved.</p>
+        <p className="mt-10 text-center text-[11px] text-foreground/55">© {new Date().getFullYear()} Dixab General Tradings Co. Ltd. All rights reserved.</p>
       </footer>
 
       {/* FLOATING WHATSAPP */}

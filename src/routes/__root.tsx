@@ -15,7 +15,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
 
-const WHATSAPP_URL = "https://wa.me/qr/LWTTUNELU7QVL1";
+const WHATSAPP_URL = "https://wa.me/256731981504";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -67,10 +67,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Dixab General Trading — Word of Mouth Rewarded" },
-      { name: "description", content: "Dixab General Trading: a platform where opportunities meet innovation. Physical products from 100,000 UGX and a 5-level recommendation earning model." },
+      { title: "Dixab General Tradings Co. Ltd — Word of Mouth Rewarded" },
+      { name: "description", content: "Dixab General Tradings Co. Ltd: a platform where opportunities meet innovation. Physical products from 100,000 UGX and a 5-level recommendation earning model." },
       { name: "theme-color", content: "#059669" },
-      { property: "og:title", content: "Dixab General Trading" },
+      { property: "og:title", content: "Dixab General Tradings Co. Ltd" },
       { property: "og:description", content: "Word of mouth rewarded — premium physical products and 5 levels of recommendation earnings." },
 
       { property: "og:type", content: "website" },
@@ -110,9 +110,9 @@ function Header() {
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
           <span className="grid h-11 w-11 place-items-center rounded-md bg-white p-1 shadow-sm ring-1 ring-gold/40">
-            <img src={logo} alt="Dixab General Trading logo" className="h-full w-full object-contain" width={44} height={44} />
+            <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-full w-full object-contain" width={44} height={44} />
           </span>
-          <span className="font-serif text-emerald-deep">Dixab General Trading</span>
+          <span className="font-serif text-emerald-deep">Dixab General Tradings Co. Ltd</span>
         </Link>
 
           <nav className="flex items-center gap-1 text-sm">
