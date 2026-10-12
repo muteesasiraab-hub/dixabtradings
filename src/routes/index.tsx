@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
 import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 
-const WHATSAPP_NUMBER = "256704616064";
+const WHATSAPP_NUMBER = "256731981504";
 const WHATSAPP_MESSAGE = "Hello Dixab, I would like to join the community and learn more.";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
@@ -212,7 +212,7 @@ function Index() {
               className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-105"
             >
               <WhatsAppIcon className="h-5 w-5" />
-              Message 0704 616 064
+              Message 0731 981 504
             </a>
           </div>
         </div>
@@ -541,7 +541,7 @@ function Index() {
               rel="noopener noreferrer"
               className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[#25D366] hover:text-[#128C7E]"
             >
-              <WhatsAppIcon className="h-4 w-4" /> WhatsApp: 0704 616 064
+              <WhatsAppIcon className="h-4 w-4" /> WhatsApp: 0731 981 504
             </a>
           </div>
         </div>
