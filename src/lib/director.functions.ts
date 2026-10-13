@@ -105,7 +105,7 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
         id: u.id,
         full_name: reg.fullName,
         phone: typeof reg.phone === "string" ? reg.phone : null,
-        email: u.email ?? null,
+        email: u.email ?? "",
         referral_code: "—",
         status: u.email_confirmed_at ? "awaiting sign-in" : "awaiting email confirmation",
         sponsor_id: null,
