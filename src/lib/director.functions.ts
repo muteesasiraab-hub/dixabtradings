@@ -94,6 +94,32 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
     directs: directs.get(p.id) ?? 0,
   }));
 
+  // Sign-ups that haven't confirmed their email yet have no profile row; show them too.
+  try {
+    const known = new Set(members.map((m) => m.id));
+    const { data: authList } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 });
+    for (const u of authList?.users ?? []) {
+      const reg = u.user_metadata?.dixab_registration;
+      if (known.has(u.id) || !reg || typeof reg.fullName !== "string") continue;
+      members.push({
+        id: u.id,
+        full_name: reg.fullName,
+        phone: typeof reg.phone === "string" ? reg.phone : null,
+        email: u.email ?? "",
+        referral_code: "—",
+        status: u.email_confirmed_at ? "awaiting sign-in" : "awaiting email confirmation",
+        sponsor_id: null,
+        created_at: u.created_at,
+        sponsor_name: typeof reg.referralCode === "string" && reg.referralCode ? `code ${reg.referralCode}` : "—",
+        earnings: 0,
+        directs: 0,
+      });
+    }
+    members.sort((a, b) => b.created_at.localeCompare(a.created_at));
+  } catch (e) {
+    console.error("director pending signups", e);
+  }
+
   const approved = (payments ?? []).filter((p) => p.status === "approved");
   return {
     authed: true as const,
