@@ -155,13 +155,16 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
     for (const u of authList?.users ?? []) {
       const reg = u.user_metadata?.dixab_registration;
       if (known.has(u.id) || !reg || typeof reg.fullName !== "string") continue;
+      if (!u.email_confirmed_at) {
+        await supabaseAdmin.auth.admin.updateUserById(u.id, { email_confirm: true }).catch(() => null);
+      }
       members.push({
         id: u.id,
         full_name: reg.fullName,
         phone: typeof reg.phone === "string" ? reg.phone : null,
         email: u.email ?? "",
         referral_code: "—",
-        status: u.email_confirmed_at ? "awaiting sign-in" : "awaiting email confirmation",
+        status: "awaiting first sign-in",
         sponsor_id: null,
         created_at: u.created_at,
         sponsor_name: typeof reg.referralCode === "string" && reg.referralCode ? `code ${reg.referralCode}` : "—",

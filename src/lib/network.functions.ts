@@ -282,3 +282,61 @@ export const submitPaymentReference = createServerFn({ method: "POST" })
       .eq("id", payment.id);
     return { ok: true };
   });
+
+// Create a member account that is confirmed immediately (no email confirmation step).
+export const registerMemberAccount = createServerFn({ method: "POST" })
+  .inputValidator((input) =>
+    z
+      .object({
+        fullName: z.string().trim().min(2).max(100),
+        phone: z.string().trim().min(7).max(20),
+        email: z.string().trim().email().max(255),
+        password: z.string().min(6).max(72),
+        referralCode: z.string().trim().max(20).optional(),
+      })
+      .parse(input),
+  )
+  .handler(async ({ data }) => {
+    const code = (data.referralCode ?? "").trim().toUpperCase();
+    if (code) {
+      const { data: sponsor } = await supabaseAdmin
+        .from("profiles").select("id").eq("referral_code", code).maybeSingle();
+      if (!sponsor) throw new Error("Invalid referral code");
+      const { count } = await supabaseAdmin
+        .from("profiles").select("*", { count: "exact", head: true }).eq("sponsor_id", sponsor.id);
+      if ((count ?? 0) >= 3) throw new Error("This referral code has reached its 3-person limit");
+    }
+    const { error } = await supabaseAdmin.auth.admin.createUser({
+      email: data.email,
+      password: data.password,
+      email_confirm: true,
+      user_metadata: {
+        dixab_registration: { fullName: data.fullName, phone: data.phone, referralCode: code },
+      },
+    });
+    if (error) {
+      if (/already/i.test(error.message)) throw new Error("This email is already registered — please log in");
+      throw new Error(error.message);
+    }
+    return { ok: true };
+  });
+
+// Confirm an older Dixab sign-up that is stuck as "unconfirmed" so the member can sign in.
+export const confirmPendingSignup = createServerFn({ method: "POST" })
+  .inputValidator((input) => z.object({ email: z.string().trim().email().max(255) }).parse(input))
+  .handler(async ({ data }) => {
+    const email = data.email.toLowerCase();
+    for (let page = 1; page <= 10; page++) {
+      const { data: list } = await supabaseAdmin.auth.admin.listUsers({ page, perPage: 1000 });
+      const users = list?.users ?? [];
+      const u = users.find((x) => x.email?.toLowerCase() === email);
+      if (u) {
+        if (!u.email_confirmed_at && u.user_metadata?.dixab_registration) {
+          await supabaseAdmin.auth.admin.updateUserById(u.id, { email_confirm: true });
+        }
+        return { ok: true };
+      }
+      if (users.length < 1000) break;
+    }
+    return { ok: true };
+  });
