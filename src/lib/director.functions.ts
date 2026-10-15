@@ -1,15 +1,18 @@
 import { createServerFn } from "@tanstack/react-start";
-import { useSession } from "@tanstack/react-start/server";
+import { getRequestUrl, setResponseHeader, useSession } from "@tanstack/react-start/server";
 import { z } from "zod";
 
 const DIRECTORS = ["dickson niwagaba", "muteesasira abbey"];
 
 function sessionConfig() {
+  const password = process.env["DIRECTOR_SESSION_SECRET"];
+  if (!password || password.length < 32) throw new Error("Director access needs a secure session setting before sign-in can work.");
+  setResponseHeader("Cache-Control", "no-store");
   return {
-    password: process.env["DIRECTOR_SESSION_SECRET"]!,
+    password,
     name: "dixab-director",
     maxAge: 60 * 60 * 8,
-    cookie: { httpOnly: true, secure: true, sameSite: "lax" as const, path: "/" },
+    cookie: { httpOnly: true, secure: getRequestUrl().protocol === "https:", sameSite: "lax" as const, path: "/" },
   };
 }
 
@@ -59,7 +62,7 @@ async function requireDirector() {
   if (!process.env["DIRECTOR_SESSION_SECRET"]) throw new Error("Director access is not configured");
   const session = await useSession<DirSession>(sessionConfig());
   const d = session.data.director;
-  if (!d) throw new Error("Please sign in again");
+  if (!d || !DIRECTORS.includes(d)) throw new Error("Please sign in again");
   return d;
 }
 
@@ -68,23 +71,9 @@ export const directorApprovePayment = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     await requireDirector();
     const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
-    const { data: pay } = await db.from("payments").select("id, user_id, status").eq("id", data.paymentId).maybeSingle();
-    if (!pay) throw new Error("Payment not found");
-    if (pay.status === "approved") throw new Error("Already approved");
-    const { data: upd, error } = await db.from("payments")
-      .update({ status: "approved", approved_at: new Date().toISOString() })
-      .eq("id", pay.id).neq("status", "approved").select("id");
-    if (error) throw new Error("Could not approve payment");
-    if (!upd?.length) throw new Error("Already approved");
-    const { data: prof } = await db.from("profiles").select("id, status, sponsor_id").eq("id", pay.user_id).maybeSingle();
-    if (prof && prof.status !== "active") await db.from("profiles").update({ status: "active", activated_at: new Date().toISOString() }).eq("id", prof.id);
-    let ancestor = prof?.sponsor_id ?? null;
-    for (let level = 1; ancestor && level <= 5; level++) {
-      const { data: a } = await db.from("profiles").select("id, status, sponsor_id").eq("id", ancestor).maybeSingle();
-      if (!a) break;
-      if (a.status === "active") await db.from("earnings").insert({ user_id: a.id, source_user_id: pay.user_id, level, amount: 5000 });
-      ancestor = a.sponsor_id;
-    }
+    const rpc = db as unknown as { rpc(name: string, args: Record<string, unknown>): PromiseLike<{ error: { message: string; code: string } | null }> };
+    const { error } = await rpc.rpc("director_approve_payment", { _payment_id: data.paymentId });
+    if (error) throw new Error(error.code === "PGRST202" ? "Apply the member payment setup to the members database before approving payments." : error.message);
     return { ok: true };
   });
 
@@ -119,7 +108,7 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
     console.error("director session", e);
     return { authed: false as const };
   }
-  if (!director) return { authed: false as const };
+  if (!director || !DIRECTORS.includes(director)) return { authed: false as const };
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   let loaded;
@@ -133,6 +122,8 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
     console.error("director overview", e);
     return { authed: true as const, director, error: "Members list is unavailable right now.", stats: { total: 0, active: 0, pending: 0, revenue: 0, paidOut: 0, pendingPayments: 0, disbursed: 0 }, payments: [] as { id: string; user_id: string; amount: number; status: string; reference: string | null; created_at: string; member: string }[], payouts: [] as { id: string; user_id: string; amount: number; method: string | null; reference: string | null; paid_by: string; created_at: string; member: string }[], balances: [] as { id: string; full_name: string; phone: string | null; earned: number; paid: number; balance: number }[], payoutsReady: false, members: [] as { id: string; full_name: string; phone: string | null; email: string | null; referral_code: string; status: string; sponsor_id: string | null; created_at: string; sponsor_name: string; earnings: number; directs: number }[] };
   }
+  const failure = loaded.find((result) => result.error);
+  if (failure?.error) throw new Error("Members could not be loaded. Check the private members database key and table access.");
   const [{ data: profiles }, { data: payments }, { data: earnings }] = loaded;
 
   const nameById = new Map((profiles ?? []).map((p) => [p.id, p.full_name]));
@@ -155,16 +146,13 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
     for (const u of authList?.users ?? []) {
       const reg = u.user_metadata?.dixab_registration;
       if (known.has(u.id) || !reg || typeof reg.fullName !== "string") continue;
-      if (!u.email_confirmed_at) {
-        await supabaseAdmin.auth.admin.updateUserById(u.id, { email_confirm: true }).catch(() => null);
-      }
       members.push({
         id: u.id,
         full_name: reg.fullName,
         phone: typeof reg.phone === "string" ? reg.phone : null,
         email: u.email ?? "",
         referral_code: "—",
-        status: "awaiting first sign-in",
+        status: u.email_confirmed_at ? "registration incomplete" : "email verification required",
         sponsor_id: null,
         created_at: u.created_at,
         sponsor_name: typeof reg.referralCode === "string" && reg.referralCode ? `code ${reg.referralCode}` : "—",
