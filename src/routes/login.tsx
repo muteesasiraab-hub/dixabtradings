@@ -10,7 +10,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { createProfile, resolveEmailByIdentifier } from "@/lib/network.functions";
 import { ensureProfileFromSignup } from "@/lib/registration";
 
-export const Route = createFileRoute("/login")({ component: LoginPage });
+export const Route = createFileRoute("/login")({ head: () => ({ meta: [
+  { title: "Member Sign In — Dixab" }, { name: "description", content: "Sign in to view your Dixab community, payments and earnings." },
+  { property: "og:title", content: "Member Sign In — Dixab" }, { property: "og:description", content: "Access your private Dixab member page." },
+  { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" },
+] }), component: LoginPage });
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -46,8 +50,9 @@ function LoginPage() {
         </p>
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
-            <Label>Identifier code or email</Label>
+            <Label htmlFor="member-identifier">Identifier code or email</Label>
             <Input
+              id="member-identifier" autoComplete="username"
               value={form.identifier}
               onChange={(e) => setForm({ ...form, identifier: e.target.value })}
               placeholder="AIXXXXXX or you@example.com"
@@ -55,9 +60,9 @@ function LoginPage() {
             />
           </div>
           <div>
-            <Label>Password</Label>
+            <Label htmlFor="member-password">Password</Label>
             <Input
-              type="password"
+              id="member-password" autoComplete="current-password" type="password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               required

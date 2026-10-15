@@ -7,11 +7,20 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { createProfile } from "@/lib/network.functions";
+import { registerMemberAccount } from "@/lib/network.functions";
+import { PaymentMethods } from "@/components/PaymentMethods";
+import { ENTRY_FEE, UGX } from "@/lib/format";
 import { useServerFn } from "@tanstack/react-start";
 
 export const Route = createFileRoute("/register")({
   validateSearch: (s: Record<string, unknown>) => ({ ref: (s.ref as string) || "" }),
+  head: () => ({ meta: [
+    { title: "Member Registration — Dixab" },
+    { name: "description", content: "Register with your sponsor’s identifier code and submit your merchant payment for verification." },
+    { property: "og:title", content: "Member Registration — Dixab" },
+    { property: "og:description", content: "Join the Dixab community and manage your member payments." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" },
+  ] }),
   component: RegisterPage,
 });
 
@@ -19,14 +28,14 @@ const schema = z.object({
   fullName: z.string().trim().min(2, "Enter your full name").max(100),
   phone: z.string().trim().min(7, "Enter a valid phone").max(20),
   email: z.string().trim().email("Enter a valid email").max(255),
-  password: z.string().min(6, "At least 6 characters").max(100),
+  password: z.string().min(8, "At least 8 characters").max(72),
   referralCode: z.string().trim().max(20).optional(),
 });
 
 function RegisterPage() {
   const { ref } = Route.useSearch();
   const navigate = useNavigate();
-  const createProfileFn = useServerFn(createProfile);
+  const register = useServerFn(registerMemberAccount);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     fullName: "",
@@ -48,39 +57,14 @@ function RegisterPage() {
     }
     setLoading(true);
     try {
-      const { data: signUpData, error: signErr } = await supabase.auth.signUp({
-        email: form.email,
-        password: form.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/dashboard`,
-          data: {
-            dixab_registration: {
-              fullName: form.fullName,
-              phone: form.phone,
-              referralCode: form.referralCode || "",
-            },
-          },
-        },
-      });
-      if (signErr) throw signErr;
-      if (!signUpData.session) {
-        toast.success("Check your email to confirm your account, then sign in.");
+      await register({ data: parsed.data });
+      const { error } = await supabase.auth.signInWithPassword({ email: parsed.data.email.toLowerCase(), password: parsed.data.password });
+      if (error) {
+        toast.success("Account registered. Please sign in to view your payment details.");
         navigate({ to: "/login" });
         return;
       }
-      const res = await createProfileFn({
-        data: {
-          fullName: form.fullName,
-          phone: form.phone,
-          email: form.email,
-          referralCode: form.referralCode || undefined,
-        },
-      });
-      toast.success(
-        res.isFirstUser
-          ? "Welcome — you are the founding admin!"
-          : "Registered! Pay UGX 60,000 to activate.",
-      );
+      toast.success("Registered. Submit your payment reference for director approval.");
       navigate({ to: "/dashboard" });
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Registration failed";
@@ -101,6 +85,7 @@ function RegisterPage() {
         <p className="mt-1 text-sm text-muted-foreground">
           Already registered? <Link to="/login" className="text-primary underline">Log in</Link>
         </p>
+        <div className="mt-5 space-y-3 border-y border-border py-4"><p className="text-sm font-semibold">Entry product · {UGX(ENTRY_FEE)}</p><PaymentMethods /><p className="text-xs text-muted-foreground">After registration, submit your transaction reference on your member page. Your account is activated after a director verifies payment.</p></div>
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div><Label>Full name</Label><Input value={form.fullName} onChange={update("fullName")} required /></div>
           <div><Label>Phone</Label><Input value={form.phone} onChange={update("phone")} placeholder="07XX..." required /></div>
@@ -108,8 +93,8 @@ function RegisterPage() {
           <div><Label>Password</Label><Input type="password" value={form.password} onChange={update("password")} required /></div>
           <div>
             <Label>Identifier code</Label>
-            <Input value={form.referralCode} onChange={update("referralCode")} placeholder="DAXXXXXX" className="uppercase" />
-            <p className="mt-1 text-xs text-muted-foreground">Required unless you are the very first user.</p>
+            <Input value={form.referralCode} onChange={update("referralCode")} placeholder="DAXXXXXX" className="uppercase" required />
+            <p className="mt-1 text-xs text-muted-foreground">Use the identifier code given to you by your sponsor.</p>
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Creating..." : "Register"}

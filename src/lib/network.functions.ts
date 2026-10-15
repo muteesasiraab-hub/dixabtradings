@@ -1,7 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { ENTRY_FEE } from "@/lib/format";
+import { paymentReference } from "@/lib/payment-methods";
 
 // Look up a member's email by their Identifier (referral) code — used for login form
 export const resolveEmailByIdentifier = createServerFn({ method: "POST" })
@@ -9,6 +10,7 @@ export const resolveEmailByIdentifier = createServerFn({ method: "POST" })
     z.object({ identifier: z.string().trim().min(2).max(20) }).parse(input),
   )
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const code = data.identifier.toUpperCase();
     const { data: row } = await supabaseAdmin
       .from("profiles")
@@ -39,99 +41,13 @@ export const createProfile = createServerFn({ method: "POST" })
       throw new Error("Profile email must match the signed-in account");
     }
 
-    // Already has profile?
-    const { data: existing } = await supabaseAdmin
-      .from("profiles")
-      .select("id")
-      .eq("id", userId)
-      .maybeSingle();
-    if (existing) throw new Error("Profile already exists");
-
-    // Count total profiles to know if this is the first (bootstrap admin)
-    const { count, error: countError } = await supabaseAdmin
-      .from("profiles")
-      .select("*", { count: "exact", head: true });
-    if (countError || count === null) {
-      throw new Error("Could not check registration state");
-    }
-
-    let sponsorId: string | null = null;
-    const bootstrapEmail = process.env.DIXAB_BOOTSTRAP_ADMIN_EMAIL?.trim().toLowerCase();
-    const isFirstUser =
-      count === 0 &&
-      !!bootstrapEmail &&
-      claims.email?.toLowerCase() === bootstrapEmail;
-
-    if (count === 0 && !isFirstUser) {
-      throw new Error("Registration is not open until the founding account is configured");
-    }
-    if (isFirstUser) {
-      const { data: founder, error: founderError } = await supabaseAdmin.auth.admin.getUserById(userId);
-      if (founderError || !founder.user?.email_confirmed_at) {
-        throw new Error("Confirm the founding account email before registration");
-      }
-    }
-
-    if (!isFirstUser) {
-      const code = (data.referralCode ?? "").trim().toUpperCase();
-      if (!code) throw new Error("Referral code is required");
-      const { data: sponsor } = await supabaseAdmin
-        .from("profiles")
-        .select("id, status")
-        .eq("referral_code", code)
-        .maybeSingle();
-      if (!sponsor) throw new Error("Invalid referral code");
-
-      // Enforce 3-direct cap (count all referrals regardless of status)
-      const { count: directCount } = await supabaseAdmin
-        .from("profiles")
-        .select("*", { count: "exact", head: true })
-        .eq("sponsor_id", sponsor.id);
-      if ((directCount ?? 0) >= 3) {
-        throw new Error("This referral code has reached its 3-person limit");
-      }
-      sponsorId = sponsor.id;
-    }
-
-    // Generate a unique referral code
-    let newCode = "";
-    for (let i = 0; i < 10; i++) {
-      const candidate =
-        "AI" + Math.random().toString(36).slice(2, 8).toUpperCase();
-      const { data: clash } = await supabaseAdmin
-        .from("profiles")
-        .select("id")
-        .eq("referral_code", candidate)
-        .maybeSingle();
-      if (!clash) {
-        newCode = candidate;
-        break;
-      }
-    }
-    if (!newCode) throw new Error("Could not generate referral code");
-
-    const { error: insErr } = await supabaseAdmin.from("profiles").insert({
-      id: userId,
-      full_name: data.fullName,
-      phone: data.phone,
-      email: data.email,
-      sponsor_id: sponsorId,
-      referral_code: newCode,
-      status: isFirstUser ? "active" : "pending",
-      activated_at: isFirstUser ? new Date().toISOString() : null,
-    });
-    if (insErr) throw new Error(insErr.message);
-
-    if (isFirstUser) {
-      await supabaseAdmin
-        .from("user_roles")
-        .insert({ user_id: userId, role: "admin" });
-    } else {
-      // create a pending payment record
-      await supabaseAdmin
-        .from("payments")
-        .insert({ user_id: userId, amount: 60000, status: "pending" });
-    }
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { provisionMember } = await import("@/lib/member-provision.server");
+    const { data: existing } = await context.supabase.from("profiles").select("referral_code").eq("id", userId).maybeSingle();
+    if (existing) return { referralCode: existing.referral_code, isFirstUser: false };
+    const bootstrapEmail = process.env["DIXAB_BOOTSTRAP_ADMIN_EMAIL"]?.trim().toLowerCase();
+    const isFirstUser = Boolean(bootstrapEmail && claims.email?.toLowerCase() === bootstrapEmail);
+    const newCode = await provisionMember(supabaseAdmin, { userId, ...data, founder: isFirstUser });
 
     return { referralCode: newCode, isFirstUser };
   });
@@ -140,12 +56,14 @@ export const createProfile = createServerFn({ method: "POST" })
 export const getMyDashboard = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { userId } = context;
-    const { data: profile } = await supabaseAdmin
+    const { userId, supabase } = context;
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select("*")
       .eq("id", userId)
       .maybeSingle();
+    if (profileError) throw new Error("Could not load your member page");
     if (!profile) return null;
 
     // Walk down 5 levels
@@ -172,7 +90,7 @@ export const getMyDashboard = createServerFn({ method: "GET" })
       if (currentIds.length === 0) break;
     }
 
-    const { data: earnings } = await supabaseAdmin
+    const { data: earnings } = await supabase
       .from("earnings")
       .select("id, amount, level, created_at, source_user_id")
       .eq("user_id", userId)
@@ -183,7 +101,7 @@ export const getMyDashboard = createServerFn({ method: "GET" })
       0,
     );
 
-    const { data: latestPayment } = await supabaseAdmin
+    const { data: latestPayment } = await supabase
       .from("payments")
       .select("*")
       .eq("user_id", userId)
@@ -191,7 +109,7 @@ export const getMyDashboard = createServerFn({ method: "GET" })
       .limit(1)
       .maybeSingle();
 
-    const { data: roleRow } = await supabaseAdmin
+    const { data: roleRow } = await supabase
       .from("user_roles")
       .select("role")
       .eq("user_id", userId)
@@ -203,7 +121,10 @@ export const getMyDashboard = createServerFn({ method: "GET" })
       .select("*", { count: "exact", head: true })
       .eq("sponsor_id", userId);
 
+    const { data: paymentHistory } = await supabase.from("payments").select("*").eq("user_id", userId).order("created_at", { ascending: false });
+
     return {
+      paymentHistory: paymentHistory ?? [],
       profile,
       levels,
       earnings: earnings ?? [],
@@ -218,14 +139,15 @@ export const getMyDashboard = createServerFn({ method: "GET" })
 export const listPendingPayments = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { userId } = context;
-    const { data: roleRow } = await supabaseAdmin
+    const { userId, supabase } = context;
+    const { data: roleRow } = await supabase
       .from("user_roles")
       .select("role")
       .eq("user_id", userId)
       .eq("role", "admin")
       .maybeSingle();
     if (!roleRow) throw new Error("Forbidden");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const { data: payments } = await supabaseAdmin
       .from("payments")
@@ -263,11 +185,11 @@ export const approvePayment = createServerFn({ method: "POST" })
 export const submitPaymentReference = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) =>
-    z.object({ reference: z.string().trim().min(2).max(100) }).parse(input),
+    z.object({ reference: z.string().trim().min(2).max(70), method: z.enum(["airtel", "mtn"]) }).parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { userId } = context;
-    const { data: payment } = await supabaseAdmin
+    const { userId, supabase } = context;
+    const { data: payment } = await supabase
       .from("payments")
       .select("id, status")
       .eq("user_id", userId)
@@ -276,10 +198,12 @@ export const submitPaymentReference = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!payment) throw new Error("No payment record");
     if (payment.status === "approved") throw new Error("Already approved");
-    await supabaseAdmin
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: updated, error } = await supabaseAdmin
       .from("payments")
-      .update({ reference: data.reference })
-      .eq("id", payment.id);
+      .update({ reference: paymentReference(data.method, data.reference), status: "pending" })
+      .eq("id", payment.id).eq("user_id", userId).neq("status", "approved").select("id");
+    if (error || !updated?.length) throw new Error("Payment reference could not be saved. Refresh and try again.");
     return { ok: true };
   });
 
@@ -297,46 +221,30 @@ export const registerMemberAccount = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { provisionMember } = await import("@/lib/member-provision.server");
     const code = (data.referralCode ?? "").trim().toUpperCase();
-    if (code) {
-      const { data: sponsor } = await supabaseAdmin
-        .from("profiles").select("id").eq("referral_code", code).maybeSingle();
-      if (!sponsor) throw new Error("Invalid referral code");
-      const { count } = await supabaseAdmin
-        .from("profiles").select("*", { count: "exact", head: true }).eq("sponsor_id", sponsor.id);
-      if ((count ?? 0) >= 3) throw new Error("This referral code has reached its 3-person limit");
-    }
-    const { error } = await supabaseAdmin.auth.admin.createUser({
-      email: data.email,
-      password: data.password,
-      email_confirm: true,
-      user_metadata: {
-        dixab_registration: { fullName: data.fullName, phone: data.phone, referralCode: code },
-      },
+    const founder = process.env["DIXAB_BOOTSTRAP_ADMIN_EMAIL"]?.trim().toLowerCase();
+    const isFounder = Boolean(founder && founder === data.email.toLowerCase());
+    // Founding administration requires the existing verified-email signup path.
+    if (isFounder) throw new Error("The founding administrator must use a verified account configured by the company.");
+    if (!code) throw new Error("Your sponsor's identifier code is required");
+    const { data: sponsor, error: sponsorError } = await supabaseAdmin.from("profiles").select("id").eq("referral_code", code).maybeSingle();
+    if (sponsorError || !sponsor) throw new Error("Invalid identifier code");
+    const { data: account, error } = await supabaseAdmin.auth.admin.createUser({
+      email: data.email.toLowerCase(), password: data.password, email_confirm: true,
+      user_metadata: { dixab_registration: { fullName: data.fullName, phone: data.phone, referralCode: code } },
     });
-    if (error) {
-      if (/already/i.test(error.message)) throw new Error("This email is already registered — please log in");
-      throw new Error(error.message);
+    if (error || !account.user) {
+      if (error && /already|registered/i.test(error.message)) throw new Error("This email is already registered — please sign in");
+      throw new Error("Account could not be created. Please try again.");
     }
-    return { ok: true };
-  });
-
-// Confirm an older Dixab sign-up that is stuck as "unconfirmed" so the member can sign in.
-export const confirmPendingSignup = createServerFn({ method: "POST" })
-  .inputValidator((input) => z.object({ email: z.string().trim().email().max(255) }).parse(input))
-  .handler(async ({ data }) => {
-    const email = data.email.toLowerCase();
-    for (let page = 1; page <= 10; page++) {
-      const { data: list } = await supabaseAdmin.auth.admin.listUsers({ page, perPage: 1000 });
-      const users = list?.users ?? [];
-      const u = users.find((x) => x.email?.toLowerCase() === email);
-      if (u) {
-        if (!u.email_confirmed_at && u.user_metadata?.dixab_registration) {
-          await supabaseAdmin.auth.admin.updateUserById(u.id, { email_confirm: true });
-        }
-        return { ok: true };
-      }
-      if (users.length < 1000) break;
+    try {
+      const referralCode = await provisionMember(supabaseAdmin, { userId: account.user.id, ...data, referralCode: code });
+      return { ok: true, referralCode, amount: ENTRY_FEE };
+    } catch (error) {
+      const { error: cleanupError } = await supabaseAdmin.auth.admin.deleteUser(account.user.id);
+      if (cleanupError) console.error("Incomplete signup cleanup failed", cleanupError.code);
+      throw error;
     }
-    return { ok: true };
   });

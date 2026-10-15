@@ -8,13 +8,19 @@ import { ensureProfileFromSignup } from "@/lib/registration";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PaymentMethods } from "@/components/PaymentMethods";
+import { PAYMENT_METHODS, type PaymentMethod } from "@/lib/payment-methods";
 import { Badge } from "@/components/ui/badge";
 import { ReferralCard } from "@/components/ReferralCard";
 import { UGX, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 import { Copy, Users, Wallet, Network, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/dashboard")({ component: DashboardPage });
+export const Route = createFileRoute("/dashboard")({ head: () => ({ meta: [
+  { title: "My Community & Payments — Dixab" }, { name: "description", content: "Your Dixab membership, five-level community, payment history and earnings." },
+  { property: "og:title", content: "My Community & Payments — Dixab" }, { property: "og:description", content: "Your private Dixab member overview." },
+  { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" },
+] }), component: DashboardPage });
 
 function DashboardPage() {
   const navigate = useNavigate();
@@ -23,6 +29,8 @@ function DashboardPage() {
   const createProfileFn = useServerFn(createProfile);
   const submitRef = useServerFn(submitPaymentReference);
   const [ready, setReady] = useState(false);
+  const [setupError, setSetupError] = useState("");
+  const [method, setMethod] = useState<PaymentMethod>("airtel");
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data }) => {
@@ -32,7 +40,7 @@ function DashboardPage() {
           await ensureProfileFromSignup(data.session.user, createProfileFn);
           setReady(true);
         } catch (error) {
-          toast.error(error instanceof Error ? error.message : "Registration could not be completed");
+          setSetupError(error instanceof Error ? error.message : "Registration could not be completed");
         }
       }
     });
@@ -43,12 +51,14 @@ function DashboardPage() {
       queryKey: ["dashboard"],
       queryFn: () => getDash(),
       enabled: ready,
+      refetchInterval: 15000,
+      refetchOnWindowFocus: true,
     }),
   );
 
   const [ref, setRef] = useState("");
   const refMut = useMutation({
-    mutationFn: (reference: string) => submitRef({ data: { reference } }),
+    mutationFn: (reference: string) => submitRef({ data: { reference, method } }),
     onSuccess: () => {
       toast.success("Payment reference submitted. Awaiting admin approval.");
       setRef("");
@@ -57,6 +67,8 @@ function DashboardPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  if (setupError) return <div role="alert" className="space-y-3"><h1 className="text-xl font-semibold">Registration needs attention</h1><p className="text-sm text-destructive">{setupError}</p><Button onClick={() => window.location.reload()}>Try again</Button></div>;
+  if (dashQuery.isError) return <div role="alert" className="space-y-3"><p className="text-destructive">Your member details could not be loaded. Please try again.</p><Button onClick={() => dashQuery.refetch()}>Retry</Button></div>;
   if (!ready || dashQuery.isLoading) return <p className="text-sm text-muted-foreground">Loading…</p>;
   const data = dashQuery.data;
   if (!data) return <p>No profile found.</p>;
@@ -94,14 +106,16 @@ function DashboardPage() {
         <Card className="border-accent/40 bg-accent/10 p-5">
           <h3 className="font-semibold">Activate your account</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Pay {UGX(ENTRY_FEE)} via Mobile Money to the admin and submit your transaction reference below.
+            Pay {UGX(latestPayment?.amount ?? ENTRY_FEE)} using one of the merchant codes below, then submit your transaction reference.
             Earnings start flowing once approved.
           </p>
+          <div className="mt-4"><PaymentMethods /></div>
           <form
             onSubmit={(e) => { e.preventDefault(); if (ref.trim()) refMut.mutate(ref.trim()); }}
             className="mt-4 flex flex-col gap-2 sm:flex-row"
           >
-            <Input value={ref} onChange={(e) => setRef(e.target.value)} placeholder="MoMo transaction ID / reference" />
+            <select aria-label="Payment method" className="h-10 rounded-md border border-input bg-background px-3 text-sm" value={method} onChange={(e) => setMethod(e.target.value as PaymentMethod)}>{PAYMENT_METHODS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select>
+            <Input aria-label="Transaction reference" maxLength={70} required value={ref} onChange={(e) => setRef(e.target.value)} placeholder="MoMo transaction ID / reference" />
             <Button type="submit" disabled={refMut.isPending}>Submit</Button>
           </form>
           {latestPayment?.reference && (
@@ -109,6 +123,14 @@ function DashboardPage() {
           )}
         </Card>
       )}
+
+      <section className="border-y border-border py-5">
+        <h2 className="font-semibold">Your payment details</h2>
+        <div className="mt-3 space-y-3">
+          {data.paymentHistory.length === 0 && <p className="text-sm text-muted-foreground">No payment records yet.</p>}
+          {data.paymentHistory.map((payment) => <div key={payment.id} className="flex flex-wrap items-start justify-between gap-2 text-sm"><div><p className="font-semibold">{UGX(payment.amount)}</p><p className="break-all text-muted-foreground">{payment.reference ?? "No transaction reference submitted"}</p><p className="text-xs text-muted-foreground">{new Date(payment.created_at).toLocaleDateString()}{payment.approved_at ? ` · Approved ${new Date(payment.approved_at).toLocaleDateString()}` : ""}</p></div><Badge variant={payment.status === "approved" ? "default" : payment.status === "rejected" ? "destructive" : "secondary"}>{payment.status === "pending" && payment.reference ? "Awaiting verification" : payment.status}</Badge></div>)}
+        </div>
+      </section>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <Card className="p-5">

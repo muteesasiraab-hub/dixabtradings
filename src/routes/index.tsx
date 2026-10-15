@@ -50,6 +50,13 @@ function WhatsAppButton({ size = "md", className = "" }: { size?: "sm" | "md" | 
 
 export const Route = createFileRoute("/")({
   head: () => ({
+    meta: [
+      { title: "Dixab General Tradings Co. Ltd — Word of Mouth Rewarded" },
+      { name: "description", content: "Discover Dixab products and the recommendation community in Uganda." },
+      { property: "og:title", content: "Dixab General Tradings Co. Ltd" },
+      { property: "og:description", content: "Physical products and a community built on recommendations." },
+      { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+    ],
     links: [
       { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" },
     ],
@@ -80,8 +87,9 @@ function Index() {
           <div className="inline-block rounded-md bg-white p-4 shadow-elegant ring-1 ring-gold/40">
             <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-24 w-24 object-contain" width={96} height={96} />
           </div>
-          <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-emerald-deep sm:text-6xl lg:text-7xl">
-            Discover the world of <em className="italic font-light text-gold">sales</em> with Dixab General Tradings Co. Ltd.
+          <h1 className="max-w-xl font-sans text-4xl font-semibold leading-[1.15] tracking-normal text-foreground sm:text-5xl">
+            <span className="block">Discover the world of sales</span>
+            <span className="mt-4 block text-xl font-medium leading-relaxed text-primary sm:text-2xl">with Dixab General Tradings Co. Ltd.</span>
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
             A platform where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
