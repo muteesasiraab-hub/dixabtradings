@@ -56,12 +56,12 @@ function LoginForm() {
         <p className="mt-1 text-sm text-muted-foreground">Sign in with your full name and password.</p>
         <form onSubmit={submit} className="mt-6 space-y-4">
           <div>
-            <Label>Full name</Label>
-            <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="e.g. Muteesasira Abbey" required />
+            <Label htmlFor="director-name">Full name</Label>
+            <Input id="director-name" autoComplete="username" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="e.g. Muteesasira Abbey" required />
           </div>
           <div>
-            <Label>Password</Label>
-            <Input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+            <Label htmlFor="director-password">Password</Label>
+            <Input id="director-password" autoComplete="current-password" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>{loading ? "Signing in..." : "Sign in"}</Button>
         </form>
@@ -131,7 +131,7 @@ function Overview({ data }: { data: OverviewData }) {
       {tab === "payments" && (
         <Card className="p-4">
           <h2 className="font-semibold">Member payments</h2>
-          <p className="text-xs text-muted-foreground">Approving activates the member and credits UGX 5,000 to each active member up to 5 levels above.</p>
+          <p className="text-xs text-muted-foreground">Approving a verified transaction activates the member and credits UGX 10,000 to each active member up to 5 levels above.</p>
           <div className="mt-4 space-y-3">
             {data.payments.map((p) => (
               <div key={p.id} className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3">
@@ -144,7 +144,7 @@ function Overview({ data }: { data: OverviewData }) {
                   <Badge variant={p.status === "approved" ? "default" : p.status === "rejected" ? "destructive" : "secondary"}>{p.status}</Badge>
                   {p.status === "pending" && (
                     <>
-                      <Button size="sm" disabled={!!busy} onClick={() => run(p.id, () => approve({ data: { paymentId: p.id } }), "Payment approved")}>Approve</Button>
+                      <Button size="sm" disabled={!!busy || !p.reference} title={!p.reference ? "Member must submit a transaction reference first" : "Approve verified payment"} onClick={() => run(p.id, () => approve({ data: { paymentId: p.id } }), "Payment approved")}>Approve</Button>
                       <Button size="sm" variant="outline" disabled={!!busy} onClick={() => run(p.id, () => reject({ data: { paymentId: p.id } }), "Payment rejected")}>Reject</Button>
                     </>
                   )}

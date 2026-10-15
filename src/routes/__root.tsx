@@ -107,12 +107,12 @@ function Header() {
   }, []);
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur no-print">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
+      <div className="mx-auto flex min-h-14 max-w-5xl flex-wrap items-center justify-between gap-2 px-4 py-2">
         <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
           <span className="grid h-11 w-11 place-items-center rounded-md bg-white p-1 shadow-sm ring-1 ring-gold/40">
             <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-full w-full object-contain" width={44} height={44} />
           </span>
-          <span className="font-serif text-emerald-deep">Dixab General Tradings Co. Ltd</span>
+          <span className="max-w-40 whitespace-normal font-sans text-sm font-semibold leading-snug text-primary sm:max-w-none">Dixab General Tradings Co. Ltd</span>
         </Link>
 
           <nav className="flex items-center gap-1 text-sm">
@@ -150,9 +150,11 @@ function RootComponent() {
   const router = useRouter();
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange(() => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
       router.invalidate();
-      queryClient.invalidateQueries();
+      if (event === "SIGNED_OUT") queryClient.clear();
+      else queryClient.invalidateQueries();
     });
     return () => sub.subscription.unsubscribe();
   }, [router, queryClient]);
