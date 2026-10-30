@@ -1,5 +1,7 @@
 # Dixab website tasks
 
+- [ ] Fix directors’ preview session persistence and verify dashboard sign-in
+- [ ] Obtain and install the provider-issued members database key (cannot generate a substitute; requires database owner access)
 - [x] Repair director sign-in and member registration/payment visibility
 - [x] Add Airtel and MTN merchant payment methods
 - [x] Organise the Discover heading typography
