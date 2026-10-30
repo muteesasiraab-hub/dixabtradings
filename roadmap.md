@@ -7,8 +7,8 @@
 - [x] Organise the Discover heading typography
 - [ ] User: add MEMBERS_DB_SECRET_KEY as SUPABASE_SECRET_KEY in Cloudflare (dixabtradings.com) and redeploy — blocked on the user
 - [x] User: run the database setup — success confirmed; verified profiles, payments, earnings and payouts access; director dashboard loads and session persists
-- [ ] Configure Muteesasira Abbey as the founding member — verified account exists and bootstrap email configured; provision_member rolled back on an existing admin-role conflict; user must run dixab-abbey-first-member.sql to resolve it transactionally
-- [ ] End-to-end test: register member → submit payment reference → director approves → member sees chain/earnings (needs a verified founding member and valid sponsor code; do not approve fictitious payments on the live database)
+- [x] Configure Muteesasira Abbey as the founding member — verified active profile, identifier DAEA7529 and admin role; confirmed the active member appears in the directors dashboard
+- [ ] End-to-end test: register member → submit payment reference → director approves → member sees chain/earnings (awaiting a real member payment or isolated test database; do not approve fictitious payments on the live database)
 - [x] Publish the latest fixes
 - [x] Fix security findings: self-activation via profile edit (SQL policy) and public member-email lookup (server-side sign-in)
 
