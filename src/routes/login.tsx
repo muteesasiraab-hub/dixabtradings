@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { createProfile, resolveEmailByIdentifier } from "@/lib/network.functions";
+import { createProfile, loginWithIdentifier } from "@/lib/network.functions";
 import { ensureProfileFromSignup } from "@/lib/registration";
 
 export const Route = createFileRoute("/login")({ head: () => ({ meta: [
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/login")({ head: () => ({ meta: [
 
 function LoginPage() {
   const navigate = useNavigate();
-  const resolveEmail = useServerFn(resolveEmailByIdentifier);
+  const login = useServerFn(loginWithIdentifier);
   const createProfileFn = useServerFn(createProfile);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ identifier: "", password: "" });
@@ -27,10 +27,11 @@ function LoginPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const email = form.identifier.includes("@")
-        ? form.identifier.trim().toLowerCase()
-        : (await resolveEmail({ data: { identifier: form.identifier } })).email;
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password: form.password });
+      const tokens = await login({ data: { identifier: form.identifier, password: form.password } });
+      const { data, error } = await supabase.auth.setSession({
+        access_token: tokens.accessToken,
+        refresh_token: tokens.refreshToken,
+      });
       if (error) throw error;
       if (data.user) await ensureProfileFromSignup(data.user, createProfileFn);
       navigate({ to: "/dashboard" });
