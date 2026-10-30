@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequestUrl, setResponseHeader, useSession } from "@tanstack/react-start/server";
 import { z } from "zod";
+import { directorSessionCookie } from "./director-session";
 
 const DIRECTORS = ["dickson niwagaba", "muteesasira abbey"];
 
@@ -12,7 +13,7 @@ function sessionConfig() {
     password,
     name: "dixab-director",
     maxAge: 60 * 60 * 8,
-    cookie: { httpOnly: true, secure: getRequestUrl().protocol === "https:", sameSite: "lax" as const, path: "/" },
+    cookie: directorSessionCookie(getRequestUrl()),
   };
 }
 
@@ -118,12 +119,12 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
     supabaseAdmin.from("payments").select("id, user_id, amount, status, reference, created_at").order("created_at", { ascending: false }),
     supabaseAdmin.from("earnings").select("user_id, amount"),
   ]);
+  const failure = loaded.find((result) => result.error);
+  if (failure?.error) throw new Error("Members could not be loaded. Check private database access.");
   } catch (e) {
     console.error("director overview", e);
     return { authed: true as const, director, error: "Members list is unavailable right now.", stats: { total: 0, active: 0, pending: 0, revenue: 0, paidOut: 0, pendingPayments: 0, disbursed: 0 }, payments: [] as { id: string; user_id: string; amount: number; status: string; reference: string | null; created_at: string; member: string }[], payouts: [] as { id: string; user_id: string; amount: number; method: string | null; reference: string | null; paid_by: string; created_at: string; member: string }[], balances: [] as { id: string; full_name: string; phone: string | null; earned: number; paid: number; balance: number }[], payoutsReady: false, members: [] as { id: string; full_name: string; phone: string | null; email: string | null; referral_code: string; status: string; sponsor_id: string | null; created_at: string; sponsor_name: string; earnings: number; directs: number }[] };
   }
-  const failure = loaded.find((result) => result.error);
-  if (failure?.error) throw new Error("Members could not be loaded. Check the private members database key and table access.");
   const [{ data: profiles }, { data: payments }, { data: earnings }] = loaded;
 
   const nameById = new Map((profiles ?? []).map((p) => [p.id, p.full_name]));

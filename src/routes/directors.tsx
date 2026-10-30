@@ -42,7 +42,15 @@ function LoginForm() {
     try {
       const r = await login({ data: form });
       if (!r.ok) toast.error("Incorrect name or password");
-      else await router.invalidate();
+      else {
+        await router.invalidate();
+        if (!router.state.matches.some((match) => {
+          const loaded = match.loaderData;
+          return loaded && typeof loaded === "object" && "authed" in loaded && loaded.authed === true;
+        })) {
+          toast.error("Your browser could not keep the sign-in session. Open the website directly and try again.");
+        }
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Sign in failed");
     } finally {
@@ -78,7 +86,7 @@ function Overview({ data }: { data: OverviewData }) {
   const approve = useServerFn(directorApprovePayment);
   const reject = useServerFn(directorRejectPayment);
   const recordPayout = useServerFn(directorRecordPayout);
-  const [tab, setTab] = useState<"members" | "payments" | "payouts">("payments");
+  const [tab, setTab] = useState<"members" | "payments" | "payouts">("members");
   const [busy, setBusy] = useState<string | null>(null);
   const [q, setQ] = useState("");
   const [pay, setPay] = useState<{ userId: string; amount: string; method: string; reference: string }>({ userId: "", amount: "", method: "Mobile Money", reference: "" });
@@ -110,7 +118,7 @@ function Overview({ data }: { data: OverviewData }) {
         <div>
           <h1 className="text-2xl font-bold">Directors' Dashboard</h1>
           <p className="text-sm capitalize text-muted-foreground">Signed in as {data.director}</p>
-          {"error" in data && data.error ? <p className="text-sm text-destructive">{data.error}</p> : null}
+          {"error" in data && data.error ? <p role="alert" className="mt-2 max-w-xl text-sm text-destructive">Member records cannot load until the company’s private database access is connected.</p> : null}
         </div>
         <Button variant="outline" onClick={async () => { await logout(); await router.invalidate(); }}>Sign out</Button>
       </div>
@@ -118,7 +126,7 @@ function Overview({ data }: { data: OverviewData }) {
         {stats.map(([k, v]) => (
           <Card key={k} className="p-4">
             <div className="text-xs text-muted-foreground">{k}</div>
-            <div className="mt-1 text-lg font-bold">{v}</div>
+            <div className="mt-1 text-lg font-bold">{"error" in data && data.error ? "—" : v}</div>
           </Card>
         ))}
       </div>
@@ -178,7 +186,7 @@ function Overview({ data }: { data: OverviewData }) {
               <Input type="number" placeholder="Amount (UGX)" value={pay.amount} onChange={(e) => setPay({ ...pay, amount: e.target.value })} />
               <Input placeholder="Method" value={pay.method} onChange={(e) => setPay({ ...pay, method: e.target.value })} />
               <Input placeholder="Reference" value={pay.reference} onChange={(e) => setPay({ ...pay, reference: e.target.value })} />
-              <Button type="submit" className="md:col-span-5" disabled={!!busy}>Record payout</Button>
+              <Button type="submit" className="md:col-span-5" disabled={!!busy || !data.payoutsReady}>Record payout</Button>
             </form>
           </Card>
           <Card className="p-4 overflow-x-auto">
@@ -229,7 +237,7 @@ function Overview({ data }: { data: OverviewData }) {
                   <td className="p-2">{new Date(m.created_at).toLocaleDateString()}</td>
                 </tr>
               ))}
-              {list.length === 0 && <tr><td colSpan={8} className="p-4 text-center text-muted-foreground">No members found</td></tr>}
+              {list.length === 0 && <tr><td colSpan={8} className="p-4 text-center text-muted-foreground">{"error" in data && data.error ? "Member records are currently unavailable" : "No members found"}</td></tr>}
             </tbody>
           </table>
         </div>
