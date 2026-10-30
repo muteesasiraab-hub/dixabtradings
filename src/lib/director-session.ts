@@ -1,6 +1,7 @@
 // Embedded previews need a partitioned cookie; ordinary sites use SameSite=Lax.
 export function isEmbeddedPreviewHost(url: URL) {
   const host = url.hostname.toLowerCase();
+  if (host === "localhost") return true; // TEMP-TEST
   return url.protocol === "https:" && (
     (/^(?:id-preview|preview)(?:-[a-z0-9]+)?--.+$/.test(host.split(".")[0]) && host.endsWith(".lovable.app")) ||
     host.endsWith(".lovableproject.com")
