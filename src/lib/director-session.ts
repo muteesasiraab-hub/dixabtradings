@@ -10,7 +10,7 @@ export function isEmbeddedPreviewHost(url: URL) {
 
 export function directorSessionCookie(url: URL) {
   const secure = url.protocol === "https:";
-  const embeddedPreview = isEmbeddedPreviewHost(url);
+  const embeddedPreview = secure && isEmbeddedPreviewHost(url);
   return {
     httpOnly: true,
     secure,
