@@ -44,12 +44,6 @@ function LoginForm() {
       if (!r.ok) toast.error("Incorrect name or password");
       else {
         await router.invalidate();
-        if (!router.state.matches.some((match) => {
-          const loaded = match.loaderData;
-          return loaded && typeof loaded === "object" && "authed" in loaded && loaded.authed === true;
-        })) {
-          toast.error("Your browser could not keep the sign-in session. Open the website directly and try again.");
-        }
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Sign in failed");
