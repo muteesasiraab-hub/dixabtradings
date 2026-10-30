@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { UGX } from "@/lib/format";
+import { saveDirectorToken } from "@/lib/director-token-attacher";
 
 export const Route = createFileRoute("/directors")({
   head: () => ({
@@ -22,6 +23,7 @@ export const Route = createFileRoute("/directors")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
+  ssr: false,
   loader: () => getDirectorOverview(),
   component: DirectorsPage,
 });
@@ -46,6 +48,7 @@ function LoginForm() {
       const r = await login({ data: form });
       if (!r.ok) setError("Incorrect name or password");
       else {
+        saveDirectorToken(r.token);
         const result = await overview();
         if (!result.authed) {
           setError("Your browser could not keep the sign-in session. Open the website directly and try again.");
@@ -123,7 +126,7 @@ function Overview({ data }: { data: OverviewData }) {
           <p className="text-sm capitalize text-muted-foreground">Signed in as {data.director}</p>
           {"error" in data && data.error ? <p role="alert" className="mt-2 max-w-xl text-sm text-destructive">Member records cannot load until the company’s private database access is connected.</p> : null}
         </div>
-        <Button variant="outline" onClick={async () => { await logout(); await router.invalidate(); }}>Sign out</Button>
+        <Button variant="outline" onClick={async () => { saveDirectorToken(undefined); await logout(); await router.invalidate(); }}>Sign out</Button>
       </div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {stats.map(([k, v]) => (
