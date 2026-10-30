@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { createProfile, resolveEmailByIdentifier } from "@/lib/network.functions";
+import { createProfile, loginWithIdentifier } from "@/lib/network.functions";
 import { ensureProfileFromSignup } from "@/lib/registration";
 
 export const Route = createFileRoute("/login")({ head: () => ({ meta: [

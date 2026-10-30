@@ -4,21 +4,46 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { ENTRY_FEE } from "@/lib/format";
 import { paymentReference } from "@/lib/payment-methods";
 
-// Look up a member's email by their Identifier (referral) code — used for login form
-export const resolveEmailByIdentifier = createServerFn({ method: "POST" })
+// Sign in with an Identifier (referral) code or email. The email is resolved
+// and verified server-side so member email addresses are never exposed.
+export const loginWithIdentifier = createServerFn({ method: "POST" })
   .inputValidator((input) =>
-    z.object({ identifier: z.string().trim().min(2).max(20) }).parse(input),
+    z
+      .object({
+        identifier: z.string().trim().min(2).max(255),
+        password: z.string().min(1).max(72),
+      })
+      .parse(input),
   )
   .handler(async ({ data }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const code = data.identifier.toUpperCase();
-    const { data: row } = await supabaseAdmin
-      .from("profiles")
-      .select("email")
-      .eq("referral_code", code)
-      .maybeSingle();
-    if (!row?.email) throw new Error("Invalid identifier code");
-    return { email: row.email };
+    const genericError = "Invalid identifier code or password";
+    let email = data.identifier.toLowerCase();
+    if (!email.includes("@")) {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { data: row } = await supabaseAdmin
+        .from("profiles")
+        .select("email")
+        .eq("referral_code", email.toUpperCase())
+        .maybeSingle();
+      if (!row?.email) throw new Error(genericError);
+      email = row.email;
+    }
+    const url = process.env["SUPABASE_URL"];
+    const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
+    if (!url || !key) throw new Error("Sign-in is not configured");
+    const { createClient } = await import("@supabase/supabase-js");
+    const anon = createClient(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+    const { data: authData, error } = await anon.auth.signInWithPassword({
+      email,
+      password: data.password,
+    });
+    if (error || !authData.session) throw new Error(genericError);
+    return {
+      accessToken: authData.session.access_token,
+      refreshToken: authData.session.refresh_token,
+    };
   });
 
 
