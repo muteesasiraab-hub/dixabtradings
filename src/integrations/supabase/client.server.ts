@@ -7,12 +7,17 @@ import type { Database } from './types';
 
 function createSupabaseAdminClient() {
   const SUPABASE_URL = process.env.SUPABASE_URL;
-  const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  // The SUPABASE_ prefix is reserved on some hosts, so the user-provided
+  // private key is stored under MEMBERS_DB_SECRET_KEY.
+  const SUPABASE_SECRET_KEY =
+    process.env.MEMBERS_DB_SECRET_KEY ||
+    process.env.SUPABASE_SECRET_KEY ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
     const missing = [
       ...(!SUPABASE_URL ? ['SUPABASE_URL'] : []),
-      ...(!SUPABASE_SECRET_KEY ? ['SUPABASE_SECRET_KEY'] : []),
+      ...(!SUPABASE_SECRET_KEY ? ['MEMBERS_DB_SECRET_KEY'] : []),
     ];
     const message = `Missing Supabase environment variable(s): ${missing.join(', ')}. Configure the server secret in your hosting provider.`;
     console.error(`[Supabase] ${message}`);
