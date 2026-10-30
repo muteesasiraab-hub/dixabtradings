@@ -1,5 +1,16 @@
 -- Self-managed hosting: run once in the members database SQL editor.
 BEGIN;
+-- Members may edit their own name/phone but never their status, sponsor or
+-- identifier code — only payment approval (service role) may activate them.
+DROP POLICY IF EXISTS "users update own profile" ON public.profiles;
+CREATE POLICY "users update own profile" ON public.profiles FOR UPDATE TO authenticated
+  USING (id = auth.uid())
+  WITH CHECK (
+    id = auth.uid()
+    AND status = (SELECT p.status FROM public.profiles p WHERE p.id = auth.uid())
+    AND referral_code = (SELECT p.referral_code FROM public.profiles p WHERE p.id = auth.uid())
+    AND sponsor_id IS NOT DISTINCT FROM (SELECT p.sponsor_id FROM public.profiles p WHERE p.id = auth.uid())
+  );
 GRANT SELECT ON public.user_roles TO authenticated;
 GRANT ALL ON public.user_roles, public.profiles, public.payments, public.earnings TO service_role;
 GRANT SELECT ON public.profiles, public.payments, public.earnings TO authenticated;
