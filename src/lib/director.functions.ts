@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
-import { getRequestUrl, setResponseHeader, useSession } from "@tanstack/react-start/server";
+import { getRequestHeader, getRequestUrl, setResponseHeader, useSession } from "@tanstack/react-start/server";
 import { z } from "zod";
-import { directorSessionCookie } from "./director-session";
+import { directorSessionCookie, isEmbeddedPreviewHost, signDirectorToken, verifyDirectorToken } from "./director-session";
 
 const DIRECTORS = ["dickson niwagaba", "muteesasira abbey"];
 
@@ -18,6 +18,16 @@ function sessionConfig() {
 }
 
 type DirSession = { director?: string };
+
+// Cookie first; on editor previews only, fall back to the signed header token.
+async function currentDirector() {
+  const session = await useSession<DirSession>(sessionConfig());
+  const fromCookie = session.data.director;
+  if (fromCookie && DIRECTORS.includes(fromCookie)) return fromCookie;
+  if (!isEmbeddedPreviewHost(getRequestUrl())) return null;
+  const d = await verifyDirectorToken(process.env["DIRECTOR_SESSION_SECRET"]!, getRequestHeader("x-director-token"));
+  return d && DIRECTORS.includes(d) ? d : null;
+}
 
 function normName(n: string) {
   return n.trim().toLowerCase().replace(/\s+/g, " ");
@@ -50,7 +60,10 @@ export const directorLogin = createServerFn({ method: "POST" })
     if (!director || !ok) return { ok: false as const };
     const session = await useSession<DirSession>(sessionConfig());
     await session.update({ director });
-    return { ok: true as const };
+    const token = isEmbeddedPreviewHost(getRequestUrl())
+      ? await signDirectorToken(process.env["DIRECTOR_SESSION_SECRET"]!, director, 60 * 60 * 8)
+      : undefined;
+    return { ok: true as const, token };
   });
 
 export const directorLogout = createServerFn({ method: "POST" }).handler(async () => {
@@ -61,9 +74,8 @@ export const directorLogout = createServerFn({ method: "POST" }).handler(async (
 
 async function requireDirector() {
   if (!process.env["DIRECTOR_SESSION_SECRET"]) throw new Error("Director access is not configured");
-  const session = await useSession<DirSession>(sessionConfig());
-  const d = session.data.director;
-  if (!d || !DIRECTORS.includes(d)) throw new Error("Please sign in again");
+  const d = await currentDirector();
+  if (!d) throw new Error("Please sign in again");
   return d;
 }
 
@@ -103,8 +115,7 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
   if (!process.env["DIRECTOR_SESSION_SECRET"]) return { authed: false as const };
   let director: string | undefined;
   try {
-    const session = await useSession<DirSession>(sessionConfig());
-    director = session.data.director;
+    director = (await currentDirector()) ?? undefined;
   } catch (e) {
     console.error("director session", e);
     return { authed: false as const };
