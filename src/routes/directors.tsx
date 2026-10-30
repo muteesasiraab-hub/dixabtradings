@@ -34,19 +34,27 @@ function DirectorsPage() {
 function LoginForm() {
   const router = useRouter();
   const login = useServerFn(directorLogin);
+  const overview = useServerFn(getDirectorOverview);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", password: "" });
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
     setLoading(true);
     try {
       const r = await login({ data: form });
-      if (!r.ok) toast.error("Incorrect name or password");
+      if (!r.ok) setError("Incorrect name or password");
       else {
+        const result = await overview();
+        if (!result.authed) {
+          setError("Your browser could not keep the sign-in session. Open the website directly and try again.");
+          return;
+        }
         await router.invalidate();
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Sign in failed");
+      setError(err instanceof Error ? err.message : "Sign in failed");
     } finally {
       setLoading(false);
     }
@@ -57,6 +65,7 @@ function LoginForm() {
         <h1 className="text-2xl font-bold">Directors' Portal</h1>
         <p className="mt-1 text-sm text-muted-foreground">Sign in with your full name and password.</p>
         <form onSubmit={submit} className="mt-6 space-y-4">
+          {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
           <div>
             <Label htmlFor="director-name">Full name</Label>
             <Input id="director-name" autoComplete="username" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="e.g. Muteesasira Abbey" required />

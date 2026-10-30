@@ -1,5 +1,8 @@
 # Dixab website tasks
 
+- [x] Fix director session policy for live lovableproject.com editor iframe; four cookie tests pass; local dashboard access, reload and sign-out verified with member records
+- [ ] Confirm director sign-in in the user's actual editor iframe — simulated secure proxy could not reproduce the hosting environment; awaiting user retry
+
 - [x] Fix directors’ preview cookie policy; verify local dashboard sign-in, reload and sign-out (member records still blocked on database key)
 - [x] Obtain and install the provider-issued members database key as a project secret (MEMBERS_DB_SECRET_KEY saved; Cloudflare copy still pending)
 - [x] Repair director sign-in and member registration/payment visibility
