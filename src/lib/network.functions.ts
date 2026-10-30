@@ -19,14 +19,20 @@ export const loginWithIdentifier = createServerFn({ method: "POST" })
     const genericError = "Invalid identifier code or password";
     let email = data.identifier.toLowerCase();
     if (!email.includes("@")) {
-      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-      const { data: row } = await supabaseAdmin
-        .from("profiles")
-        .select("email")
-        .eq("referral_code", email.toUpperCase())
-        .maybeSingle();
-      if (!row?.email) throw new Error(genericError);
-      email = row.email;
+      try {
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const { data: row } = await supabaseAdmin
+          .from("profiles")
+          .select("email")
+          .eq("referral_code", email.toUpperCase())
+          .maybeSingle();
+        if (!row?.email) throw new Error(genericError);
+        email = row.email;
+      } catch (e) {
+        if (e instanceof Error && e.message === genericError) throw e;
+        console.error("identifier sign-in lookup failed", e);
+        throw new Error("Sign-in is temporarily unavailable. Please try again later.");
+      }
     }
     const url = process.env["SUPABASE_URL"];
     const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
