@@ -120,7 +120,10 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
     supabaseAdmin.from("earnings").select("user_id, amount"),
   ]);
   const failure = loaded.find((result) => result.error);
-  if (failure?.error) throw new Error("Members could not be loaded. Check private database access.");
+  if (failure?.error) {
+    console.error("director overview query failed", JSON.stringify(failure.error));
+    throw new Error("Members could not be loaded. Check private database access.");
+  }
   } catch (e) {
     console.error("director overview", e);
     return { authed: true as const, director, error: "Members list is unavailable right now.", stats: { total: 0, active: 0, pending: 0, revenue: 0, paidOut: 0, pendingPayments: 0, disbursed: 0 }, payments: [] as { id: string; user_id: string; amount: number; status: string; reference: string | null; created_at: string; member: string }[], payouts: [] as { id: string; user_id: string; amount: number; method: string | null; reference: string | null; paid_by: string; created_at: string; member: string }[], balances: [] as { id: string; full_name: string; phone: string | null; earned: number; paid: number; balance: number }[], payoutsReady: false, members: [] as { id: string; full_name: string; phone: string | null; email: string | null; referral_code: string; status: string; sponsor_id: string | null; created_at: string; sponsor_name: string; earnings: number; directs: number }[] };
