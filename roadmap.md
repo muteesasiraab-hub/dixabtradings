@@ -22,5 +22,5 @@
 - [ ] Export live data through Cloud → Advanced settings → Export data (requires user action)
 - [ ] Confirm GitHub code sync is live (needs repo URL from user to verify)
 - [ ] Run security scan on the latest published code before broad sharing
-- [ ] Publish current site state to live website (user request 06:18 UTC)
+- [x] Publish current site state to live website — verified dixabtradings.com serves latest: new WhatsApp number, company name, directors' portal, merchant codes on /register
 - [ ] Automated mobile money: connect Flutterwave (user must create account + paste secret key), build charge server function, webhook auto-approval route, and phone-number payment UI
