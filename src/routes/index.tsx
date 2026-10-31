@@ -77,29 +77,26 @@ function Index() {
     <div className="space-y-28 pb-12">
       {/* HERO */}
       <section className="grid items-center gap-12 pt-6 lg:grid-cols-2 lg:gap-16">
-        <div className="space-y-8">
-          <div className="inline-flex items-center gap-3">
-            <span className="h-px w-12 bg-gold" />
-            <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>
+        <div className="space-y-6 sm:space-y-8">
+          <div className="flex items-center gap-3">
+            <span className="h-px w-8 shrink-0 bg-primary" />
+            <span className="text-xs font-semibold uppercase tracking-normal text-primary">
               Word of mouth rewarded
             </span>
           </div>
-          <div className="inline-block rounded-md bg-white p-4 shadow-elegant ring-1 ring-gold/40">
-            <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-24 w-24 object-contain" width={96} height={96} />
-          </div>
           <h1 className="max-w-xl font-sans text-4xl font-semibold leading-[1.15] tracking-normal text-foreground sm:text-5xl">
             <span className="block">Discover the world of sales</span>
-            <span className="mt-4 block text-xl font-medium leading-relaxed text-primary sm:text-2xl">with Dixab General Tradings Co. Ltd.</span>
+            <span className="mt-3 block text-xl font-medium leading-snug text-primary sm:text-2xl">with Dixab General Tradings Co. Ltd.</span>
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
-            A platform where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
-            <span className="font-semibold text-emerald-deep">100,000 UGX</span> and unlock your potential in our recommendation earning model.
+            Start with a premium flash disk for{" "}
+            <span className="font-semibold text-primary">100,000 UGX</span>. Recommend Dixab products to your community and track your recommendations and earnings in your member account.
           </p>
 
           <div className="flex flex-wrap gap-4 pt-2">
             <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep/90">
               <Link to="/register" search={{ ref: "" }}>
-                <span className="relative z-10">Start Earning</span>
+                <span className="relative z-10">Join Dixab</span>
                 <span className="absolute inset-0 translate-y-full bg-gold transition-transform duration-300 group-hover:translate-y-0" />
                 <ArrowRight className="relative z-10 ml-2 h-4 w-4" />
               </Link>
