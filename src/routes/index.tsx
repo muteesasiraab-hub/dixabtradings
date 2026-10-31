@@ -89,7 +89,7 @@ function Index() {
             </div>
             <h1 className="font-sans text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
               Turn your network into{" "}
-              <span className="text-gold">income</span>
+              <span className="underline decoration-gold decoration-4 underline-offset-8">income</span>
             </h1>
             <p className="max-w-xl text-base leading-relaxed text-cream/85 sm:text-lg">
               Join <span className="font-semibold text-cream">Dixab General Tradings Co. Ltd</span> — buy one quality product from{" "}
