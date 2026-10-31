@@ -23,4 +23,4 @@
 - [ ] Confirm GitHub code sync is live (needs repo URL from user to verify)
 - [ ] Run security scan on the latest published code before broad sharing
 - [x] Publish current site state to live website — verified dixabtradings.com serves latest: new WhatsApp number, company name, directors' portal, merchant codes on /register
-- [ ] Automated mobile money: connect Flutterwave (user must create account + paste secret key), build charge server function, webhook auto-approval route, and phone-number payment UI
+- [ ] Automated mobile money: securely connect Flutterwave for MTN and Airtel; build verified, idempotent payment activation and phone-number payment UI after connection; verify in test mode before live payments
