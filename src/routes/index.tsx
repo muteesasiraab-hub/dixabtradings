@@ -76,58 +76,79 @@ function Index() {
   return (
     <div className="space-y-28 pb-12">
       {/* HERO */}
-      <section className="grid items-center gap-12 pt-6 lg:grid-cols-2 lg:gap-16">
-        <div className="space-y-8">
-          <div className="inline-flex items-center gap-3">
-            <span className="h-px w-12 bg-gold" />
-            <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>
-              Word of mouth rewarded
-            </span>
-          </div>
-          <div className="inline-block rounded-md bg-white p-4 shadow-elegant ring-1 ring-gold/40">
-            <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-24 w-24 object-contain" width={96} height={96} />
-          </div>
-          <h1 className="max-w-xl font-sans text-4xl font-semibold leading-[1.15] tracking-normal text-foreground sm:text-5xl">
-            <span className="block">Discover the world of sales</span>
-            <span className="mt-4 block text-xl font-medium leading-relaxed text-primary sm:text-2xl">with Dixab General Tradings Co. Ltd.</span>
-          </h1>
-          <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
-            A platform where opportunities meet innovation. Explore a diverse range of physical products starting from just{" "}
-            <span className="font-semibold text-emerald-deep">100,000 UGX</span> and unlock your potential in our recommendation earning model.
-          </p>
+      <section className="relative overflow-hidden bg-emerald-deep text-cream shadow-elegant">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gold opacity-20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-emerald opacity-25 blur-3xl" />
+        <div className="relative z-10 grid items-center gap-10 p-6 pt-10 sm:p-12 lg:grid-cols-2 lg:gap-14 lg:p-16">
+          <div className="space-y-7">
+            <div className="inline-flex items-center gap-3">
+              <span className="h-px w-10 bg-gold" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-gold">
+                Word of mouth rewarded
+              </span>
+            </div>
+            <h1 className="font-sans text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+              Turn your network into{" "}
+              <span className="underline decoration-gold decoration-4 underline-offset-8">income</span>
+            </h1>
+            <p className="max-w-xl text-base leading-relaxed text-cream/85 sm:text-lg">
+              Join <span className="font-semibold text-cream">Dixab General Tradings Co. Ltd</span> — buy one quality product from{" "}
+              <span className="font-semibold text-gold">UGX 100,000</span>, then earn{" "}
+              <span className="font-semibold text-gold">10% on every recommendation</span>, paid across 5 levels of your community.
+            </p>
 
-          <div className="flex flex-wrap gap-4 pt-2">
-            <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep/90">
-              <Link to="/register" search={{ ref: "" }}>
-                <span className="relative z-10">Start Earning</span>
-                <span className="absolute inset-0 translate-y-full bg-gold transition-transform duration-300 group-hover:translate-y-0" />
-                <ArrowRight className="relative z-10 ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-emerald-deep bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-emerald-deep/5">
-              <Link to="/login">Member Login</Link>
-            </Button>
-          </div>
-        </div>
+            <ul className="grid max-w-xl gap-3 text-sm sm:grid-cols-2">
+              {[
+                "Earn UGX 10,000 per referral",
+                "Get paid 5 levels deep",
+                "Your own member dashboard",
+                "Printable identifier card",
+              ].map((point) => (
+                <li key={point} className="flex items-center gap-2.5">
+                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-gold text-[11px] font-black text-emerald-deep">✓</span>
+                  <span className="text-cream/90">{point}</span>
+                </li>
+              ))}
+            </ul>
 
-        <div className="relative">
-          <div className="group relative aspect-[10/12] overflow-hidden shadow-elegant">
-            <img
-              src={heroImg}
-              alt="Premium emerald and gold showroom display"
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              width={896}
-              height={1088}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-white/5 p-6 backdrop-blur-md sm:p-8">
-              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-gold">Platform Launch</p>
-              <p className="font-serif text-2xl italic text-white sm:text-3xl">
-                Empowering 10,000+ Entrepreneurs across Uganda
-              </p>
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-gold px-8 py-5 text-sm font-bold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
+                <Link to="/register" search={{ ref: "" }}>
+                  <span className="relative z-10">Join & Start Earning</span>
+                  <ArrowRight className="relative z-10 ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-cream/10">
+                <Link to="/login">Member Login</Link>
+              </Button>
+            </div>
+            <p className="text-xs text-cream/60">
+              One-time entry · No monthly fees · Pay securely by Airtel Money or MTN MoMo
+            </p>
+          </div>
+
+          <div className="relative">
+            <div className="group relative aspect-[10/12] overflow-hidden ring-1 ring-cream/20">
+              <img
+                src={heroImg}
+                alt="Premium emerald and gold showroom display"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                width={896}
+                height={1088}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-white/5 p-6 backdrop-blur-md sm:p-8">
+                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-gold">Platform Launch</p>
+                <p className="font-serif text-2xl italic text-white sm:text-3xl">
+                  Empowering 10,000+ Entrepreneurs across Uganda
+                </p>
+              </div>
+            </div>
+            <div className="absolute -left-3 top-6 bg-gold px-4 py-3 shadow-elegant sm:-left-6">
+              <p className="text-[10px] font-black uppercase tracking-widest text-emerald-deep">Limited launch offer</p>
+              <p className="text-sm font-bold text-emerald-deep">Founding members earn first</p>
             </div>
           </div>
-          <div className="pointer-events-none absolute -right-4 -top-4 hidden h-40 w-40 border border-gold sm:block" />
         </div>
       </section>
 
