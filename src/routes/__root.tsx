@@ -107,37 +107,41 @@ function Header() {
   }, []);
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur no-print">
-      <div className="mx-auto flex min-h-14 max-w-5xl flex-wrap items-center justify-between gap-2 px-4 py-2">
-        <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
-          <span className="grid h-11 w-11 place-items-center rounded-md bg-white p-1 shadow-sm ring-1 ring-gold/40">
+      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <Link to="/" className="flex min-w-0 items-center gap-3">
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-md bg-card p-1 ring-1 ring-border">
             <img src={logo} alt="Dixab General Tradings Co. Ltd logo" className="h-full w-full object-contain" width={44} height={44} />
           </span>
-          <span className="max-w-40 whitespace-normal font-sans text-sm font-semibold leading-snug text-primary sm:max-w-none">Dixab General Tradings Co. Ltd</span>
+          <span className="min-w-0 font-sans text-base font-semibold leading-snug tracking-normal text-primary sm:text-sm">
+            <span className="block sm:inline">Dixab General Tradings</span>{" "}
+            <span className="block text-sm font-medium text-foreground sm:inline">Co. Ltd</span>
+          </span>
         </Link>
 
-          <nav className="flex items-center gap-1 text-sm">
+          <nav aria-label="Account and contact" className="grid grid-cols-3 items-center gap-2 border-t border-border/60 pt-3 sm:flex sm:shrink-0 sm:border-0 sm:pt-0">
             {authed ? (
               <>
-                <Link to="/dashboard" className="rounded-md px-3 py-1.5 hover:bg-muted">Dashboard</Link>
-                <Button size="sm" variant="ghost" onClick={async () => { await supabase.auth.signOut(); window.location.href = "/"; }}>Sign out</Button>
+                <Button asChild size="sm" variant="outline" className="h-10"><Link to="/dashboard">Dashboard</Link></Button>
+                <Button size="sm" variant="ghost" className="h-10" onClick={async () => { await supabase.auth.signOut(); window.location.href = "/"; }}>Sign out</Button>
               </>
             ) : (
               <>
-                <Link to="/login" className="rounded-md px-3 py-1.5 hover:bg-muted">Login</Link>
-                <Link to="/register" search={{ ref: "" }} className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground hover:opacity-90">Join</Link>
+                <Button asChild size="sm" variant="outline" className="h-10"><Link to="/login">Login</Link></Button>
+                <Button asChild size="sm" className="h-10"><Link to="/register" search={{ ref: "" }}>Join</Link></Button>
               </>
             )}
+            <Button asChild size="sm" variant="secondary" className="h-10 gap-1.5">
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[#25D366] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#128C7E]"
               aria-label="Add me as a contact on WhatsApp"
               title="Add me as a contact on WhatsApp"
             >
               <WhatsAppIcon className="h-4 w-4" />
-              <span className="hidden sm:inline">WhatsApp</span>
+              <span>WhatsApp</span>
             </a>
+            </Button>
           </nav>
 
       </div>
