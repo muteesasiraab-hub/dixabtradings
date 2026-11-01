@@ -64,8 +64,8 @@ function RegisterPage() {
         navigate({ to: "/login" });
         return;
       }
-      toast.success("Registered. Submit your payment reference for director approval.");
-      navigate({ to: "/dashboard" });
+      toast.success("Registered. Complete your payment to activate your account.");
+      navigate({ to: "/payment" });
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Registration failed";
       toast.error(msg);
@@ -85,7 +85,7 @@ function RegisterPage() {
         <p className="mt-1 text-sm text-muted-foreground">
           Already registered? <Link to="/login" className="text-primary underline">Log in</Link>
         </p>
-        <div className="mt-5 space-y-3 border-y border-border py-4"><p className="text-sm font-semibold">Entry product · {UGX(ENTRY_FEE)}</p><PaymentMethods /><p className="text-xs text-muted-foreground">After registration, submit your transaction reference on your member page. Your account is activated after a director verifies payment.</p></div>
+        <div className="mt-5 space-y-3 border-y border-border py-4"><p className="text-sm font-semibold">Entry product · {UGX(ENTRY_FEE)}</p><PaymentMethods /><p className="text-xs text-muted-foreground">After registration you will be taken to the payment page to submit your transaction reference. Your account is activated after a director verifies payment.</p></div>
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div><Label>Full name</Label><Input value={form.fullName} onChange={update("fullName")} required /></div>
           <div><Label>Phone</Label><Input value={form.phone} onChange={update("phone")} placeholder="07XX..." required /></div>

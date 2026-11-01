@@ -15,6 +15,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DirectorsRouteImport } from './routes/directors'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as PaymentRouteImport } from './routes/payment'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as RegisterRouteImport } from './routes/register'
@@ -50,6 +51,11 @@ const LoginRoute = LoginRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentRoute = PaymentRouteImport.update({
+  id: '/payment',
+  path: '/payment',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortalRoute = PortalRouteImport.update({
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/directors': typeof DirectorsRoute
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
+  '/payment': typeof PaymentRoute
   '/portal': typeof PortalRoute
   '/products': typeof ProductsRoute
   '/register': typeof RegisterRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/directors': typeof DirectorsRoute
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
+  '/payment': typeof PaymentRoute
   '/portal': typeof PortalRoute
   '/products': typeof ProductsRoute
   '/register': typeof RegisterRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/directors': typeof DirectorsRoute
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
+  '/payment': typeof PaymentRoute
   '/portal': typeof PortalRoute
   '/products': typeof ProductsRoute
   '/register': typeof RegisterRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/directors'
     | '/login'
     | '/mcp'
+    | '/payment'
     | '/portal'
     | '/products'
     | '/register'
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
     | '/directors'
     | '/login'
     | '/mcp'
+    | '/payment'
     | '/portal'
     | '/products'
     | '/register'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '/directors'
     | '/login'
     | '/mcp'
+    | '/payment'
     | '/portal'
     | '/products'
     | '/register'
@@ -181,6 +193,7 @@ export interface RootRouteChildren {
   DirectorsRoute: typeof DirectorsRoute
   LoginRoute: typeof LoginRoute
   McpRoute: typeof McpRoute
+  PaymentRoute: typeof PaymentRoute
   PortalRoute: typeof PortalRoute
   ProductsRoute: typeof ProductsRoute
   RegisterRoute: typeof RegisterRoute
@@ -231,6 +244,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment': {
+      id: '/payment'
+      path: '/payment'
+      fullPath: '/payment'
+      preLoaderRoute: typeof PaymentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portal': {
@@ -285,6 +305,7 @@ const rootRouteChildren: RootRouteChildren = {
   DirectorsRoute: DirectorsRoute,
   LoginRoute: LoginRoute,
   McpRoute: McpRoute,
+  PaymentRoute: PaymentRoute,
   PortalRoute: PortalRoute,
   ProductsRoute: ProductsRoute,
   RegisterRoute: RegisterRoute,

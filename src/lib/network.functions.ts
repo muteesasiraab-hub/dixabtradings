@@ -235,6 +235,8 @@ export const submitPaymentReference = createServerFn({ method: "POST" })
       .update({ reference: paymentReference(data.method, data.reference), status: "pending" })
       .eq("id", payment.id).eq("user_id", userId).neq("status", "approved").select("id");
     if (error || !updated?.length) throw new Error("Payment reference could not be saved. Refresh and try again.");
+    // A resubmission after rejection returns the member to the pending list.
+    await supabaseAdmin.from("profiles").update({ status: "pending" }).eq("id", userId).eq("status", "rejected");
     return { ok: true };
   });
 

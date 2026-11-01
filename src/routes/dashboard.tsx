@@ -75,6 +75,7 @@ function DashboardPage() {
 
   const { profile, levels, earnings, totalEarnings, latestPayment, isAdmin, directCount } = data;
   const isActive = profile.status === "active";
+  const isRejected = profile.status === "rejected" || latestPayment?.status === "rejected";
 
   const copyLink = () => {
     const url = `${window.location.origin}/register?ref=${profile.referral_code}`;
@@ -98,13 +99,14 @@ function DashboardPage() {
               <Link to="/admin"><ShieldCheck className="mr-1 h-4 w-4" /> Admin</Link>
             </Button>
           )}
-          <Badge variant={isActive ? "default" : "secondary"}>{isActive ? "Active" : "Pending payment"}</Badge>
+          <Badge variant={isActive ? "default" : isRejected ? "destructive" : "secondary"}>{isActive ? "Active" : isRejected ? "Payment rejected" : "Pending payment"}</Badge>
         </div>
       </div>
 
       {!isActive && (
         <Card className="border-accent/40 bg-accent/10 p-5">
           <h3 className="font-semibold">Activate your account</h3>
+          {isRejected && <p role="alert" className="mt-2 text-sm text-destructive">Your previous payment could not be verified. Please pay again and submit the new transaction reference.</p>}
           <p className="mt-1 text-sm text-muted-foreground">
             Pay {UGX(latestPayment?.amount ?? ENTRY_FEE)} using one of the merchant codes below, then submit your transaction reference.
             Earnings start flowing once approved.
