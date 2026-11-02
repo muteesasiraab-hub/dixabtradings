@@ -1,5 +1,19 @@
 -- Self-managed hosting: run once in the members database SQL editor.
 BEGIN;
+-- Trusted helper: reads a member's locked fields without triggering RLS
+-- (policies must never subquery the table they protect — that loops forever).
+CREATE OR REPLACE FUNCTION public.profile_lock(_id uuid)
+RETURNS TABLE(status text, referral_code text, sponsor_id uuid)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $$
+  SELECT p.status, p.referral_code, p.sponsor_id FROM public.profiles p WHERE p.id = _id
+$$;
+REVOKE ALL ON FUNCTION public.profile_lock(uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.profile_lock(uuid) FROM authenticated, anon;
+GRANT EXECUTE ON FUNCTION public.profile_lock(uuid) TO service_role;
+-- Members may view their direct recruits (sponsor_id = own id; no self-subquery).
+DROP POLICY IF EXISTS "users view downline profiles" ON public.profiles;
+CREATE POLICY "users view downline profiles" ON public.profiles FOR SELECT TO authenticated
+  USING (sponsor_id = auth.uid());
 -- Members may edit their own name/phone but never their status, sponsor or
 -- identifier code — only payment approval (service role) may activate them.
 DROP POLICY IF EXISTS "users update own profile" ON public.profiles;
@@ -7,9 +21,9 @@ CREATE POLICY "users update own profile" ON public.profiles FOR UPDATE TO authen
   USING (id = auth.uid())
   WITH CHECK (
     id = auth.uid()
-    AND status = (SELECT p.status FROM public.profiles p WHERE p.id = auth.uid())
-    AND referral_code = (SELECT p.referral_code FROM public.profiles p WHERE p.id = auth.uid())
-    AND sponsor_id IS NOT DISTINCT FROM (SELECT p.sponsor_id FROM public.profiles p WHERE p.id = auth.uid())
+    AND status = (SELECT l.status FROM public.profile_lock(auth.uid()) l)
+    AND referral_code = (SELECT l.referral_code FROM public.profile_lock(auth.uid()) l)
+    AND sponsor_id IS NOT DISTINCT FROM (SELECT l.sponsor_id FROM public.profile_lock(auth.uid()) l)
   );
 GRANT SELECT ON public.user_roles TO authenticated;
 GRANT ALL ON public.user_roles, public.profiles, public.payments, public.earnings TO service_role;
