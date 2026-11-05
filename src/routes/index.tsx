@@ -13,7 +13,7 @@ import dicksonImg from "@/assets/dickson.jpg?format=webp";
 import muteesasiraImg from "@/assets/muteesasira.jpg?format=webp";
 
 import { Button } from "@/components/ui/button";
-import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
+import { Check, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
 import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 
 const WHATSAPP_NUMBER = "256731981504";
