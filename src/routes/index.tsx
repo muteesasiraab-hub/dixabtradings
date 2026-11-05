@@ -305,74 +305,64 @@ function Index() {
       </section>
 
 
-      {/* EARNINGS CALCULATOR */}
+      {/* EARNINGS MODEL */}
       <section className="relative overflow-hidden bg-emerald-deep p-8 text-cream shadow-elegant sm:p-12 lg:p-16">
         <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-[var(--color-emerald)] opacity-25 blur-3xl" />
         <div className="relative z-10 grid gap-12 lg:grid-cols-5 lg:gap-16">
           <div className="lg:col-span-2">
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-gold">Recommendation Model</p>
-            <h2 className="font-serif text-4xl text-cream sm:text-5xl">Project your success.</h2>
+            <h2 className="font-serif text-4xl text-cream sm:text-5xl">How the earnings add up.</h2>
             <p className="mt-6 leading-relaxed text-cream/70 sm:text-lg">
-              Our 5-level recommendation system is built for scalability. See how much you could earn by sharing products
-              and growing your community.
+              Every member recommends up to 3 people directly. You earn {UGX(EARNING_PER_REFERRAL)} for each new member
+              anywhere in your community — across 5 levels.
             </p>
             <div className="mt-10 h-px w-24 bg-gold" />
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:col-span-3">
-            <div className="space-y-10 border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
-              <div className="space-y-5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Monthly volume</label>
-                  <span className="font-bold text-gold">121 units</span>
+            <div className="space-y-6 border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-widest text-cream/80">A full community, level by level</p>
+              {[
+                { level: "Level 1", members: 3, earn: 3 * EARNING_PER_REFERRAL },
+                { level: "Level 2", members: 9, earn: 9 * EARNING_PER_REFERRAL },
+                { level: "Level 3", members: 27, earn: 27 * EARNING_PER_REFERRAL },
+                { level: "Level 4", members: 81, earn: 81 * EARNING_PER_REFERRAL },
+                { level: "Level 5", members: 243, earn: 243 * EARNING_PER_REFERRAL },
+              ].map((l) => (
+                <div key={l.level} className="flex items-center justify-between gap-4 border-b border-white/10 pb-4 last:border-0 last:pb-0">
+                  <div>
+                    <p className="text-sm font-semibold text-cream">{l.level}</p>
+                    <p className="text-xs text-cream/60">{l.members} members</p>
+                  </div>
+                  <p className="font-serif text-xl text-gold">{UGX(l.earn)}</p>
                 </div>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-3/4 rounded-full bg-gold transition-all duration-700" />
-                </div>
-              </div>
-              <div className="space-y-5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Community size</label>
-                  <span className="font-bold text-gold">363 members</span>
-                </div>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-5/6 rounded-full bg-gold transition-all duration-700" />
-                </div>
-              </div>
-              <div className="space-y-5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Community depth</label>
-                  <span className="font-bold text-gold">5 levels</span>
-                </div>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-full rounded-full bg-gold" />
-                </div>
-              </div>
+              ))}
             </div>
 
-            <div className="flex flex-col items-center justify-center bg-gold p-8 text-center text-emerald-deep">
-              <span className="mb-3 text-[10px] font-black uppercase tracking-[0.3em]">Projected payout</span>
+            <div className="flex flex-col items-center justify-center bg-cream p-8 text-center text-emerald-deep">
+              <span className="mb-3 text-[10px] font-black uppercase tracking-[0.3em]">Full-community total</span>
               <span className="font-serif text-5xl leading-none sm:text-6xl">3,630,000</span>
-              <span className="mt-3 text-xs font-bold uppercase tracking-widest">UGX / Monthly</span>
-              <div className="mt-6 h-px w-16 bg-emerald-deep/40" />
-              <p className="mt-4 max-w-[14rem] text-xs leading-relaxed text-emerald-deep/80">
-                363 × {UGX(EARNING_PER_REFERRAL)} per recommendation across a full 5-level community.
+              <span className="mt-3 text-xs font-bold uppercase tracking-widest">UGX</span>
+              <div className="mt-6 h-px w-16 bg-emerald-deep/30" />
+              <p className="mt-4 max-w-[16rem] text-xs leading-relaxed text-emerald-deep/70">
+                363 members × {UGX(EARNING_PER_REFERRAL)}. An illustration of a complete 5-level community — actual
+                earnings depend on how your community grows.
               </p>
             </div>
 
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden sm:col-span-2">
               <img
                 src={earningsImg}
                 alt="Mobile payment received on Dixab platform"
                 loading="lazy"
                 width={640}
                 height={640}
-                className="h-full w-full object-cover"
+                className="h-56 w-full object-cover sm:h-64"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/70 to-transparent" />
               <div className="absolute bottom-0 left-0 p-6 text-cream">
                 <p className="text-xs font-bold uppercase tracking-widest text-gold">Verified payouts</p>
-                <p className="mt-1 font-serif text-xl">Manual Mobile Money confirmation</p>
+                <p className="mt-1 font-serif text-xl">Confirmed by Mobile Money</p>
               </div>
             </div>
 
