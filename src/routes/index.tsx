@@ -444,30 +444,24 @@ function Index() {
         </div>
       </section>
 
-      {/* TESTIMONIALS — member stories (below directors) */}
+      {/* WHY MEMBERS JOIN */}
       <section className="space-y-12">
         <div className="text-center">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Member stories</p>
-          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Real entrepreneurs. Real payouts.</h2>
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Why members join</p>
+          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Built on trust, not promises.</h2>
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           {[
-            { name: "James O.", role: "Kampala", text: "I bought an Dixab Flash at UGX 100,000 and grew my community to 98 members in 10 days. The dashboard makes every shilling visible." },
-            { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
-            { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Dixab turned a side idea into a real income stream." },
+            { icon: Shield, title: "A real product first", text: "Your entry buys a genuine premium flash disk — membership comes with something you can hold, not just a position." },
+            { icon: Check, title: "Transparent earnings", text: `Every recommendation credits ${UGX(EARNING_PER_REFERRAL)} to your dashboard, visible in real time across all 5 levels.` },
+            { icon: Lock, title: "Verified payouts", text: "Payments are confirmed by Mobile Money and approved by the directors before earnings are released." },
           ].map((t) => (
-            <article key={t.name} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
-              <div className="flex gap-1 text-gold">
-                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3.5 w-3.5 fill-current" />)}
+            <article key={t.title} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
+              <div className="grid h-12 w-12 place-items-center bg-emerald-deep text-cream">
+                <t.icon className="h-5 w-5" />
               </div>
-              <p className="mt-5 font-serif text-xl italic leading-snug text-emerald-deep">"{t.text}"</p>
-              <div className="mt-auto flex items-center gap-3 pt-6">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-deep font-bold text-cream">{t.name[0]}</div>
-                <div>
-                  <p className="text-sm font-semibold text-emerald-deep">{t.name}</p>
-                  <p className="text-[11px] uppercase tracking-widest text-foreground/60">{t.role}</p>
-                </div>
-              </div>
+              <h3 className="mt-6 font-serif text-2xl text-emerald-deep">{t.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-foreground/75">{t.text}</p>
             </article>
           ))}
         </div>
