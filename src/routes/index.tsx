@@ -76,88 +76,68 @@ function Index() {
   return (
     <div className="space-y-28 pb-12">
       {/* HERO */}
-      <section className="relative -mx-4 overflow-hidden bg-emerald-deep text-cream">
-        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-gold opacity-15 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-40 -right-24 h-96 w-96 rounded-full bg-[var(--color-emerald)] opacity-25 blur-3xl" />
-        <div className="relative z-10 mx-auto grid max-w-5xl items-center gap-12 px-4 py-16 sm:py-20 lg:grid-cols-2 lg:gap-16">
-          <div className="space-y-6 sm:space-y-8">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 shrink-0 bg-gold" />
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">
-                Word of mouth rewarded
-              </span>
-            </div>
-            <h1 className="max-w-xl font-serif text-5xl leading-[1.08] sm:text-6xl">
-              Turn your network into{" "}
-              <em className="italic text-gold">income</em>.
-            </h1>
-            <p className="max-w-xl text-base leading-relaxed text-cream/80 sm:text-lg">
-              Join Dixab General Tradings Co. Ltd with a premium flash disk for{" "}
-              <span className="font-semibold text-cream">100,000 UGX</span> — then earn{" "}
-              <span className="font-semibold text-gold">10% on every recommendation</span>, five levels deep.
-            </p>
-
-            <ul className="grid max-w-md gap-3 text-sm text-cream/90 sm:grid-cols-2">
-              {[
-                `Earn ${UGX(EARNING_PER_REFERRAL)} per referral`,
-                "5 levels of community earnings",
-                "Your own earnings dashboard",
-                "Printable identifier card",
-              ].map((f) => (
-                <li key={f} className="flex items-start gap-2.5">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold" /> {f}
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Button asChild size="lg" className="h-auto rounded-none bg-cream px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-white">
-                <Link to="/register" search={{ ref: "" }}>
-                  Join & start earning
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-cream/10">
-                <Link to="/login">Member Login</Link>
-              </Button>
-            </div>
-            <p className="text-xs text-cream/60">
-              One-time entry · No monthly fees · Pay by Airtel Money or MTN MoMo
-            </p>
+      <section className="grid items-center gap-12 pt-6 lg:grid-cols-2 lg:gap-16">
+        <div className="space-y-6 sm:space-y-8">
+          <div className="flex items-center gap-3">
+            <span className="h-px w-8 shrink-0 bg-primary" />
+            <span className="text-xs font-semibold uppercase tracking-normal text-primary">
+              Word of mouth rewarded
+            </span>
           </div>
+          <h1 className="max-w-xl font-sans text-4xl font-semibold leading-[1.15] tracking-normal text-foreground sm:text-5xl">
+            <span className="block">Discover the world of sales</span>
+            <span className="mt-3 block text-xl font-medium leading-snug text-primary sm:text-2xl">with Dixab General Tradings Co. Ltd.</span>
+          </h1>
+          <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
+            Start with a premium flash disk for{" "}
+            <span className="font-semibold text-primary">100,000 UGX</span>. Recommend Dixab products to your community and track your recommendations and earnings in your member account.
+          </p>
 
-          <div className="relative">
-            <div className="group relative aspect-[4/3] overflow-hidden shadow-elegant lg:aspect-[10/12]">
-              <img
-                src={heroImg}
-                alt="Dixab showroom with the company team"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                width={896}
-                height={1088}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-white/5 p-6 backdrop-blur-md">
-                <p className="mb-1 text-xs font-bold uppercase tracking-widest text-gold">Now launching in Uganda</p>
-                <p className="font-serif text-xl italic text-cream sm:text-2xl">
-                  Founding members earn first
-                </p>
-              </div>
-            </div>
-            <div className="pointer-events-none absolute -right-4 -top-4 hidden h-40 w-40 border border-gold sm:block" />
+          <div className="flex flex-wrap gap-4 pt-2">
+            <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep/90">
+              <Link to="/register" search={{ ref: "" }}>
+                <span className="relative z-10">Join Dixab</span>
+                <span className="absolute inset-0 translate-y-full bg-gold transition-transform duration-300 group-hover:translate-y-0" />
+                <ArrowRight className="relative z-10 ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-emerald-deep bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-emerald-deep/5">
+              <Link to="/login">Member Login</Link>
+            </Button>
           </div>
+        </div>
+
+        <div className="relative">
+          <div className="group relative aspect-[10/12] overflow-hidden shadow-elegant">
+            <img
+              src={heroImg}
+              alt="Premium emerald and gold showroom display"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              width={896}
+              height={1088}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-white/5 p-6 backdrop-blur-md sm:p-8">
+              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-gold">Platform Launch</p>
+              <p className="font-serif text-2xl italic text-white sm:text-3xl">
+                Empowering 10,000+ Entrepreneurs across Uganda
+              </p>
+            </div>
+          </div>
+          <div className="pointer-events-none absolute -right-4 -top-4 hidden h-40 w-40 border border-gold sm:block" />
         </div>
       </section>
 
       {/* TRUST STRIP */}
       <section className="grid grid-cols-2 gap-y-6 border-y border-border/60 py-8 text-center sm:grid-cols-4">
         {[
-          { k: "10%", v: "Per recommendation" },
+          { k: "10K+", v: "Entrepreneurs" },
           { k: "5", v: "Levels deep" },
-          { k: UGX(ENTRY_FEE), v: "One-time entry" },
-          { k: "MoMo", v: "Airtel & MTN payouts" },
+          { k: "363", v: "Community per leg" },
+          { k: "100%", v: "Verified payouts" },
         ].map((s) => (
           <div key={s.v}>
-            <p className="font-serif text-3xl text-emerald-deep sm:text-4xl">{s.k}</p>
+            <p className="font-serif text-4xl text-emerald-deep">{s.k}</p>
             <p className="mt-1 text-[11px] font-semibold uppercase tracking-widest text-foreground/60">{s.v}</p>
           </div>
         ))}
