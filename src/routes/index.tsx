@@ -111,7 +111,7 @@ function Index() {
             </ul>
 
             <div className="flex flex-wrap gap-4 pt-2">
-              <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
+              <Button asChild size="lg" className="h-auto rounded-none bg-cream px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-white">
                 <Link to="/register" search={{ ref: "" }}>
                   Join & start earning
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -334,7 +334,7 @@ function Index() {
                     <p className="text-sm font-semibold text-cream">{l.level}</p>
                     <p className="text-xs text-cream/60">{l.members} members</p>
                   </div>
-                  <p className="font-serif text-xl text-gold">{UGX(l.earn)}</p>
+                  <p className="font-serif text-xl font-semibold text-cream">{UGX(l.earn)}</p>
                 </div>
               ))}
             </div>
