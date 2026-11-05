@@ -112,12 +112,12 @@
 }
 
 @theme inline {
-  --font-serif: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Inter", ui-sans-serif, system-ui, sans-serif;
   --color-emerald-deep: #059669;
   --color-emerald: #10b981;
-  --color-gold: #34d399;
+  --color-gold: #d9a821;
   --color-cream: #ecfdf5;
   --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-glow));
   --gradient-hero: linear-gradient(140deg, #059669 0%, #10b981 70%, #34d399 130%);

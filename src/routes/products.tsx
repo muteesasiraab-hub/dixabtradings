@@ -132,7 +132,7 @@ function ProductsPage() {
           </div>
           
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
+            <Button asChild size="lg" className="h-auto rounded-none bg-cream px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-white">
               <Link to="/register" search={{ ref: "" }}>Register Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-cream/10">
