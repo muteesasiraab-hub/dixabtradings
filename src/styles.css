@@ -46,7 +46,7 @@
   color-scheme: light only;
   --radius: 0.25rem;
   /* Firm Green palette: #059669, #10b981, #34d399, #ecfdf5 */
-  --background: oklch(0.96 0.04 158);          /* mint #ecfdf5 */
+  --background: oklch(0.96 0.02 85);          /* cream */
   --foreground: oklch(0.25 0.07 165);         /* deep green */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.25 0.07 165);
