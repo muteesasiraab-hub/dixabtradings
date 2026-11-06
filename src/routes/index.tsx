@@ -101,8 +101,24 @@ function Index() {
               </Button>
             </div>
           </div>
-          <div className="relative hidden overflow-hidden rounded-3xl lg:block">
-            <img src={heroImg} alt="Dixab premium products showroom" className="aspect-[10/12] w-full object-cover" width={896} height={1088} />
+          <div className="relative">
+            <div className="group relative aspect-[10/12] overflow-hidden shadow-elegant">
+              <img
+                src={heroImg}
+                alt="Premium emerald and gold showroom display"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                width={896}
+                height={1088}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-white/5 p-6 backdrop-blur-md sm:p-8">
+                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-gold">Platform Launch</p>
+                <p className="font-serif text-2xl italic text-white sm:text-3xl">
+                  Empowering 10,000+ Entrepreneurs across Uganda
+                </p>
+              </div>
+            </div>
+            <div className="pointer-events-none absolute -right-4 -top-4 hidden h-40 w-40 border border-gold sm:block" />
           </div>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-cream/10 bg-ink-soft px-8 py-8 sm:px-12 lg:px-16">
