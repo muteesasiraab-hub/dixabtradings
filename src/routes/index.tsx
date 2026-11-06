@@ -13,7 +13,7 @@ import dicksonImg from "@/assets/dickson.jpg?format=webp";
 import muteesasiraImg from "@/assets/muteesasira.jpg?format=webp";
 
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
+import { Check, Star, ArrowRight, Shield, Lock, MessageCircle } from "lucide-react";
 import { UGX, USD, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
 
 const WHATSAPP_NUMBER = "256731981504";
@@ -280,71 +280,81 @@ function Index() {
         </div>
 
         <div className="flex justify-center pt-2">
-          <Button asChild size="lg" className="h-auto rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep/90">
+          <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
             <Link to="/products">Browse profiled products <ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         </div>
       </section>
 
 
-      {/* EARNINGS MODEL */}
+      {/* EARNINGS CALCULATOR */}
       <section className="relative overflow-hidden bg-emerald-deep p-8 text-cream shadow-elegant sm:p-12 lg:p-16">
         <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-[var(--color-emerald)] opacity-25 blur-3xl" />
         <div className="relative z-10 grid gap-12 lg:grid-cols-5 lg:gap-16">
           <div className="lg:col-span-2">
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-gold">Recommendation Model</p>
-            <h2 className="font-serif text-4xl text-cream sm:text-5xl">How the earnings add up.</h2>
+            <h2 className="font-serif text-4xl text-cream sm:text-5xl">Project your success.</h2>
             <p className="mt-6 leading-relaxed text-cream/70 sm:text-lg">
-              Every member recommends up to 3 people directly. You earn {UGX(EARNING_PER_REFERRAL)} for each new member
-              anywhere in your community — across 5 levels.
+              Our 5-level recommendation system is built for scalability. See how much you could earn by sharing products
+              and growing your community.
             </p>
             <div className="mt-10 h-px w-24 bg-gold" />
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:col-span-3">
-            <div className="space-y-6 border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
-              <p className="text-xs font-semibold uppercase tracking-widest text-cream/80">A full community, level by level</p>
-              {[
-                { level: "Level 1", members: 3, earn: 3 * EARNING_PER_REFERRAL },
-                { level: "Level 2", members: 9, earn: 9 * EARNING_PER_REFERRAL },
-                { level: "Level 3", members: 27, earn: 27 * EARNING_PER_REFERRAL },
-                { level: "Level 4", members: 81, earn: 81 * EARNING_PER_REFERRAL },
-                { level: "Level 5", members: 243, earn: 243 * EARNING_PER_REFERRAL },
-              ].map((l) => (
-                <div key={l.level} className="flex items-center justify-between gap-4 border-b border-white/10 pb-4 last:border-0 last:pb-0">
-                  <div>
-                    <p className="text-sm font-semibold text-cream">{l.level}</p>
-                    <p className="text-xs text-cream/60">{l.members} members</p>
-                  </div>
-                  <p className="font-serif text-xl font-semibold text-cream">{UGX(l.earn)}</p>
+            <div className="space-y-10 border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Monthly volume</label>
+                  <span className="font-bold text-gold">121 units</span>
                 </div>
-              ))}
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-3/4 rounded-full bg-gold transition-all duration-700" />
+                </div>
+              </div>
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Community size</label>
+                  <span className="font-bold text-gold">363 members</span>
+                </div>
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-5/6 rounded-full bg-gold transition-all duration-700" />
+                </div>
+              </div>
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold uppercase tracking-widest text-cream/80">Community depth</label>
+                  <span className="font-bold text-gold">5 levels</span>
+                </div>
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-full rounded-full bg-gold" />
+                </div>
+              </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center bg-cream p-8 text-center text-emerald-deep">
-              <span className="mb-3 text-[10px] font-black uppercase tracking-[0.3em]">Full-community total</span>
+            <div className="flex flex-col items-center justify-center bg-gold p-8 text-center text-emerald-deep">
+              <span className="mb-3 text-[10px] font-black uppercase tracking-[0.3em]">Projected payout</span>
               <span className="font-serif text-5xl leading-none sm:text-6xl">3,630,000</span>
-              <span className="mt-3 text-xs font-bold uppercase tracking-widest">UGX</span>
-              <div className="mt-6 h-px w-16 bg-emerald-deep/30" />
-              <p className="mt-4 max-w-[16rem] text-xs leading-relaxed text-emerald-deep/70">
-                363 members × {UGX(EARNING_PER_REFERRAL)}. An illustration of a complete 5-level community — actual
-                earnings depend on how your community grows.
+              <span className="mt-3 text-xs font-bold uppercase tracking-widest">UGX / Monthly</span>
+              <div className="mt-6 h-px w-16 bg-emerald-deep/40" />
+              <p className="mt-4 max-w-[14rem] text-xs leading-relaxed text-emerald-deep/80">
+                363 × {UGX(EARNING_PER_REFERRAL)} per recommendation across a full 5-level community.
               </p>
             </div>
 
-            <div className="relative overflow-hidden sm:col-span-2">
+            <div className="relative overflow-hidden">
               <img
                 src={earningsImg}
                 alt="Mobile payment received on Dixab platform"
                 loading="lazy"
                 width={640}
                 height={640}
-                className="h-56 w-full object-cover sm:h-64"
+                className="h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/70 to-transparent" />
               <div className="absolute bottom-0 left-0 p-6 text-cream">
                 <p className="text-xs font-bold uppercase tracking-widest text-gold">Verified payouts</p>
-                <p className="mt-1 font-serif text-xl">Confirmed by Mobile Money</p>
+                <p className="mt-1 font-serif text-xl">Manual Mobile Money confirmation</p>
               </div>
             </div>
 
@@ -426,24 +436,30 @@ function Index() {
         </div>
       </section>
 
-      {/* WHY MEMBERS JOIN */}
+      {/* TESTIMONIALS — member stories (below directors) */}
       <section className="space-y-12">
         <div className="text-center">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Why members join</p>
-          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Built on trust, not promises.</h2>
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "var(--color-emerald)" }}>Member stories</p>
+          <h2 className="font-serif text-4xl text-emerald-deep sm:text-5xl">Real entrepreneurs. Real payouts.</h2>
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           {[
-            { icon: Shield, title: "A real product first", text: "Your entry buys a genuine premium flash disk — membership comes with something you can hold, not just a position." },
-            { icon: Check, title: "Transparent earnings", text: `Every recommendation credits ${UGX(EARNING_PER_REFERRAL)} to your dashboard, visible in real time across all 5 levels.` },
-            { icon: Lock, title: "Verified payouts", text: "Payments are confirmed by Mobile Money and approved by the directors before earnings are released." },
+            { name: "James O.", role: "Kampala", text: "I bought an Dixab Flash at UGX 100,000 and grew my community to 98 members in 10 days. The dashboard makes every shilling visible." },
+            { name: "Sarah N.", role: "Jinja", text: "The product I received was genuine and high quality. Earning while sharing something real feels honest." },
+            { name: "Peter K.", role: "Mbarara", text: "Admin approvals are quick and the model is transparent. Dixab turned a side idea into a real income stream." },
           ].map((t) => (
-            <article key={t.title} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
-              <div className="grid h-12 w-12 place-items-center bg-emerald-deep text-cream">
-                <t.icon className="h-5 w-5" />
+            <article key={t.name} className="flex flex-col bg-card p-8 shadow-card ring-1 ring-border/60">
+              <div className="flex gap-1 text-gold">
+                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-3.5 w-3.5 fill-current" />)}
               </div>
-              <h3 className="mt-6 font-serif text-2xl text-emerald-deep">{t.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-foreground/75">{t.text}</p>
+              <p className="mt-5 font-serif text-xl italic leading-snug text-emerald-deep">"{t.text}"</p>
+              <div className="mt-auto flex items-center gap-3 pt-6">
+                <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-deep font-bold text-cream">{t.name[0]}</div>
+                <div>
+                  <p className="text-sm font-semibold text-emerald-deep">{t.name}</p>
+                  <p className="text-[11px] uppercase tracking-widest text-foreground/60">{t.role}</p>
+                </div>
+              </div>
             </article>
           ))}
         </div>
@@ -464,7 +480,7 @@ function Index() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button asChild size="lg" className="h-auto rounded-none bg-cream px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-white">
+              <Button asChild size="lg" className="h-auto rounded-none bg-gold px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-gold/90">
                 <Link to="/register" search={{ ref: "" }}>Register now <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-cream/40 bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-white/10">
