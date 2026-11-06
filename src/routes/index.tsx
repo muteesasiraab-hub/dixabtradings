@@ -76,55 +76,41 @@ function Index() {
   return (
     <div className="space-y-28 pb-12">
       {/* HERO */}
-      <section className="grid items-center gap-12 pt-6 lg:grid-cols-2 lg:gap-16">
-        <div className="space-y-6 sm:space-y-8">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-8 shrink-0 bg-primary" />
-            <span className="text-xs font-semibold uppercase tracking-normal text-primary">
-              Word of mouth rewarded
-            </span>
-          </div>
-          <h1 className="max-w-xl font-sans text-4xl font-semibold leading-[1.15] tracking-normal text-foreground sm:text-5xl">
-            <span className="block">Discover the world of sales</span>
-            <span className="mt-3 block text-xl font-medium leading-snug text-primary sm:text-2xl">with Dixab General Tradings Co. Ltd.</span>
-          </h1>
-          <p className="max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
-            Start with a premium flash disk for{" "}
-            <span className="font-semibold text-primary">100,000 UGX</span>. Recommend Dixab products to your community and track your recommendations and earnings in your member account.
-          </p>
-
-          <div className="flex flex-wrap gap-4 pt-2">
-            <Button asChild size="lg" className="group relative h-auto overflow-hidden rounded-none bg-emerald-deep px-8 py-5 text-sm font-semibold uppercase tracking-widest text-cream hover:bg-emerald-deep/90">
-              <Link to="/register" search={{ ref: "" }}>
-                <span className="relative z-10">Join Dixab</span>
-                <span className="absolute inset-0 translate-y-full bg-gold transition-transform duration-300 group-hover:translate-y-0" />
-                <ArrowRight className="relative z-10 ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="h-auto rounded-none border-2 border-emerald-deep bg-transparent px-8 py-5 text-sm font-semibold uppercase tracking-widest text-emerald-deep hover:bg-emerald-deep/5">
-              <Link to="/login">Member Login</Link>
-            </Button>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="group relative aspect-[10/12] overflow-hidden shadow-elegant">
-            <img
-              src={heroImg}
-              alt="Premium emerald and gold showroom display"
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              width={896}
-              height={1088}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-white/5 p-6 backdrop-blur-md sm:p-8">
-              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-gold">Platform Launch</p>
-              <p className="font-serif text-2xl italic text-white sm:text-3xl">
-                Empowering 10,000+ Entrepreneurs across Uganda
-              </p>
+      <section className="overflow-hidden rounded-[2rem] bg-ink text-cream shadow-elegant">
+        <div className="grid items-center gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:gap-16 lg:p-16">
+          <div className="space-y-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">
+              Word of mouth · Rewarded
+            </p>
+            <h1 className="font-serif text-5xl font-semibold leading-[1.05] sm:text-6xl lg:text-7xl">
+              <span className="block">Recommend.</span>
+              <span className="block">Grow.</span>
+              <span className="block italic text-gold">Get paid.</span>
+            </h1>
+            <p className="max-w-xl text-lg leading-relaxed text-cream/70">
+              Discover the world of sales with Dixab. Share our products with your community and watch your earnings grow from your member account.
+            </p>
+            <div className="flex flex-col gap-4 sm:max-w-md">
+              <Button asChild size="lg" className="h-auto rounded-full bg-gradient-gold py-5 text-base font-semibold text-ink shadow-gold hover:opacity-95">
+                <Link to="/register" search={{ ref: "" }}>
+                  Join Dixab <ArrowRight className="ml-2 h-4 w-4 -rotate-45" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="h-auto rounded-full border-cream/20 bg-transparent py-5 text-base font-semibold text-cream hover:bg-cream/10 hover:text-cream">
+                <Link to="/login">Member login</Link>
+              </Button>
             </div>
           </div>
-          <div className="pointer-events-none absolute -right-4 -top-4 hidden h-40 w-40 border border-gold sm:block" />
+          <div className="relative hidden overflow-hidden rounded-3xl lg:block">
+            <img src={heroImg} alt="Dixab premium products showroom" className="aspect-[10/12] w-full object-cover" width={896} height={1088} />
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-cream/10 bg-ink-soft px-8 py-8 sm:px-12 lg:px-16">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cream/60">Starter package</p>
+            <p className="mt-2 text-sm text-cream/70">Premium flash disk · one-time entry</p>
+          </div>
+          <p className="font-serif text-5xl font-semibold text-gold">100K <span className="text-lg text-cream/60">UGX</span></p>
         </div>
       </section>
 
