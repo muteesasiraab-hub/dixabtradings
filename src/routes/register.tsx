@@ -94,7 +94,7 @@ function RegisterPage() {
           <div>
             <Label>Identifier code</Label>
             <Input value={form.referralCode} onChange={update("referralCode")} placeholder="DAXXXXXX" className="uppercase" required />
-            <p className="mt-1 text-xs text-muted-foreground">Use the identifier code given to you by your sponsor.</p>
+            <p className="mt-1 text-xs text-muted-foreground">Use the company entry code or the identifier code given to you by your sponsor.</p>
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Creating..." : "Register"}

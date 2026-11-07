@@ -76,11 +76,9 @@ export const createProfile = createServerFn({ method: "POST" })
     const { provisionMember } = await import("@/lib/member-provision.server");
     const { data: existing } = await context.supabase.from("profiles").select("referral_code").eq("id", userId).maybeSingle();
     if (existing) return { referralCode: existing.referral_code, isFirstUser: false };
-    const bootstrapEmail = process.env["DIXAB_BOOTSTRAP_ADMIN_EMAIL"]?.trim().toLowerCase();
-    const isFirstUser = Boolean(bootstrapEmail && claims.email?.toLowerCase() === bootstrapEmail);
-    const newCode = await provisionMember(supabaseAdmin, { userId, ...data, founder: isFirstUser });
+    const newCode = await provisionMember(supabaseAdmin, { userId, ...data });
 
-    return { referralCode: newCode, isFirstUser };
+    return { referralCode: newCode, isFirstUser: false };
   });
 
 // Get current user dashboard data
@@ -257,13 +255,8 @@ export const registerMemberAccount = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { provisionMember } = await import("@/lib/member-provision.server");
     const code = (data.referralCode ?? "").trim().toUpperCase();
-    const founder = process.env["DIXAB_BOOTSTRAP_ADMIN_EMAIL"]?.trim().toLowerCase();
-    const isFounder = Boolean(founder && founder === data.email.toLowerCase());
-    // Founding administration requires the existing verified-email signup path.
-    if (isFounder) throw new Error("The founding administrator must use a verified account configured by the company.");
-    if (!code) throw new Error("Your sponsor's identifier code is required");
-    const { data: sponsor, error: sponsorError } = await supabaseAdmin.from("profiles").select("id").eq("referral_code", code).maybeSingle();
-    if (sponsorError || !sponsor) throw new Error("Invalid identifier code");
+    if (!code) throw new Error("A company entry code or sponsor's identifier code is required");
+    // The transactional RPC validates both company and member codes and enforces capacity.
     const { data: account, error } = await supabaseAdmin.auth.admin.createUser({
       email: data.email.toLowerCase(), password: data.password, email_confirm: true,
       user_metadata: { dixab_registration: { fullName: data.fullName, phone: data.phone, referralCode: code } },
