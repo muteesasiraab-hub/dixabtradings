@@ -121,6 +121,11 @@
   --color-cream: #ecfdf5;
   --color-ink: oklch(0.17 0.02 160);
   --color-ink-soft: oklch(0.21 0.03 160);
+  --home-light-surface: oklch(0.99 0.005 155);
+  --home-light-green: color-mix(in oklab, var(--primary-glow) 9%, transparent);
+  --home-light-gold: color-mix(in oklab, var(--color-gold) 8%, transparent);
+  --home-light-white: color-mix(in oklab, var(--card) 75%, transparent);
+  --home-light-pattern: linear-gradient(118deg, transparent 12%, var(--home-light-white) 30%, transparent 44%), linear-gradient(65deg, var(--home-light-green), transparent 48%, var(--home-light-gold));
   --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-glow));
   --gradient-hero: linear-gradient(140deg, #059669 0%, #10b981 70%, #34d399 130%);
   --shadow-elegant: 0 20px 50px -15px color-mix(in oklab, var(--color-primary) 45%, transparent);
@@ -136,6 +141,15 @@
   }
   h1, h2, h3, .font-serif { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.01em; }
 }
+
+/* Broad, translucent light washes: no floating shapes or changes to the hero. */
+body:has(.home-light-background) {
+  background-color: var(--home-light-surface);
+  background-image: var(--home-light-pattern);
+  background-attachment: fixed;
+}
+
+.home-light-background { background-color: transparent; }
 
 @layer utilities {
   .bg-gradient-hero { background-image: var(--gradient-hero); }
