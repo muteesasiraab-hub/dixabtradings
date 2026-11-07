@@ -1,5 +1,9 @@
 # Dixab website tasks
 
+- [ ] Reset all membership records including Abbey and install company-owned three-entry code — external database SQL editor required
+- [ ] Support company entry registration without founding-member privileges; test three-entry cap
+- [ ] Apply transparent home background with subtle light effects; verify phone and desktop
+
 - [x] Fix director session policy for live lovableproject.com editor iframe; four cookie tests pass; local dashboard access, reload and sign-out verified with member records
 - [ ] Confirm director sign-in in the user's actual editor iframe — simulated secure proxy could not reproduce the hosting environment; awaiting user retry
 

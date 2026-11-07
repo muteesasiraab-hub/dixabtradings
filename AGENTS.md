@@ -5,3 +5,4 @@
 - Use secure partitioned SameSite=None director cookies on both static id-preview Lovable hosts and live lovableproject.com editor hosts, and SameSite=Lax elsewhere, so iframe sign-in persists without relaxing production cookies; on those preview hosts only, also accept a short-lived HMAC-signed header token kept in sessionStorage, because some mobile browsers block all iframe cookies.
 - Provision member profiles and approve payment activation through transactional database functions to keep registration, referral limits and earnings consistent.
 - Self-managed hosting requires server-only database credentials and application migrations; never expose privileged keys through VITE variables.
+- Company entry codes live outside member profiles; enforce their lifetime capacity in the transactional provisioning function, with founder privileges disabled, so the company is never a member and deletion cannot reopen entry slots.

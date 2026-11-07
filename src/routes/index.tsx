@@ -74,7 +74,7 @@ const products = [
 
 function Index() {
   return (
-    <div className="space-y-28 pb-12">
+    <div className="home-light-background space-y-28 pb-12">
       {/* HERO */}
       <section className="overflow-hidden rounded-[2rem] bg-ink text-cream shadow-elegant">
         <div className="grid items-center gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:gap-16 lg:p-16">
