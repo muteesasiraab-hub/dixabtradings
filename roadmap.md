@@ -1,8 +1,8 @@
 # Dixab website tasks
 
-- [ ] Reset all membership records including Abbey and install company-owned three-entry code — external database SQL editor required
-- [ ] Support company entry registration without founding-member privileges; test three-entry cap
-- [ ] Apply transparent home background with subtle light effects; verify phone and desktop
+- [ ] User: run dixab-1-company-entry-setup.sql then dixab-2-reset-members.sql in the database SQL editor — resets all membership including Abbey and installs the company-owned three-entry code (files delivered; 5/5 tests pass)
+- [x] Support company entry registration without founding-member privileges; test three-entry cap — 5/5 tests pass (cap, no admin privileges, idempotent retry, 3-direct-recruit cap, reset)
+- [x] Apply transparent home background with subtle light effects; verify phone and desktop — verified via screenshots on both
 
 - [x] Fix director session policy for live lovableproject.com editor iframe; four cookie tests pass; local dashboard access, reload and sign-out verified with member records
 - [ ] Confirm director sign-in in the user's actual editor iframe — simulated secure proxy could not reproduce the hosting environment; awaiting user retry

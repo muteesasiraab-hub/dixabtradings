@@ -27,7 +27,7 @@ async function register(db, n, code = 'DIXAB-ENTRY', founder = false) {
   return db.query('SELECT provision_member($1,$2,$3,$4,$5,$6) AS code', [id(n), 'Test Member', '0700000000', `member${n}@example.test`, code, founder]);
 }
 
-test('company code admits exactly three members, not a fourth', async () => {
+test('company code admits exactly three members, not a fourth', { timeout: 30000 }, async () => {
   const db = await fixture();
   try {
     for (let n = 1; n <= 3; n++) await register(db, n);
@@ -39,7 +39,7 @@ test('company code admits exactly three members, not a fourth', async () => {
   } finally { await db.close(); }
 });
 
-test('company registrations are pending ordinary members without admin privileges', async () => {
+test('company registrations are pending ordinary members without admin privileges', { timeout: 30000 }, async () => {
   const db = await fixture();
   try {
     await register(db, 1);
@@ -49,7 +49,7 @@ test('company registrations are pending ordinary members without admin privilege
   } finally { await db.close(); }
 });
 
-test('retrying the same registration consumes only one of the three company entries', async () => {
+test('retrying the same registration consumes only one of the three company entries', { timeout: 30000 }, async () => {
   const db = await fixture();
   try {
     await register(db, 1); await register(db, 1);
@@ -57,7 +57,7 @@ test('retrying the same registration consumes only one of the three company entr
   } finally { await db.close(); }
 });
 
-test('each new member still admits only three direct recruits', async () => {
+test('each new member still admits only three direct recruits', { timeout: 30000 }, async () => {
   const db = await fixture();
   try {
     const parent = (await register(db, 1)).rows[0].code;
@@ -67,7 +67,7 @@ test('each new member still admits only three direct recruits', async () => {
   } finally { await db.close(); }
 });
 
-test('reset removes Abbey and all memberships, payments and matching login accounts', async () => {
+test('reset removes Abbey and all memberships, payments and matching login accounts', { timeout: 30000 }, async () => {
   const db = await fixture();
   try {
     await register(db, 1);
