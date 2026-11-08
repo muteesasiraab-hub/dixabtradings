@@ -83,9 +83,8 @@ function Index() {
               Word of mouth · Rewarded
             </p>
             <h1 className="font-serif text-5xl font-semibold leading-[1.05] sm:text-6xl lg:text-7xl">
-              <span className="block">Recommend.</span>
-              <span className="block">Grow.</span>
-              <span className="block italic text-gold">Get paid.</span>
+              <span className="block">The Future Of</span>
+              <span className="block italic text-gold">African Sales</span>
             </h1>
             <p className="max-w-xl text-lg leading-relaxed text-cream/70">
               Discover the world of sales with Dixab. Share our products with your community and watch your earnings grow from your member account.
