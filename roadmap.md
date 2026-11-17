@@ -1,5 +1,7 @@
 # Dixab website tasks
 
+- [x] Verify Android Home Screen support and add a crop-safe icon for Android launchers — all icons load, logo stays within the circular safe zone, signed-out app launch reaches member sign-in; physical Android installation unverified.
+
 - [x] Add manifest-only iPhone Home Screen support with Dixab icons — verified manifest, all icons and signed-out dashboard launch to member sign-in at phone size; physical iPhone installation unverified.
 - [x] Clarify iPhone search destination — user chose Safari or Google search.
 - [x] Add public-page sitemap, crawler discovery and self-referencing public-page addresses — verified both public pages and discovery files locally; changes need publishing.
