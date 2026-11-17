@@ -13,7 +13,9 @@ export const Route = createFileRoute("/products")({
       { property: "og:description", content: "Explore Dixab's product catalogue and recommendation offerings." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { property: "og:url", content: "https://dixabtradings.lovable.app/products" },
     ],
+    links: [{ rel: "canonical", href: "https://dixabtradings.lovable.app/products" }],
   }),
 });
 

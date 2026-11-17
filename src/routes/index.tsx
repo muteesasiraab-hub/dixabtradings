@@ -56,8 +56,10 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Dixab General Tradings Co. Ltd" },
       { property: "og:description", content: "Physical products and a community built on recommendations." },
       { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://dixabtradings.lovable.app/" },
     ],
     links: [
+      { rel: "canonical", href: "https://dixabtradings.lovable.app/" },
       { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" },
     ],
   }),

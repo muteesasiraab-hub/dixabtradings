@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dixabtradings.lovable.app/sitemap.xml
