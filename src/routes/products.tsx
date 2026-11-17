@@ -9,6 +9,10 @@ export const Route = createFileRoute("/products")({
     meta: [
       { title: "Browse Catalogue — Dixab General Tradings Co. Ltd" },
       { name: "description", content: "Explore our premium product catalogue with direct-sale offerings and earn through recommendations." },
+      { property: "og:title", content: "Browse Catalogue — Dixab General Tradings Co. Ltd" },
+      { property: "og:description", content: "Explore Dixab's product catalogue and recommendation offerings." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
 });

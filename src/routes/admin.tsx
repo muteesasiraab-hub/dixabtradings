@@ -10,7 +10,18 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { UGX } from "@/lib/format";
 
-export const Route = createFileRoute("/admin")({ component: AdminPage });
+export const Route = createFileRoute("/admin")({
+  component: AdminPage,
+  head: () => ({ meta: [
+    { title: "Payment Administration — Dixab" },
+    { name: "description", content: "Private Dixab membership payment administration." },
+    { property: "og:title", content: "Payment Administration — Dixab" },
+    { property: "og:description", content: "Private Dixab payment management." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+    { name: "robots", content: "noindex" },
+  ] }),
+});
 
 function AdminPage() {
   const navigate = useNavigate();

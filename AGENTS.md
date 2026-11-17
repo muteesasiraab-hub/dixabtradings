@@ -6,3 +6,4 @@
 - Provision member profiles and approve payment activation through transactional database functions to keep registration, referral limits and earnings consistent.
 - Self-managed hosting requires server-only database credentials and application migrations; never expose privileged keys through VITE variables.
 - Company entry codes live outside member profiles; enforce their lifetime capacity in the transactional provisioning function, with founder privileges disabled, so the company is never a member and deletion cannot reopen entry slots.
+- Keep phone Home Screen support manifest-only, launching the existing member dashboard; do not cache member pages or add an app-shell service worker because private account data requires a live connection.

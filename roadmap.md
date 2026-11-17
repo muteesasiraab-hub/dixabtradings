@@ -1,5 +1,8 @@
 # Dixab website tasks
 
+- [x] Add manifest-only iPhone Home Screen support with Dixab icons — verified manifest, all icons and signed-out dashboard launch to member sign-in at phone size; physical iPhone installation unverified.
+- [ ] Clarify iPhone search destination — awaiting user's choice of web search, App Store or phone search; no listing or indexing promised.
+
 - [ ] User: run dixab-1-company-entry-setup.sql then dixab-2-reset-members.sql in the database SQL editor — resets all membership including Abbey and installs the company-owned three-entry code (files delivered; 5/5 tests pass)
 - [x] Support company entry registration without founding-member privileges; test three-entry cap — 5/5 tests pass (cap, no admin privileges, idempotent retry, 3-direct-recruit cap, reset)
 - [x] Apply transparent home background with subtle light effects; verify phone and desktop — verified via screenshots on both

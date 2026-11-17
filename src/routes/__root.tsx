@@ -70,6 +70,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Dixab General Tradings Co. Ltd — Word of Mouth Rewarded" },
       { name: "description", content: "Dixab General Tradings Co. Ltd: a platform where opportunities meet innovation. Physical products from 100,000 UGX and a 5-level recommendation earning model." },
       { name: "theme-color", content: "#059669" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-title", content: "Dixab" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { property: "og:title", content: "Dixab General Tradings Co. Ltd" },
       { property: "og:description", content: "Word of mouth rewarded — premium physical products and 5 levels of recommendation earnings." },
 
@@ -78,6 +81,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/icons/dixab-180.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" },

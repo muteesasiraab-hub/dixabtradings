@@ -16,6 +16,11 @@ export const Route = createFileRoute("/portal")({
     meta: [
       { title: "Client Portal · Dixab" },
       { name: "description", content: "Track your 5-level referral network and earnings breakdown." },
+      { property: "og:title", content: "Client Portal · Dixab" },
+      { property: "og:description", content: "Your private Dixab community and earnings overview." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
     ],
   }),
 });
