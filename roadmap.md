@@ -1,5 +1,8 @@
 # Dixab website tasks
 
+- [x] Implement approval-only identifier codes, hide pending codes/links, and count approved members only; ten isolated database tests pass, including cap enforcement and safe upgrade.
+- [ ] Install dixab-approval-only-referrals.sql in the self-managed members database, publish/redeploy the website, and verify a real member payment approval in the UI — requires database-owner installation and a genuine paid member; no live payments were approved during testing.
+
 - [x] Verify Android Home Screen support and add a crop-safe icon for Android launchers — all icons load, logo stays within the circular safe zone, signed-out app launch reaches member sign-in; physical Android installation unverified.
 
 - [x] Add manifest-only iPhone Home Screen support with Dixab icons — verified manifest, all icons and signed-out dashboard launch to member sign-in at phone size; physical iPhone installation unverified.

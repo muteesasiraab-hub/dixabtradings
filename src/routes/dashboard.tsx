@@ -78,6 +78,7 @@ function DashboardPage() {
   const isRejected = profile.status === "rejected" || latestPayment?.status === "rejected";
 
   const copyLink = () => {
+    if (!isActive || !profile.referral_code) return;
     const url = `${window.location.origin}/register?ref=${profile.referral_code}`;
     navigator.clipboard.writeText(url);
     toast.success("Identifier link copied");
@@ -110,6 +111,7 @@ function DashboardPage() {
           <p className="mt-1 text-sm text-muted-foreground">
             Pay {UGX(latestPayment?.amount ?? ENTRY_FEE)} using one of the merchant codes below, then submit your transaction reference.
             Earnings start flowing once approved.
+            Your identifier code is issued after a director approves your payment.
           </p>
           <div className="mt-4"><PaymentMethods /></div>
           <form
@@ -143,7 +145,7 @@ function DashboardPage() {
         <Card className="p-5">
           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Users className="h-4 w-4" /> Direct identifiers</div>
           <p className="mt-2 text-2xl font-bold">{directCount} <span className="text-sm font-normal text-muted-foreground">/ 3</span></p>
-          <p className="mt-1 text-xs text-muted-foreground">{3 - directCount} slot(s) remaining</p>
+          <p className="mt-1 text-xs text-muted-foreground">{Math.max(0, 3 - directCount)} slot(s) remaining · approved members only</p>
         </Card>
         <Card className="p-5">
           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Network className="h-4 w-4" /> Community size</div>
@@ -152,7 +154,7 @@ function DashboardPage() {
         </Card>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
+      {isActive && profile.referral_code ? <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
         <ReferralCard name={profile.full_name} code={profile.referral_code} phone={profile.phone} />
 
         <Card className="p-5 no-print">
@@ -163,13 +165,13 @@ function DashboardPage() {
           </div>
           <p className="mt-2 text-xs text-muted-foreground">Anyone who registers via this link will be placed under you.</p>
         </Card>
-      </div>
+      </div> : <section className="border-y border-border py-5"><h2 className="font-semibold">Your identifier code</h2><p className="mt-2 text-sm text-muted-foreground">Available after a director approves your payment. Pending registrations do not use any of your three referral slots.</p></section>}
 
       <Card className="p-5 no-print">
         <h3 className="font-semibold">Your 5-level community</h3>
         <div className="mt-4 space-y-4">
           {levels.every((l) => l.members.length === 0) && (
-            <p className="text-sm text-muted-foreground">No members yet. Share your identifier code to start building your community.</p>
+            <p className="text-sm text-muted-foreground">{isActive ? "No members yet. Share your identifier code to start building your community." : "Your community begins after payment approval."}</p>
           )}
           {levels.map((lvl) =>
             lvl.members.length === 0 ? null : (

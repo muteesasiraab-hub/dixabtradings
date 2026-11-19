@@ -25,6 +25,8 @@ export const loginWithIdentifier = createServerFn({ method: "POST" })
           .from("profiles")
           .select("email")
           .eq("referral_code", email.toUpperCase())
+          .eq("status", "active")
+          .not("activated_at", "is", null)
           .maybeSingle();
         if (!row?.email) throw new Error(genericError);
         email = row.email;
@@ -74,8 +76,8 @@ export const createProfile = createServerFn({ method: "POST" })
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { provisionMember } = await import("@/lib/member-provision.server");
-    const { data: existing } = await context.supabase.from("profiles").select("referral_code").eq("id", userId).maybeSingle();
-    if (existing) return { referralCode: existing.referral_code, isFirstUser: false };
+    const { data: existing } = await context.supabase.from("profiles").select("referral_code, status, activated_at").eq("id", userId).maybeSingle();
+    if (existing) return { referralCode: existing.status === "active" && existing.activated_at ? existing.referral_code : null, isFirstUser: false };
     const newCode = await provisionMember(supabaseAdmin, { userId, ...data });
 
     return { referralCode: newCode, isFirstUser: false };
@@ -94,6 +96,7 @@ export const getMyDashboard = createServerFn({ method: "GET" })
       .maybeSingle();
     if (profileError) throw new Error("Could not load your member page");
     if (!profile) return null;
+    const approvedProfile = { ...profile, referral_code: profile.status === "active" && profile.activated_at ? profile.referral_code : null };
 
     // Walk down 5 levels
     const levels: Array<{
@@ -103,7 +106,7 @@ export const getMyDashboard = createServerFn({ method: "GET" })
         full_name: string;
         phone: string;
         status: string;
-        referral_code: string;
+        referral_code: string | null;
         created_at: string;
       }>;
     }> = [];
@@ -111,9 +114,9 @@ export const getMyDashboard = createServerFn({ method: "GET" })
     for (let lvl = 1; lvl <= 5; lvl++) {
       const { data: members } = await supabaseAdmin
         .from("profiles")
-        .select("id, full_name, phone, status, referral_code, created_at")
+        .select("id, full_name, phone, status, referral_code, created_at, activated_at")
         .in("sponsor_id", currentIds);
-      const list = members ?? [];
+      const list = (members ?? []).map((member) => ({ ...member, referral_code: member.status === "active" && member.activated_at ? member.referral_code : null }));
       levels.push({ level: lvl, members: list });
       currentIds = list.map((m) => m.id);
       if (currentIds.length === 0) break;
@@ -148,13 +151,14 @@ export const getMyDashboard = createServerFn({ method: "GET" })
     const { count: directCount } = await supabaseAdmin
       .from("profiles")
       .select("*", { count: "exact", head: true })
-      .eq("sponsor_id", userId);
+      .eq("sponsor_id", userId)
+      .not("activated_at", "is", null);
 
     const { data: paymentHistory } = await supabase.from("payments").select("*").eq("user_id", userId).order("created_at", { ascending: false });
 
     return {
       paymentHistory: paymentHistory ?? [],
-      profile,
+      profile: approvedProfile,
       levels,
       earnings: earnings ?? [],
       totalEarnings,
@@ -256,7 +260,7 @@ export const registerMemberAccount = createServerFn({ method: "POST" })
     const { provisionMember } = await import("@/lib/member-provision.server");
     const code = (data.referralCode ?? "").trim().toUpperCase();
     if (!code) throw new Error("A company entry code or sponsor's identifier code is required");
-    // The transactional RPC validates both company and member codes and enforces capacity.
+    // Registration validates approved sponsors; payment approval assigns codes and slots.
     const { data: account, error } = await supabaseAdmin.auth.admin.createUser({
       email: data.email.toLowerCase(), password: data.password, email_confirm: true,
       user_metadata: { dixab_registration: { fullName: data.fullName, phone: data.phone, referralCode: code } },

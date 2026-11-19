@@ -77,7 +77,7 @@ function PortalPage() {
             {profile.full_name}'s Network
           </h1>
           <p className="text-sm text-muted-foreground">
-            Code <span className="font-mono font-semibold text-foreground">{profile.referral_code}</span>
+            {profile.status === "active" && profile.referral_code ? <>Code <span className="font-mono font-semibold text-foreground">{profile.referral_code}</span></> : "Identifier code available after payment approval"}
           </p>
         </div>
         <Button asChild variant="outline" size="sm">
@@ -163,7 +163,7 @@ function PortalPage() {
         <h2 className="text-lg font-semibold">Referral network · 5 levels</h2>
         <div className="mt-4 space-y-5">
           {perLevel.every((l) => l.members.length === 0) && (
-            <p className="text-sm text-muted-foreground">Your network is empty. Share your code to start building it.</p>
+            <p className="text-sm text-muted-foreground">{profile.status === "active" ? "Your network is empty. Share your code to start building it." : "Your community begins after payment approval."}</p>
           )}
           {perLevel.map((lvl) =>
             lvl.members.length === 0 ? null : (

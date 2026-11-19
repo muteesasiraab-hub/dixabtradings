@@ -10,7 +10,7 @@ export async function provisionMember(db: SupabaseClient<Database>, input: {
     _user_id: input.userId, _full_name: input.fullName, _phone: input.phone,
     _email: input.email.toLowerCase(), _referral_code: input.referralCode ?? "", _founder: input.founder ?? false,
   });
-  if (error || !data) {
+  if (error) {
     if (error?.code === "PGRST202") throw new Error("Member registration setup must be applied to the members database before registration can continue.");
     throw new Error(error?.message ?? "Registration could not be completed");
   }

@@ -130,7 +130,7 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
   let loaded;
   try {
   loaded = await Promise.all([
-    supabaseAdmin.from("profiles").select("id, full_name, phone, email, referral_code, status, sponsor_id, created_at").order("created_at", { ascending: false }),
+    supabaseAdmin.from("profiles").select("id, full_name, phone, email, referral_code, status, sponsor_id, created_at, activated_at").order("created_at", { ascending: false }),
     supabaseAdmin.from("payments").select("id, user_id, amount, status, reference, created_at").order("created_at", { ascending: false }),
     supabaseAdmin.from("earnings").select("user_id, amount"),
   ]);
@@ -151,10 +151,11 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
   // Rejected members are hidden from the list and stats until they resubmit.
   const visibleProfiles = (profiles ?? []).filter((p) => p.status !== "rejected");
   const directs = new Map<string, number>();
-  for (const p of visibleProfiles) if (p.sponsor_id) directs.set(p.sponsor_id, (directs.get(p.sponsor_id) ?? 0) + 1);
+  for (const p of visibleProfiles) if (p.sponsor_id && p.activated_at) directs.set(p.sponsor_id, (directs.get(p.sponsor_id) ?? 0) + 1);
 
   const members = visibleProfiles.map((p) => ({
     ...p,
+    referral_code: p.status === "active" && p.activated_at ? p.referral_code ?? "—" : "Awaiting payment approval",
     sponsor_name: p.sponsor_id ? nameById.get(p.sponsor_id) ?? "—" : "—",
     earnings: earnBy.get(p.id) ?? 0,
     directs: directs.get(p.id) ?? 0,
@@ -175,6 +176,7 @@ export const getDirectorOverview = createServerFn({ method: "GET" }).handler(asy
         referral_code: "—",
         status: u.email_confirmed_at ? "registration incomplete" : "email verification required",
         sponsor_id: null,
+        activated_at: null,
         created_at: u.created_at,
         sponsor_name: typeof reg.referralCode === "string" && reg.referralCode ? `code ${reg.referralCode}` : "—",
         earnings: 0,
