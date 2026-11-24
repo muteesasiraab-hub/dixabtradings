@@ -9,3 +9,4 @@
 - Generate member identifier codes only in transactional payment approval; pending profiles have null codes and registration validates only approved sponsors, so unpaid registrations never consume referral slots or invite others.
 - Keep phone Home Screen support manifest-only, launching the existing member dashboard; do not cache member pages or add an app-shell service worker because private account data requires a live connection.
 - Keep the static search sitemap limited to public content pages and update it alongside public route changes; private account and director pages must never be listed.
+- Store installments as immutable payment rows and submit/reject them with serialized database functions; only the cumulative full approved amount activates membership, so statements, slots and earnings remain consistent.

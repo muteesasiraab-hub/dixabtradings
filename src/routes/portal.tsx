@@ -77,7 +77,7 @@ function PortalPage() {
             {profile.full_name}'s Network
           </h1>
           <p className="text-sm text-muted-foreground">
-            {profile.status === "active" && profile.referral_code ? <>Code <span className="font-mono font-semibold text-foreground">{profile.referral_code}</span></> : "Identifier code available after payment approval"}
+            {profile.status === "active" && profile.referral_code ? <>Code <span className="font-mono font-semibold text-foreground">{profile.referral_code}</span></> : "Identifier code available after full payment approval"}
           </p>
         </div>
         <Button asChild variant="outline" size="sm">

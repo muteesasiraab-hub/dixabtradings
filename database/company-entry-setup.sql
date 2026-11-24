@@ -67,7 +67,7 @@ GRANT EXECUTE ON FUNCTION public.provision_member(uuid,text,text,text,text,boole
 
 CREATE OR REPLACE FUNCTION public.director_approve_payment(_payment_id uuid)
 RETURNS void LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
-DECLARE _payment payments%ROWTYPE; _member profiles%ROWTYPE; _ancestor uuid; _level integer := 1; _code text;
+DECLARE _payment payments%ROWTYPE; _member profiles%ROWTYPE; _ancestor uuid; _level integer := 1; _code text; _paid bigint;
 BEGIN
   -- Serialize approvals and registration so two approvals cannot take slot three.
   PERFORM pg_advisory_xact_lock(704616964);
@@ -79,6 +79,14 @@ BEGIN
   IF NOT FOUND THEN RAISE EXCEPTION 'Member registration is incomplete'; END IF;
   -- Repeat payments never issue another code, consume another slot or credit earnings.
   IF _member.activated_at IS NOT NULL THEN
+    UPDATE payments SET status = 'approved', approved_at = now() WHERE id = _payment_id;
+    RETURN;
+  END IF;
+  IF _payment.amount IS NULL OR _payment.amount <= 0 THEN RAISE EXCEPTION 'Payment amount must be positive'; END IF;
+  SELECT coalesce(sum(amount),0) INTO _paid FROM payments WHERE user_id = _member.id AND status = 'approved';
+  IF _paid + _payment.amount > 100000 THEN RAISE EXCEPTION 'Payment would exceed the full membership amount'; END IF;
+  -- Partial installments are recorded, but do not activate or consume referral slots.
+  IF _paid + _payment.amount < 100000 THEN
     UPDATE payments SET status = 'approved', approved_at = now() WHERE id = _payment_id;
     RETURN;
   END IF;

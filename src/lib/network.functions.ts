@@ -3,6 +3,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { ENTRY_FEE } from "@/lib/format";
 import { paymentReference } from "@/lib/payment-methods";
+import { paymentSummary } from "@/lib/payment-summary";
 
 // Sign in with an Identifier (referral) code or email. The email is resolved
 // and verified server-side so member email addresses are never exposed.
@@ -154,9 +155,14 @@ export const getMyDashboard = createServerFn({ method: "GET" })
       .eq("sponsor_id", userId)
       .not("activated_at", "is", null);
 
-    const { data: paymentHistory } = await supabase.from("payments").select("*").eq("user_id", userId).order("created_at", { ascending: false });
+    const { data: paymentHistory, error: statementError } = await supabase.from("payments").select("*").eq("user_id", userId).order("created_at", { ascending: false });
 
+    if (statementError) throw new Error("Could not load your payment statement");
+    const summary = paymentSummary(paymentHistory ?? []);
+    const { installmentsReady } = await import("@/lib/payment-rpc.server");
     return {
+      installmentsReady: await installmentsReady(supabaseAdmin),
+      paymentSummary: summary,
       paymentHistory: paymentHistory ?? [],
       profile: approvedProfile,
       levels,
@@ -214,31 +220,18 @@ export const approvePayment = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-// Submit payment reference (e.g. MoMo transaction id)
+// Submit an immutable installment; only director approval counts it as paid.
 export const submitPaymentReference = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) =>
-    z.object({ reference: z.string().trim().min(2).max(70), method: z.enum(["airtel", "mtn"]) }).parse(input),
+    z.object({ amount: z.number().int().positive().max(ENTRY_FEE), reference: z.string().trim().min(2).max(70), method: z.enum(["airtel", "mtn"]) }).parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { userId, supabase } = context;
-    const { data: payment } = await supabase
-      .from("payments")
-      .select("id, status")
-      .eq("user_id", userId)
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
-    if (!payment) throw new Error("No payment record");
-    if (payment.status === "approved") throw new Error("Already approved");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: updated, error } = await supabaseAdmin
-      .from("payments")
-      .update({ reference: paymentReference(data.method, data.reference), status: "pending" })
-      .eq("id", payment.id).eq("user_id", userId).neq("status", "approved").select("id");
-    if (error || !updated?.length) throw new Error("Payment reference could not be saved. Refresh and try again.");
-    // A resubmission after rejection returns the member to the pending list.
-    await supabaseAdmin.from("profiles").update({ status: "pending" }).eq("id", userId).eq("status", "rejected");
+    const { paymentRpc } = await import("@/lib/payment-rpc.server");
+    await paymentRpc(supabaseAdmin, "submit_member_installment", {
+      _user_id: context.userId, _amount: data.amount, _reference: paymentReference(data.method, data.reference),
+    });
     return { ok: true };
   });
 

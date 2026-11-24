@@ -95,12 +95,8 @@ export const directorRejectPayment = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     await requireDirector();
     const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
-    const { data: payment } = await db.from("payments").select("user_id").eq("id", data.paymentId).eq("status", "pending").maybeSingle();
-    if (!payment) throw new Error("Payment not found or already handled");
-    const { error } = await db.from("payments").update({ status: "rejected" }).eq("id", data.paymentId).eq("status", "pending");
-    if (error) throw new Error("Could not reject payment");
-    // Hide the rejected member from the members list until they resubmit a reference.
-    await db.from("profiles").update({ status: "rejected" }).eq("id", payment.user_id).eq("status", "pending");
+    const { paymentRpc } = await import("@/lib/payment-rpc.server");
+    await paymentRpc(db, "director_reject_installment", { _payment_id: data.paymentId });
     return { ok: true };
   });
 

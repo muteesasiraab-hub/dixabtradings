@@ -50,7 +50,7 @@ function AdminPage() {
   const approveMut = useMutation({
     mutationFn: (paymentId: string) => approveFn({ data: { paymentId } }),
     onSuccess: () => {
-      toast.success("Payment approved · earnings credited up to 5 levels");
+      toast.success("Installment approved; activation follows full payment");
       qc.invalidateQueries({ queryKey: ["admin-payments"] });
     },
     onError: (e: Error) => toast.error(e.message),
@@ -62,7 +62,7 @@ function AdminPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Admin · Payments</h1>
-        <p className="text-sm text-muted-foreground">Approve member payments. Each approval activates the member and credits UGX 5,000 to up to 5 ancestor levels.</p>
+        <p className="text-sm text-muted-foreground">Approve verified installments. Full approved payment of UGX 100,000 activates membership and credits UGX 10,000 up to 5 ancestor levels.</p>
       </div>
 
       {payments.isLoading && <p className="text-sm text-muted-foreground">Loading…</p>}
@@ -85,7 +85,7 @@ function AdminPage() {
                   </Badge>
                 </div>
                 {p.status === "pending" && (
-                  <Button onClick={() => approveMut.mutate(p.id)} disabled={approveMut.isPending}>
+                  <Button onClick={() => approveMut.mutate(p.id)} disabled={approveMut.isPending || !p.reference}>
                     Approve
                   </Button>
                 )}

@@ -1,18 +1,17 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { queryOptions, useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
-import { createProfile, getMyDashboard, submitPaymentReference } from "@/lib/network.functions";
+import { createProfile, getMyDashboard } from "@/lib/network.functions";
 import { ensureProfileFromSignup } from "@/lib/registration";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { PaymentMethods } from "@/components/PaymentMethods";
-import { PAYMENT_METHODS, type PaymentMethod } from "@/lib/payment-methods";
+import { MemberPayments } from "@/components/MemberPayments";
 import { Badge } from "@/components/ui/badge";
 import { ReferralCard } from "@/components/ReferralCard";
-import { UGX, ENTRY_FEE, EARNING_PER_REFERRAL } from "@/lib/format";
+import { UGX, EARNING_PER_REFERRAL } from "@/lib/format";
 import { Copy, Users, Wallet, Network, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
@@ -24,13 +23,10 @@ export const Route = createFileRoute("/dashboard")({ head: () => ({ meta: [
 
 function DashboardPage() {
   const navigate = useNavigate();
-  const qc = useQueryClient();
   const getDash = useServerFn(getMyDashboard);
   const createProfileFn = useServerFn(createProfile);
-  const submitRef = useServerFn(submitPaymentReference);
   const [ready, setReady] = useState(false);
   const [setupError, setSetupError] = useState("");
-  const [method, setMethod] = useState<PaymentMethod>("airtel");
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data }) => {
@@ -55,17 +51,6 @@ function DashboardPage() {
       refetchOnWindowFocus: true,
     }),
   );
-
-  const [ref, setRef] = useState("");
-  const refMut = useMutation({
-    mutationFn: (reference: string) => submitRef({ data: { reference, method } }),
-    onSuccess: () => {
-      toast.success("Payment reference submitted. Awaiting admin approval.");
-      setRef("");
-      qc.invalidateQueries({ queryKey: ["dashboard"] });
-    },
-    onError: (e: Error) => toast.error(e.message),
-  });
 
   if (setupError) return <div role="alert" className="space-y-3"><h1 className="text-xl font-semibold">Registration needs attention</h1><p className="text-sm text-destructive">{setupError}</p><Button onClick={() => window.location.reload()}>Try again</Button></div>;
   if (dashQuery.isError) return <div role="alert" className="space-y-3"><p className="text-destructive">Your member details could not be loaded. Please try again.</p><Button onClick={() => dashQuery.refetch()}>Retry</Button></div>;
@@ -104,37 +89,7 @@ function DashboardPage() {
         </div>
       </div>
 
-      {!isActive && (
-        <Card className="border-accent/40 bg-accent/10 p-5">
-          <h3 className="font-semibold">Activate your account</h3>
-          {isRejected && <p role="alert" className="mt-2 text-sm text-destructive">Your previous payment could not be verified. Please pay again and submit the new transaction reference.</p>}
-          <p className="mt-1 text-sm text-muted-foreground">
-            Pay {UGX(latestPayment?.amount ?? ENTRY_FEE)} using one of the merchant codes below, then submit your transaction reference.
-            Earnings start flowing once approved.
-            Your identifier code is issued after a director approves your payment.
-          </p>
-          <div className="mt-4"><PaymentMethods /></div>
-          <form
-            onSubmit={(e) => { e.preventDefault(); if (ref.trim()) refMut.mutate(ref.trim()); }}
-            className="mt-4 flex flex-col gap-2 sm:flex-row"
-          >
-            <select aria-label="Payment method" className="h-10 rounded-md border border-input bg-background px-3 text-sm" value={method} onChange={(e) => setMethod(e.target.value as PaymentMethod)}>{PAYMENT_METHODS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select>
-            <Input aria-label="Transaction reference" maxLength={70} required value={ref} onChange={(e) => setRef(e.target.value)} placeholder="MoMo transaction ID / reference" />
-            <Button type="submit" disabled={refMut.isPending}>Submit</Button>
-          </form>
-          {latestPayment?.reference && (
-            <p className="mt-2 text-xs text-muted-foreground">Submitted: <span className="font-mono">{latestPayment.reference}</span></p>
-          )}
-        </Card>
-      )}
-
-      <section className="border-y border-border py-5">
-        <h2 className="font-semibold">Your payment details</h2>
-        <div className="mt-3 space-y-3">
-          {data.paymentHistory.length === 0 && <p className="text-sm text-muted-foreground">No payment records yet.</p>}
-          {data.paymentHistory.map((payment) => <div key={payment.id} className="flex flex-wrap items-start justify-between gap-2 text-sm"><div><p className="font-semibold">{UGX(payment.amount)}</p><p className="break-all text-muted-foreground">{payment.reference ?? "No transaction reference submitted"}</p><p className="text-xs text-muted-foreground">{new Date(payment.created_at).toLocaleDateString()}{payment.approved_at ? ` · Approved ${new Date(payment.approved_at).toLocaleDateString()}` : ""}</p></div><Badge variant={payment.status === "approved" ? "default" : payment.status === "rejected" ? "destructive" : "secondary"}>{payment.status === "pending" && payment.reference ? "Awaiting verification" : payment.status}</Badge></div>)}
-        </div>
-      </section>
+      <MemberPayments payments={data.paymentHistory} active={isActive} ready={data.installmentsReady} />
 
       <div className="grid gap-4 sm:grid-cols-3">
         <Card className="p-5">
@@ -165,7 +120,7 @@ function DashboardPage() {
           </div>
           <p className="mt-2 text-xs text-muted-foreground">Anyone who registers via this link will be placed under you.</p>
         </Card>
-      </div> : <section className="border-y border-border py-5"><h2 className="font-semibold">Your identifier code</h2><p className="mt-2 text-sm text-muted-foreground">Available after a director approves your payment. Pending registrations do not use any of your three referral slots.</p></section>}
+      </div> : <section className="border-y border-border py-5"><h2 className="font-semibold">Your identifier code</h2><p className="mt-2 text-sm text-muted-foreground">Available after directors approve your full membership payment. Pending registrations do not use any of your three referral slots.</p></section>}
 
       <Card className="p-5 no-print">
         <h3 className="font-semibold">Your 5-level community</h3>

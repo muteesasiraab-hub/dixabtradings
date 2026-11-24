@@ -145,7 +145,7 @@ function Overview({ data }: { data: OverviewData }) {
       {tab === "payments" && (
         <Card className="p-4">
           <h2 className="font-semibold">Member payments</h2>
-          <p className="text-xs text-muted-foreground">Approving a verified transaction activates the member and credits UGX 10,000 to each active member up to 5 levels above.</p>
+          <p className="text-xs text-muted-foreground">Approve each verified installment. Only the full approved UGX 100,000 activates the member, issues their referral code and credits UGX 10,000 up to 5 levels above.</p>
           <div className="mt-4 space-y-3">
             {data.payments.map((p) => (
               <div key={p.id} className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3">
