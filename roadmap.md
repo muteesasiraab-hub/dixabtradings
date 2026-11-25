@@ -1,6 +1,6 @@
 # Dixab website tasks
 
-- [ ] Add installment submissions, approved-total activation, and dashboard payment statements; verify transactional rules and member/director views.
+- [x] Add installment submissions, approved-total activation, and dashboard payment statements; verify transactional rules and member/director views.
 - [ ] Install installment database update on self-managed hosting — existing app key cannot change database structure; requires database-owner SQL access.
 
 - [x] Implement approval-only identifier codes, hide pending codes/links, and count approved members only; ten isolated database tests pass, including cap enforcement and safe upgrade.
